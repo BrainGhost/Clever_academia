@@ -1,0 +1,11 @@
+{
+  "name": "clever_campus",
+  "version": "1.0.0",
+  "description": "Campus guide web application to help students improve their academinc performanc",
+  "main": "./source/index.php",
+  "scripts": {
+    "build:tailwind": "tailwindcss -i ./style.css -o ./source/css/main.css --watch"
+  },
+  "author": "Balibonera Junior",
+  "license": "ISC"
+}

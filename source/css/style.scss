@@ -1,0 +1,231 @@
+* {
+  font-family: "Heebo", sans-serif;
+}
+
+/*** Spinner ***/
+#spinner {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+  z-index: 99999;
+}
+
+#spinner.show {
+  transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+  visibility: visible;
+  opacity: 1;
+}
+.translate-middle {
+  transform: translate(-50%, -50%);
+}
+.spinner-border {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  vertical-align: center;
+  border: 2px solid red;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: 3s linear infinite spinner-border;
+}
+
+/* Navigation */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 0 4px;
+    h2 {
+      color: teal;
+      display: flex;
+      align-items: center;
+      i {
+        margin-right: 5px;
+        font-size: 1.5rem;
+      }
+    }
+  }
+  button {
+    padding: 5px;
+    i {
+      font-size: 1.5rem;
+    }
+  }
+  .navbar-items {
+    align-items: center;
+    .navbar-nav {
+      display: flex;
+      text-transform: uppercase;
+      a {
+        margin-right: 2rem;
+        font-weight: 500;
+        &:hover {
+          color: teal;
+        }
+        &.active {
+          color: teal;
+        }
+      }
+    }
+    a.join-btn {
+      color: white;
+      padding: 1.2rem 2rem;
+      background-color: teal;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      cursor: pointer;
+      &:hover {
+        background-color: rgb(2, 83, 83);
+      }
+      i {
+        margin-left: 10px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+/* Carousel */
+.carousel-container {
+  height: calc(100vh / 1.15);
+  display: flex;
+  .owl-carousel {
+    img {
+      height: 80vh;
+    }
+    div.carousel-text {
+      h5 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+      h1 {
+        font-size: 2.8rem;
+        color: teal;
+        font-weight: 700;
+        font-family: "Nunito" !important;
+      }
+      p {
+        color: teal;
+      }
+      .btn {
+        background-color: whitesmoke;
+        padding: 10px 20px;
+        color: teal;
+        border: 1px solid teal;
+        &:hover {
+          background-color: rgb(220, 224, 224);
+        }
+      }
+      .btn-primary {
+        background-color: teal;
+        padding: 10px 20px;
+        color: whitesmoke;
+        margin-right: 1rem;
+        &:hover {
+          background-color: rgb(2, 83, 83);
+        }
+      }
+    }
+  }
+}
+/*Features*/
+
+.features {
+  position: relative;
+  div.single-feature {
+    background-color: rgba(0, 128, 128, 0.75);
+    padding: 1rem;
+    cursor: pointer;
+    h4 {
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 0.5rem 0;
+      margin-bottom: 1rem;
+      i {
+        margin-right: 0.5rem;
+      }
+    }
+    .content-hide {
+      padding: 0.5rem;
+
+      p {
+        font-size: 1.08rem;
+        color: white;
+      }
+      div.scroll-to-section {
+        color: teal;
+        font-weight: 600;
+        a {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+/* login page*/
+.main-container {
+  height: auto;
+  padding: 8rem 0;
+}
+.login-container {
+  h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+    color: teal;
+  }
+  .inner-login {
+    .bar {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin-top: 2rem;
+      padding: 0 2rem;
+      label {
+        font-size: 1.2rem;
+        color: teal;
+        a {
+          text-decoration: underline;
+          font-weight: 600;
+          &:hover {
+            color: rgb(6, 75, 75);
+          }
+        }
+      }
+      input {
+        padding: 8px 5px;
+        outline: none;
+        background-color: transparent;
+        color: text;
+        font-size: 1.1rem;
+        border-bottom: 2px solid teal;
+      }
+      button {
+        background-color: teal;
+        color: white;
+        font-size: 1.2rem;
+        padding: 10px 5px;
+        width: 30%;
+        max-width: 100px;
+
+        &:hover {
+          background-color: rgb(3, 82, 82);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,295 @@
+* {
+  font-family: "Heebo", sans-serif;
+}
+
+/*** Spinner ***/
+#spinner {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+  transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+  z-index: 99999;
+}
+
+#spinner.show {
+  -webkit-transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+  transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+  visibility: visible;
+  opacity: 1;
+}
+
+.translate-middle {
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  vertical-align: center;
+  border: 2px solid red;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: 3s linear infinite spinner-border;
+          animation: 3s linear infinite spinner-border;
+}
+
+/* Navigation */
+.navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar .navbar-brand {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding: 0 4px;
+}
+
+.navbar .navbar-brand h2 {
+  color: teal;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar .navbar-brand h2 i {
+  margin-right: 5px;
+  font-size: 1.5rem;
+}
+
+.navbar button {
+  padding: 5px;
+}
+
+.navbar button i {
+  font-size: 1.5rem;
+}
+
+.navbar .navbar-items {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar .navbar-items .navbar-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-transform: uppercase;
+}
+
+.navbar .navbar-items .navbar-nav a {
+  margin-right: 2rem;
+  font-weight: 500;
+}
+
+.navbar .navbar-items .navbar-nav a:hover {
+  color: teal;
+}
+
+.navbar .navbar-items .navbar-nav a.active {
+  color: teal;
+}
+
+.navbar .navbar-items a.join-btn {
+  color: white;
+  padding: 1.2rem 2rem;
+  background-color: teal;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.navbar .navbar-items a.join-btn:hover {
+  background-color: #025353;
+}
+
+.navbar .navbar-items a.join-btn i {
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+
+/* Carousel */
+.carousel-container {
+  height: calc(100vh / 1.15);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.carousel-container .owl-carousel img {
+  height: 80vh;
+}
+
+.carousel-container .owl-carousel div.carousel-text h5 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.carousel-container .owl-carousel div.carousel-text h1 {
+  font-size: 2.8rem;
+  color: teal;
+  font-weight: 700;
+  font-family: "Nunito" !important;
+}
+
+.carousel-container .owl-carousel div.carousel-text p {
+  color: teal;
+}
+
+.carousel-container .owl-carousel div.carousel-text .btn {
+  background-color: whitesmoke;
+  padding: 10px 20px;
+  color: teal;
+  border: 1px solid teal;
+}
+
+.carousel-container .owl-carousel div.carousel-text .btn:hover {
+  background-color: #dce0e0;
+}
+
+.carousel-container .owl-carousel div.carousel-text .btn-primary {
+  background-color: teal;
+  padding: 10px 20px;
+  color: whitesmoke;
+  margin-right: 1rem;
+}
+
+.carousel-container .owl-carousel div.carousel-text .btn-primary:hover {
+  background-color: #025353;
+}
+
+/*Features*/
+.features {
+  position: relative;
+}
+
+.features div.single-feature {
+  background-color: rgba(0, 128, 128, 0.75);
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.features div.single-feature h4 {
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+}
+
+.features div.single-feature h4 i {
+  margin-right: 0.5rem;
+}
+
+.features div.single-feature .content-hide {
+  padding: 0.5rem;
+}
+
+.features div.single-feature .content-hide p {
+  font-size: 1.08rem;
+  color: white;
+}
+
+.features div.single-feature .content-hide div.scroll-to-section {
+  color: teal;
+  font-weight: 600;
+}
+
+.features div.single-feature .content-hide div.scroll-to-section a:hover {
+  text-decoration: underline;
+}
+
+/* login page*/
+.main-container {
+  height: auto;
+  padding: 8rem 0;
+}
+
+.login-container h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  color: teal;
+}
+
+.login-container .inner-login .bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 2rem;
+  padding: 0 2rem;
+}
+
+.login-container .inner-login .bar label {
+  font-size: 1.2rem;
+  color: teal;
+}
+
+.login-container .inner-login .bar label a {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.login-container .inner-login .bar label a:hover {
+  color: #064b4b;
+}
+
+.login-container .inner-login .bar input {
+  padding: 8px 5px;
+  outline: none;
+  background-color: transparent;
+  color: text;
+  font-size: 1.1rem;
+  border-bottom: 2px solid teal;
+}
+
+.login-container .inner-login .bar button {
+  background-color: teal;
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px 5px;
+  width: 30%;
+  max-width: 100px;
+}
+
+.login-container .inner-login .bar button:hover {
+  background-color: #035252;
+  cursor: pointer;
+}
+/*# sourceMappingURL=style.css.map */
