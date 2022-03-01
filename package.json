@@ -7,5 +7,8 @@
     "build:tailwind": "tailwindcss -i ./style.css -o ./source/css/main.css --watch"
   },
   "author": "Balibonera Junior",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tailwind-scrollbar-hide": "^1.1.7"
+  }
 }

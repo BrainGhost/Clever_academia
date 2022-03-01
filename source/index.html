@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/style.css" />
 
-    <script src="./js/app.js"></script>
     <title>Clever academia | Learning platform</title>
   </head>
   <body>
@@ -60,10 +59,10 @@
         id="navbarCollapse"
       >
         <div class="navbar-nav">
-          <a href="index.html" class="active">Home</a>
-          <a href="about.html" class="">About</a>
+          <a href="#home" class="active">Home</a>
+          <a href="#about" class="">About</a>
           <a href="courses.html" class="">Courses</a>
-          <a href="contact.html" class="">Contact</a>
+          <a href="contact.html" class="">Contact us</a>
         </div>
         <a href="./pages/login.html" class="join-btn"
           >Join Now<i class="fa fa-arrow-right"></i
@@ -72,7 +71,7 @@
     </nav>
     <!-- Navbar End -->
     <!-- Carousel Start -->
-    <section class="carousel-container p-0 bg-gray-50">
+    <section id="home" class="carousel-container p-0 bg-gray-50">
       <div class="w-full owl-carousel relative">
         <div class="image w-full flex justify-end pt-12">
           <img class="img-fluid" src="img/looking-at-phone.png" alt="" />
@@ -192,43 +191,118 @@
     </section>
     <!-- features post end -->
     <!-- about us start -->
-    <section class="about lg:px-20 my-5">
+    <section id="about" class="about lg:px-20 my-5">
       <div class="container mx-auto px-5">
-        <div class="about__title py-10 text-5xl flex justify-center">
-          <h2>Why choice us</h2>
+        <div class="section__title py-10 text-5xl flex justify-center">
+          <h2>Why choose us</h2>
         </div>
         <div class="about__tabs p-2">
           <ul class="flex flex-col sm:grid">
-            <li>Improve your grade</li>
-            <li class="active">Improve your grade</li>
-            <li>Improve your grade</li>
+            <li data-tab-target="#tab-1" class="active">
+              Improve your grade 1
+            </li>
+            <li data-tab-target="#tab-2" class="">Improve your grade 2</li>
+            <li data-tab-target="#tab-3" class="">Improve your grade 3</li>
           </ul>
           <div class="section__content">
-            <article
-              id="tab-1"
-              class="bg-pink-400 flex items-center justify-center flex-col sm:flex-row"
-            >
-              <img
-                src="./img/man-with-laptop.png"
-                alt=""
-                class="bg-green-500 w-full sm:w-40 object-cover"
-              />
-              <div class="tab-content bg-red-500">
-                <h1>title</h1>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Atque voluptas officia ducimus nam ratione aliquid, aliquam
-                  repellat sapiente tempora impedit! Sequi temporibus tempore ex
-                  alias eaque praesentium odit, id nobis!
-                </p>
+            <div class="tab-panel visible" id="tab-1">
+              <div
+                class="section-inside flex items-center flex-col md:flex-row px-0 md:px-10"
+              >
+                <div class="image-holder h-full w-full">
+                  <img src="./img/man-with-laptop.png" alt="" />
+                </div>
+
+                <div class="tab-content h-full w-full">
+                  <h1 class="text-2xl md:text-5xl pt-0 md:pt-20">
+                    Improving your grade 1
+                  </h1>
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Atque voluptas officia ducimus nam ratione aliquid, aliquam
+                    repellat sapiente tempora impedit! Sequi temporibus tempore
+                    ex alias eaque praesentium odit, id nobis!
+                  </p>
+                </div>
               </div>
-            </article>
-            <!-- <article id="tab-2"></article>
-            <article id="tab-3"></article> -->
+            </div>
+            <div class="tab-panel" id="tab-2">
+              <div
+                class="section-inside flex items-center flex-col md:flex-row px-0 md:px-10"
+              >
+                <div class="image-holder h-full w-full">
+                  <img src="./img/man-with-laptop.png" alt="" />
+                </div>
+
+                <div class="tab-content h-full w-full">
+                  <h1 class="text-2xl md:text-5xl pt-0 md:pt-20">
+                    Improving your grade 2
+                  </h1>
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Atque voluptas officia ducimus nam ratione aliquid, aliquam
+                    repellat sapiente tempora impedit! Sequi temporibus tempore
+                    ex alias eaque praesentium odit, id nobis!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="tab-panel" id="tab-3">
+              <div
+                class="section-inside flex items-center flex-col md:flex-row px-0 md:px-10"
+              >
+                <div class="image-holder h-full w-full">
+                  <img src="./img/man-with-laptop.png" alt="" />
+                </div>
+
+                <div class="tab-content h-full w-full">
+                  <h1 class="text-2xl md:text-5xl pt-0 md:pt-20">
+                    Improving your grade 3
+                  </h1>
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Atque voluptas officia ducimus nam ratione aliquid, aliquam
+                    repellat sapiente tempora impedit! Sequi temporibus tempore
+                    ex alias eaque praesentium odit, id nobis!
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
     <!-- about us end -->
+    <!-- testimony section start -->
+    <section id="testimony" class="testimony lg:px-20 my-5">
+      <div class="container mx-auto px-5">
+        <div class="section__title py-10 text-5xl flex justify-center">
+          <h2>What students say !!</h2>
+        </div>
+        <div
+          class="section__testimony p-2 bg-yellow-900 overflow-x-scroll lg:scrollbar-default scrollbar-hide"
+        >
+          <div class="ins">
+            <div class="testimony__card"></div>
+            <div class="testimony__card"></div>
+            <div class="testimony__card"></div>
+            <div class="testimony__card"></div>
+            <div class="testimony__card"></div>
+            <div class="testimony__card"></div>
+            <div class="testimony__card"></div>
+            <div class="testimony__card"></div>
+          </div>
+        </div>
+        <div class="dots flex justify-center">
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+        </div>
+      </div>
+    </section>
+    <!-- testimony section end -->
+    <!-- contact us start -->
+    <!-- contact us end -->
+    <script src="./js/app.js"></script>
   </body>
 </html>
