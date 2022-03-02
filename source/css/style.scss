@@ -378,4 +378,12 @@ html {
       margin: 10px;
     }
   }
+  .dots {
+    span {
+      height: 10px;
+      width: 10px;
+      background-color: green;
+      cursor: pointer;
+    }
+  }
 }
