@@ -8,7 +8,7 @@
   },
   "author": "Balibonera Junior",
   "license": "ISC",
-  "dependencies": {
-    "tailwind-scrollbar-hide": "^1.1.7"
+  "devDependencies": {
+    "tailwindcss": "^3.0.23"
   }
 }
