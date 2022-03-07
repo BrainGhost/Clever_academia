@@ -70,7 +70,7 @@ html {
       text-transform: uppercase;
       a {
         margin-right: 5px;
-        font-weight: 500;
+
         padding: 1.85rem 0;
         width: 90px;
         text-align: center;
@@ -79,6 +79,7 @@ html {
         }
         &.active {
           color: teal;
+          font-weight: 500;
           border-bottom: 0.3rem solid teal;
         }
       }
@@ -112,12 +113,12 @@ html {
     }
     div.carousel-text {
       h5 {
-        font-size: 1.2rem;
+        font-size: 1rem;
         margin-bottom: 1rem;
         font-weight: 500;
       }
       h1 {
-        font-size: 2.8rem;
+        font-size: 2.4rem;
         color: teal;
         font-weight: 700;
         font-family: "Nunito" !important;
@@ -157,8 +158,8 @@ html {
     h4 {
       color: white;
       text-align: center;
-      font-size: 1.2rem;
       padding: 0.5rem 0;
+      font-weight: 500;
       margin-bottom: 1rem;
       outline: 2px solid rgba(0, 128, 128, 0.5);
       i {
@@ -169,7 +170,6 @@ html {
       padding: 0.5rem;
 
       p {
-        font-size: 1.08rem;
         color: white;
       }
       div.scroll-to-section {
@@ -269,19 +269,20 @@ html {
     li {
       margin: 2px 10px;
       text-align: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
       font-weight: 100;
       color: teal;
       padding: 0.2rem;
       position: relative;
-      padding-bottom: 30px;
+      padding-bottom: 25px;
       &:hover {
         cursor: pointer;
       }
       &:after {
         transition: all 0.3s;
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
         background-color: teal;
         content: "";
         position: absolute;
@@ -294,8 +295,8 @@ html {
         font-weight: 600;
         &:after {
           transition: all 0.3s;
-          width: 15px;
-          height: 15px;
+          width: 11px;
+          height: 11px;
           background-color: teal;
           content: "";
           position: absolute;
@@ -305,8 +306,8 @@ html {
         }
         &:before {
           transition: all 0.3s;
-          width: 25px;
-          height: 25px;
+          width: 20px;
+          height: 20px;
           border: 2px solid teal;
           background-color: transparent;
           content: "";
@@ -349,7 +350,8 @@ html {
             margin-top: 1.5rem;
           }
           p {
-            font-size: 1.1rem;
+            font-size: 1rem;
+            line-height: 1.5rem;
             color: teal;
             font-weight: 100;
             margin-top: 1.5rem;
@@ -409,7 +411,8 @@ html {
       }
       div.testimony-text {
         color: teal;
-        font-size: 1.2rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
         padding: 80px 15px 20px 15px;
         text-indent: 2rem;
         background-color: white;
