@@ -18,5 +18,28 @@ button.forEach((btn) => {
     target.classList.add("visible");
   });
 });
+//openModal
+const openModalBtn = document.querySelector(".openModalBtn");
+const modalOpen = document.querySelector(".modalOpen");
+const myModal = document.querySelector("#my-modal");
+const btnClose = document.querySelectorAll(".btn-close");
 
-// console.log(button);
+console.log(btnClose);
+openModalBtn.addEventListener("click", () => {
+  modalOpen.classList.toggle("hidden");
+  myModal.classList.toggle("hidden");
+});
+// The modal will close when the user clicks anywhere outside the modal
+window.onclick = function (event) {
+  if (event.target == myModal) {
+    modalOpen.classList.toggle("hidden");
+    myModal.classList.toggle("hidden");
+  }
+};
+// The modal will close when the user clicks on the close button
+btnClose.forEach((item) => {
+  item.addEventListener("click", () => {
+    modalOpen.classList.toggle("hidden");
+    myModal.classList.toggle("hidden");
+  });
+});

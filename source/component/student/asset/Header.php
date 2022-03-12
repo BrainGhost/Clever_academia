@@ -539,7 +539,7 @@
                   </svg>
                 </div>
                 <input
-                  class="w-full px-4 py-2 pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md focus:placeholder-gray-500 focus:bg-white outline-1 focus:outline-1 focus:outline-teal-300"
+                  class="w-full px-4 py-2 pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md focus:placeholder-gray-500 focus:bg-white outline-none focus:outline-2 focus:outline-teal-400"
                   type="text"
                   placeholder="Search"
                   aria-label="Search"
