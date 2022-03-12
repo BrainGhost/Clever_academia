@@ -82,7 +82,7 @@
                             </button>
                         </td>
                         <td>
-                            <span class="openModalBtn text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
+                            <span class=" text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
                                 <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
                             </span>
                         </td>
@@ -99,7 +99,7 @@
                             </button>
                         </td>
                         <td>
-                            <span class="openModalBtn text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
+                            <span class=" text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
                                 <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
                             </span>
                         </td>
@@ -116,7 +116,7 @@
                             </button>
                         </td>
                         <td>
-                            <span class="openModalBtn text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
+                            <span class=" text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
                                 <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
                             </span>
                         </td>
@@ -127,110 +127,7 @@
 			</table>
 		</div>
     </div>
-    
-    <div class="modalOpen fade hidden absolute left-1/2 top-10 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-30"
-    id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog relative w-auto pointer-events-none  ">
-            <div
-            class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
-                <div
-                    class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-                    <h5 class="text-2xl font-medium leading-normal text-gray-600">Add shedule data</h5>
-                    <button type="button"
-                    class="btn-close box-content w-6 h-6 p-1  text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-                    data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-times text-xl"></i>
-                    </button>
-                </div>
-                <div class="modal-body relative p-4 text-gray-600">
-                    <div class="form-group">
-                        <label class="text-base">Schedule Date</label>
-                        <div class="input-group flex text-gray-600 w-full rounded py-2">
-                            <div class="input-group-prepend bg-gray-100 py-2 px-3 text-base">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar"></i></span>
-                            </div>
-                            <input type="" name="doctor_schedule_date" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required readonly /> 
-                        </div>
-                    </div>
-                    <div class="form-group">
-		          		<label class="text-base">Start Time</label>
-                        <div class="input-group flex text-gray-600 w-full rounded py-2">
-                            <div class="input-group-prepend input-group-prepend bg-gray-100 py-2 px-3 text-base">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
-                            </div>
-		          		    <input type="text" name="doctor_schedule_start_time" id="doctor_schedule_start_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " data-toggle="datetimepicker" data-target="#doctor_schedule_start_time" required onkeydown="return false" onpaste="return false;" ondrop="return false;" autocomplete="off" />
-                        </div>
-		          	</div>
-                    <div class="form-group">
-                        <label class="text-base">End Time</label>
-                        <div class="input-group input-group flex text-gray-600 w-full rounded py-2">
-                            <div class="input-group-prepend input-group-prepend bg-gray-100 py-2 px-3 text-base">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
-                            </div>
-                            <input type="text" name="doctor_schedule_end_time" id="doctor_schedule_end_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " data-toggle="datetimepicker" data-target="#doctor_schedule_end_time" required onkeydown="return false" onpaste="return false;" ondrop="return false;" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="text-base">Average Consulting Time</label>
-                        <div class="input-group input-group input-group flex text-gray-600 w-full rounded py-2">
-                            <div class="input-group-prepend bg-gray-100 py-2 px-3 text-base">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
-                            </div>
-                            <select name="average_consulting_time" id="average_consulting_time" class="bg-white form-control text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded" required>
-                                <option value="">Select Consulting Duration</option>
-                                <?php
-                                $count = 0;
-                                for($i = 1; $i <= 15; $i++)
-                                {
-                                    $count += 5;
-                                    echo '<option value="'.$count.'">'.$count.' Minute</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                    <button type="button" class="px-6 py-2.5 text-teal-700 border-gray-300 font-medium
-                    btn-close
-                    text-xs
-                    leading-tight
-                    uppercase
-                    rounded
-                    shadow-md
-                    hover:bg-gray-50 hover:shadow-lg
-                    focus:bg-gray-50 focus:shadow-lg focus:outline-none focus:ring-0
-                    active:bg-gray-50 active:shadow-lg
-                    transition
-                    duration-150
-                    ease-in-out">Close</button>
 
-                    <button type="button" class="px-6
-                    py-2.5
-                    bg-teal-600
-                    text-white
-                    font-medium
-                    text-xs
-                    leading-tight
-                    uppercase
-                    rounded
-                    shadow-md
-                    hover:bg-teal-700 hover:shadow-lg
-                    focus:bg-teal-700 focus:shadow-lg focus:outline-none focus:ring-0
-                    active:bg-teal-800 active:shadow-lg
-                    transition
-                    duration-150
-                    ease-in-out
-                    ml-1">add</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal -->
 
 <?php
     include './asset/Footer.php'
