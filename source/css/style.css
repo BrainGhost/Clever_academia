@@ -2,8 +2,7 @@
   font-family: "Heebo", sans-serif;
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
@@ -14,21 +13,18 @@ html {
 #spinner {
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
   transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
   z-index: 99999;
 }
 
 #spinner.show {
-  -webkit-transition: opacity 0.5s ease-out, visibility 0s linear 0s;
   transition: opacity 0.5s ease-out, visibility 0s linear 0s;
   visibility: visible;
   opacity: 1;
 }
 
 .translate-middle {
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .spinner-border {
@@ -50,99 +46,64 @@ html {
   top: 0;
   left: 0;
   z-index: 999;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
-
 .navbar .navbar-brand {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   text-align: center;
   padding: 0 4px;
 }
-
 .navbar .navbar-brand h2 {
   color: teal;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 .navbar .navbar-brand h2 i {
   margin-right: 5px;
   font-size: 1.5rem;
 }
-
 .navbar button {
   padding: 5px;
 }
-
 .navbar button i {
   font-size: 1.5rem;
 }
-
 .navbar .navbar-items {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 .navbar .navbar-items .navbar-nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   text-transform: uppercase;
 }
-
 .navbar .navbar-items .navbar-nav a {
   margin-right: 5px;
   padding: 1.85rem 0;
   width: 90px;
   text-align: center;
 }
-
 .navbar .navbar-items .navbar-nav a:hover {
   color: teal;
 }
-
 .navbar .navbar-items .navbar-nav a.active {
   color: teal;
   font-weight: 500;
   border-bottom: 0.3rem solid teal;
 }
-
 .navbar .navbar-items a.join-btn {
   color: white;
   padding: 2rem 3rem;
   background-color: teal;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-size: 1rem;
   cursor: pointer;
 }
-
 .navbar .navbar-items a.join-btn:hover {
   background-color: #025353;
 }
-
 .navbar .navbar-items a.join-btn i {
   margin-left: 10px;
   font-size: 1.2rem;
@@ -150,51 +111,41 @@ html {
 
 /* Carousel */
 .carousel-container {
-  height: calc(100vh / 1.15);
-  display: -webkit-box;
-  display: -ms-flexbox;
+  height: 86.9565217391vh;
   display: flex;
 }
-
 .carousel-container .owl-carousel img {
   height: 80vh;
 }
-
 .carousel-container .owl-carousel div.carousel-text h5 {
   font-size: 1rem;
   margin-bottom: 1rem;
   font-weight: 500;
 }
-
 .carousel-container .owl-carousel div.carousel-text h1 {
   font-size: 2.4rem;
   color: teal;
   font-weight: 700;
   font-family: "Nunito" !important;
 }
-
 .carousel-container .owl-carousel div.carousel-text p {
   color: teal;
 }
-
 .carousel-container .owl-carousel div.carousel-text .btn {
   background-color: whitesmoke;
   padding: 10px 20px;
   color: teal;
   border: 1px solid teal;
 }
-
 .carousel-container .owl-carousel div.carousel-text .btn:hover {
   background-color: #dce0e0;
 }
-
 .carousel-container .owl-carousel div.carousel-text .btn-primary {
   background-color: teal;
   padding: 10px 20px;
   color: whitesmoke;
   margin-right: 1rem;
 }
-
 .carousel-container .owl-carousel div.carousel-text .btn-primary:hover {
   background-color: #025353;
 }
@@ -203,13 +154,11 @@ html {
 .features {
   position: relative;
 }
-
 .features div.single-feature {
   background-color: rgba(0, 128, 128, 0.75);
   padding: 1rem;
   cursor: pointer;
 }
-
 .features div.single-feature h4 {
   color: white;
   text-align: center;
@@ -218,24 +167,19 @@ html {
   margin-bottom: 1rem;
   outline: 2px solid rgba(0, 128, 128, 0.5);
 }
-
 .features div.single-feature h4 i {
   margin-right: 0.5rem;
 }
-
 .features div.single-feature .content-hide {
   padding: 0.5rem;
 }
-
 .features div.single-feature .content-hide p {
   color: white;
 }
-
 .features div.single-feature .content-hide div.scroll-to-section {
   color: teal;
   font-weight: 600;
 }
-
 .features div.single-feature .content-hide div.scroll-to-section a:hover {
   text-decoration: underline;
 }
@@ -252,36 +196,24 @@ html {
   text-align: center;
   color: teal;
 }
-
 .login-container .inner-login .bar {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  justify-content: center;
+  flex-direction: column;
   margin-top: 2rem;
   padding: 0 2rem;
 }
-
 .login-container .inner-login .bar label {
   font-size: 1.2rem;
   color: teal;
 }
-
 .login-container .inner-login .bar label a {
   text-decoration: underline;
   font-weight: 600;
 }
-
 .login-container .inner-login .bar label a:hover {
   color: #064b4b;
 }
-
 .login-container .inner-login .bar input {
   padding: 8px 5px;
   outline: none;
@@ -290,7 +222,6 @@ html {
   font-size: 1.1rem;
   border-bottom: 2px solid teal;
 }
-
 .login-container .inner-login .bar button {
   background-color: teal;
   color: white;
@@ -299,7 +230,6 @@ html {
   width: 30%;
   max-width: 100px;
 }
-
 .login-container .inner-login .bar button:hover {
   background-color: #035252;
   cursor: pointer;
@@ -309,7 +239,6 @@ html {
 .section__title {
   color: teal;
 }
-
 .section__title h2 {
   padding: 0.7rem 1.6rem;
   border: 1px solid rgba(0, 128, 128, 0.2);
@@ -317,7 +246,6 @@ html {
   font-weight: 400;
   position: relative;
 }
-
 .section__title h2:before {
   content: "";
   width: 1px;
@@ -326,18 +254,14 @@ html {
   position: absolute;
   top: -100px;
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
 }
 
 .about__tabs ul {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(100px, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   padding-bottom: 35px;
 }
-
 .about__tabs ul li {
   margin: 2px 10px;
   text-align: center;
@@ -349,13 +273,10 @@ html {
   position: relative;
   padding-bottom: 25px;
 }
-
 .about__tabs ul li:hover {
   cursor: pointer;
 }
-
 .about__tabs ul li:after {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   width: 8px;
   height: 8px;
@@ -363,17 +284,13 @@ html {
   content: "";
   position: absolute;
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   bottom: 0;
 }
-
 .about__tabs ul li.active {
   font-weight: 600;
 }
-
 .about__tabs ul li.active:after {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   width: 11px;
   height: 11px;
@@ -381,13 +298,10 @@ html {
   content: "";
   position: absolute;
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   bottom: 0;
 }
-
 .about__tabs ul li.active:before {
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   width: 20px;
   height: 20px;
@@ -396,59 +310,43 @@ html {
   content: "";
   position: absolute;
   left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  transform: translate(-50%);
   bottom: -5px;
 }
-
 .about__tabs .section__content {
   height: 60vh;
   position: relative;
 }
-
 .about__tabs .section__content div.tab-panel {
   position: absolute;
   inset: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   opacity: 0;
-  -webkit-transform: scale(0, 0);
-          transform: scale(0, 0);
+  transform: scale(0, 0);
 }
-
 .about__tabs .section__content div.tab-panel div.section-inside {
   max-width: 90%;
   margin: 0 auto;
   height: 100%;
 }
-
 .about__tabs .section__content div.tab-panel div.section-inside div.image-holder {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 .about__tabs .section__content div.tab-panel div.section-inside div.image-holder img {
   -o-object-fit: cover;
      object-fit: cover;
 }
-
 .about__tabs .section__content div.tab-panel div.section-inside div.tab-content {
   padding: 10px;
   padding-left: 5rem;
 }
-
 .about__tabs .section__content div.tab-panel div.section-inside div.tab-content h1 {
   color: teal;
   text-align: center;
   font-weight: 600;
   margin-top: 1.5rem;
 }
-
 .about__tabs .section__content div.tab-panel div.section-inside div.tab-content p {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -458,12 +356,9 @@ html {
   text-indent: 40px;
   font-family: "Nunito" !important;
 }
-
 .about__tabs .section__content div.tab-panel.tab-panel.visible {
   opacity: 1;
-  -webkit-transform: scale(1, 1);
-          transform: scale(1, 1);
-  -webkit-transition: all 500ms ease-in;
+  transform: scale(1, 1);
   transition: all 500ms ease-in;
 }
 
@@ -473,32 +368,21 @@ html {
   scrollbar-width: none;
   overflow-x: scroll;
 }
-
 .section__testimony::-webkit-scrollbar {
   display: none;
 }
-
 .section__testimony .ins {
   width: 2500px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .section__testimony .ins .testimony__card {
   position: relative;
   width: 20rem;
   height: 30rem;
   margin: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
-
 .section__testimony .ins .testimony__card .image_holder {
   margin: 0 auto;
   border: 2px solid white;
@@ -507,27 +391,20 @@ html {
   overflow: hidden;
   z-index: 1;
 }
-
 .section__testimony .ins .testimony__card img {
   width: 150px;
   height: 150px;
   background-color: teal;
   -o-object-fit: contain;
      object-fit: contain;
-  -webkit-transform: scale(1);
-          transform: scale(1);
-  -webkit-transition: all 500ms ease;
+  transform: scale(1);
   transition: all 500ms ease;
 }
-
 .section__testimony .ins .testimony__card img:hover {
   cursor: pointer;
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
-  -webkit-transition: all 500ms ease;
+  transform: scale(1.2);
   transition: all 500ms ease;
 }
-
 .section__testimony .ins .testimony__card div.testimony-text {
   color: teal;
   font-size: 1rem;
@@ -538,12 +415,9 @@ html {
   border: 2px solid whitesmoke;
   border-radius: 1rem;
   overflow: hidden;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
   margin-top: -75px;
 }
-
 .section__testimony .ins .testimony__card div.testimony-text span {
   position: absolute;
   inset: 0;
@@ -557,7 +431,6 @@ html {
 .dots {
   padding-top: 10px;
 }
-
 .dots span {
   padding: 7px;
   background-color: teal;
@@ -570,10 +443,9 @@ html {
   margin: 0 0.5rem;
   cursor: pointer;
 }
-
 .icon span:hover {
   color: whitesmoke;
-  -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
 }
-/*# sourceMappingURL=style.css.map */
+
+/* Student panel *//*# sourceMappingURL=style.css.map */
