@@ -24,7 +24,6 @@ const modalOpen = document.querySelector(".modalOpen");
 const myModal = document.querySelector("#my-modal");
 const btnClose = document.querySelectorAll(".btn-close");
 
-console.log(btnClose);
 openModalBtn.addEventListener("click", () => {
   modalOpen.classList.toggle("hidden");
   myModal.classList.toggle("hidden");
@@ -43,3 +42,16 @@ btnClose.forEach((item) => {
     myModal.classList.toggle("hidden");
   });
 });
+
+//user dropdown
+
+// const dropdown_button = document.querySelector(".dropdown_button");
+// const dropdown_subMenu = document.querySelector(".dropdown_menu");
+// const user_icon = document.querySelector(".user_icon");
+// console.log("clicked");
+
+// dropdown_button.addEventListener("click", () => {
+//   dropdown_subMenu.classList.toggle("opacity-0");
+//   user_icon.classList.add("outline");
+//   console.log("clicked");
+// });

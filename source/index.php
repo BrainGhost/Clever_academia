@@ -64,7 +64,7 @@
           <a href="#testimony" class="">Testimony</a>
           <a href="#contact" class="">Contact us</a>
         </div>
-        <a href="./pages/login.html" class="join-btn"
+        <a href="./pages/login.php" class="join-btn"
           >Join Now<i class="fa fa-arrow-right"></i
         ></a>
       </div>
@@ -95,7 +95,7 @@
                   >Read More</a
                 >
                 <a
-                  href="./pages/login.html"
+                  href="./pages/create-account.php"
                   class="btn btn-light md:py-3 md:px-5 text-sm"
                   >Join Now</a
                 >

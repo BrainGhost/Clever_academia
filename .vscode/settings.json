@@ -1,0 +1,4 @@
+{
+  "phpfmt.enable_auto_align": true,
+  "phpfmt.detect_indent": true
+}
