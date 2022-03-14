@@ -9,7 +9,7 @@
     session_destroy();
 
     //Redirect to login page
-    header("location: ../pages/login.php");
+    header("location: ../pages/index.php");
 
 ?>
 

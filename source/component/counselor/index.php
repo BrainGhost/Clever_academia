@@ -49,22 +49,16 @@
                         <td>61</td>
                         <td>2011/04/25</td>
                         <td>$320,800</td>
-                    </tr>
-                    <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light">
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light">
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
+                        <td>
+                        <div class="flex items-center">
+                                <span class=" text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
+                                    <i class="fa fa-pencil  cursor-pointer text-lg" aria-hidden="true"></i>
+                                </span>
+                                <span class=" text-red-600 grid place-items-center rounded-full hover:text-red-700 px-3 transition duration-150 ease-in-out">
+                                    <i class="fa fa-window-close  cursor-pointer text-xl" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </td>
                     </tr>
 				</tbody>
 

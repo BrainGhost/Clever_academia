@@ -21,20 +21,21 @@
     if (empty(trim($_POST["email"]))) {
       $email_err = "Please enter Email. ";
     }else{
-      $email = trim($_POST["email"]);
+      //to prevent mysqli injection i need to add stricslashes()
+      $email = stripcslashes(trim($_POST["email"])) ;
     }
 
     //check if the password id empty
     if (empty(trim($_POST["password"]))) {
       $password_err = "Please enter password. ";
     }else{
-      $password = trim($_POST["password"]);
+      $password = stripcslashes(trim($_POST["password"]));
     }
 
     //validate credentials 
     if (empty($email_err) && empty($password_err)) {
       # Prepare a select statement
-      $sql = "SELECT cred_id, username, email, password, level FROM credentials WHERE email = ? ";
+      $sql = "SELECT cred_id, username, email, password, level FROM credentials WHERE email = ? LIMIT 1";
 
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variable to the prepared statement as parameters
@@ -53,7 +54,22 @@
             # bind result variale
             mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password, $level);
             if (mysqli_stmt_fetch($stmt)) {
-              if (password_verify($password, $hashed_password)) {
+              if ((password_verify($password, $hashed_password)) && ($level === "student")) {
+
+                # Password is correct, so start a new session
+                session_start();
+
+                # store data in session variales
+                // Store data in session variables
+                $_SESSION["loggedin"] = true;
+                $_SESSION["id"] = $id;
+                $_SESSION["username"] = $username;
+                $_SESSION["email"] = $email; 
+                $_SESSION["level"] = "student"; 
+
+                // Redirect user to welcome page
+                header("location: ../component/student/index.php");
+              }elseif ((password_verify($password, $hashed_password)) && ($level === "counselor")) {
                 # Password is correct, so start a new session
                 session_start();
 
@@ -63,10 +79,24 @@
                 $_SESSION["id"] = $id;
                 $_SESSION["username"] = $username;
                 $_SESSION["email"] = $email;
-                $_SESSION["status"] = "Logged Successfully!!";                             
-                
+                $_SESSION["level"] = "counselor";
+
                 // Redirect user to welcome page
-                header("location: ../component/student/index.php");
+                header("location: ../component/counselor/index.php");
+              }elseif ((password_verify($password, $hashed_password)) && ($level === "admin")) {
+                # Password is correct, so start a new session
+                session_start();
+
+                # store data in session variales
+                // Store data in session variables
+                $_SESSION["loggedin"] = true;
+                $_SESSION["id"] = $id;
+                $_SESSION["username"] = $username;
+                $_SESSION["email"] = $email;
+                $_SESSION["level"] = "admin";
+
+                // Redirect user to welcome page
+                header("location: ../component/admin/index.php");
               }else {
                 # Password not valid, display a generic error
                 $login_err = "Invalid email or password.";
@@ -214,6 +244,14 @@
                     Create account
                   </a>
                 </p>
+                <p class="mt-1">
+                  <a
+                    class="text-sm font-medium text-red-500 hover:underline"
+                    href="../index.php"
+                  >
+                    back home
+                  </a>
+                </p>
               </form>
               
             </div>
@@ -221,5 +259,6 @@
         </div>
       </div>
     </div>
+    <script src="https://use.fontawesome.com/85775ea1ce.js"></script>
   </body>
 </html>

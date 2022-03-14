@@ -2,11 +2,14 @@
   //Initialize the session
   session_start();
 
-  
   //check if the user is logged in, if not the redirect him to the login page
-  if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-      header("location: ../../pages/login.php");
+   
+
+  if ((!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) )   {
+    if (!isset($_SESSION["level"]) == "student") {
+      header("location: ../../pages/index.php");
       exit;
+    }   
   }
 ?>
 <!DOCTYPE html>
@@ -23,9 +26,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
-      rel="stylesheet"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+      crossorigin="anonymous" 
+      referrerpolicy="no-referrer" 
     />
 
     <!-- Icon Font Stylesheet -->
@@ -636,10 +640,10 @@
               <li class="relative dropdown">
                 <div class="dropdown_button cursor-pointer text-sm font-medium text-gray-600">
                   <span class="pr-2">
-                    <?php echo htmlspecialchars($_SESSION["email"]);?>
+                    <?php echo htmlspecialchars($_SESSION["username"]);?>
                   </span>
                   <button
-                  class="user_icon align-middle rounded-full border-2 border-white outline outline-1 outline-teal-600 focus:outline-none transition-all duration-500"
+                  class="user_icon align-middle rounded-full border-2 border-white outline-1 outline-teal-600 focus:outline-none "
                 >
                   <img
                     class="object-cover w-8 h-8 rounded-full"
@@ -650,11 +654,11 @@
                   </button>
                 </div>
                 
-                <div class="dropdown_menu text-gray-700 text-sm  bg-white absolute right-0 top-9 pt-2 rounded shadow-lg drop-shadow-xl opacity-100 transition-all duration-500">
+                <div class="dropdown_menu text-gray-700 text-sm  bg-white absolute right-0 top-9 pt-2 rounded shadow-lg drop-shadow-xl hidden">
                   <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Profile</div>
                   <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Settings</div>
-                  <div class="py-2 px-6 border-t-[1px] font-medium hover:cursor-pointer hover:bg-red-500 hover:text-white">
-                    <a href="../../php/logout.php">Logout</a>
+                  <div class="flex border-t-[1px] font-medium hover:cursor-pointer hover:bg-red-500 hover:text-white">
+                    <a class="py-2 px-6" href="../../php/logout.php">Logout</a>
                   </div>
                 </div>
               </li>

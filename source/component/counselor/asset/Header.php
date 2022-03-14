@@ -3,9 +3,11 @@
   session_start();
 
   //check if the user is logged in, if not the redirect him to the login page
-  if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-      header("location: ../../pages/login.php");
+  if ((!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) )   {
+    if (!isset($_SESSION["level"]) == "counselor") {
+      header("location: ../../pages/index.php");
       exit;
+    }   
   }
 ?>
 <!DOCTYPE html>
@@ -28,17 +30,15 @@
     />
 
     <!-- Icon Font Stylesheet -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-      rel="stylesheet"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+      crossorigin="anonymous" 
+      referrerpolicy="no-referrer" 
     />
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="./asset/table.css">
+    
     <title>Clever academia | Learning platform</title>
   </head>
   <body>
@@ -54,7 +54,7 @@
           </span>
             Saved successfully !!
       </div>
-      <div class="absolute top-7  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
+      <div class="absolute -top-10  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
           <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
               <i class="fa fa-times  cursor-pointer text-white text-xs" aria-hidden="true"></i>
           </span>
@@ -346,13 +346,14 @@
                 </template>
               </li>
               <!-- Profile menu -->
-              <li class="relative">
-                <button
-                  class="align-middle rounded-full focus:shadow-outline-teal focus:outline-none"
-                  @click="toggleProfileMenu"
-                  @keydown.escape="closeProfileMenu"
-                  aria-label="Account"
-                  aria-haspopup="true"
+              <!-- Profile menu -->
+              <li class="relative dropdown">
+                <div class="dropdown_button cursor-pointer text-sm font-medium text-gray-600 select-none">
+                  <span class="pr-2">
+                    <?php echo htmlspecialchars($_SESSION["username"]);?>
+                  </span>
+                  <button
+                  class="user_icon pointer-events-none align-middle rounded-full border-2 border-white outline-1 outline-teal-600 focus:outline-none"
                 >
                   <img
                     class="object-cover w-8 h-8 rounded-full"
@@ -360,86 +361,16 @@
                     alt=""
                     aria-hidden="true"
                   />
-                </button>
-                <template x-if="isProfileMenuOpen">
-                  <ul
-                    x-transition:leave="transition ease-in duration-150"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    @click.away="closeProfileMenu"
-                    @keydown.escape="closeProfileMenu"
-                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
-                    aria-label="submenu"
-                  >
-                    <li class="flex">
-                      <a
-                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
-                        href="#"
-                      >
-                        <svg
-                          class="w-4 h-4 mr-3"
-                          aria-hidden="true"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                          ></path>
-                        </svg>
-                        <span>Profile</span>
-                      </a>
-                    </li>
-                    <li class="flex">
-                      <a
-                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
-                        href="#"
-                      >
-                        <svg
-                          class="w-4 h-4 mr-3"
-                          aria-hidden="true"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                          ></path>
-                          <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li class="flex">
-                      <a
-                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
-                        href="#"
-                      >
-                        <svg
-                          class="w-4 h-4 mr-3"
-                          aria-hidden="true"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                          ></path>
-                        </svg>
-                        <span>Log out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </template>
+                  </button>
+                </div>
+                
+                <div class="dropdown_menu text-gray-700 text-sm  bg-white absolute right-0 top-9 pt-2 rounded shadow-lg drop-shadow-xl hidden">
+                  <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Profile</div>
+                  <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Settings</div>
+                  <div class="flex border-t-[1px] font-medium hover:cursor-pointer hover:bg-red-500 hover:text-white">
+                    <a class="py-2 px-6" href="../../php/logout.php">Logout</a>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>

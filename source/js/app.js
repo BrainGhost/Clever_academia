@@ -44,14 +44,11 @@ btnClose.forEach((item) => {
 });
 
 //user dropdown
+const dropdown_button = document.querySelector(".dropdown_button");
+const dropdown_subMenu = document.querySelector(".dropdown_menu");
+const user_icon = document.querySelector(".user_icon");
 
-// const dropdown_button = document.querySelector(".dropdown_button");
-// const dropdown_subMenu = document.querySelector(".dropdown_menu");
-// const user_icon = document.querySelector(".user_icon");
-// console.log("clicked");
-
-// dropdown_button.addEventListener("click", () => {
-//   dropdown_subMenu.classList.toggle("opacity-0");
-//   user_icon.classList.add("outline");
-//   console.log("clicked");
-// });
+dropdown_button.addEventListener("click", () => {
+  dropdown_subMenu.classList.toggle("hidden");
+  user_icon.classList.toggle("outline");
+});

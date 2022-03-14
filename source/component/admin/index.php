@@ -64,10 +64,10 @@
                                     <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
                                 </span>
                                 <span class=" text-yellow-600 grid place-items-center rounded-full hover:text-yellow-700 px-3 transition duration-150 ease-in-out">
-                                    <i class="fa fa-comment  cursor-pointer text-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil  cursor-pointer text-lg" aria-hidden="true"></i>
                                 </span>
                                 <span class=" text-red-600 grid place-items-center rounded-full hover:text-red-700 transition duration-150 ease-in-out">
-                                    <i class="fa fa-window-close  cursor-pointer text-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-window-close  cursor-pointer text-xl" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </td>
@@ -93,10 +93,10 @@
                                     <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
                                 </span>
                                 <span class=" text-yellow-600 grid place-items-center rounded-full hover:text-yellow-700 px-3 transition duration-150 ease-in-out">
-                                    <i class="fa fa-comment  cursor-pointer text-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil  cursor-pointer text-lg" aria-hidden="true"></i>
                                 </span>
                                 <span class=" text-red-600 grid place-items-center rounded-full hover:text-red-700 transition duration-150 ease-in-out">
-                                    <i class="fa fa-window-close  cursor-pointer text-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-window-close  cursor-pointer text-xl" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </td>
@@ -122,10 +122,10 @@
                                     <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
                                 </span>
                                 <span class=" text-yellow-600 grid place-items-center rounded-full hover:text-yellow-700 px-3 transition duration-150 ease-in-out">
-                                    <i class="fa fa-comment  cursor-pointer text-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil  cursor-pointer text-lg" aria-hidden="true"></i>
                                 </span>
                                 <span class=" text-red-600 grid place-items-center rounded-full hover:text-red-700 transition duration-150 ease-in-out">
-                                    <i class="fa fa-window-close  cursor-pointer text-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-window-close  cursor-pointer text-xl" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </td>

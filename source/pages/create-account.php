@@ -32,7 +32,7 @@
             if(mysqli_stmt_num_rows($stmt) == 1){
               $username_err = "This username is already taken.";
             } else{
-              $username = trim($_POST["username"]);
+              $username = stripcslashes(trim($_POST["username"]));
             }   
         }else {
           echo "Oops! Something went wrong. please try later.";
@@ -44,8 +44,10 @@
     //validate email
     if (empty(trim($_POST["email"]))) {
       $email_err = "Please enter an email.";
+    }elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+      $email_err = "Please enter valid an email.";
     }else {
-      $email = trim($_POST["email"]);
+      $email = stripcslashes(trim($_POST["email"]));
     }
     //Validate password
     if(empty(trim($_POST["password"]))){
@@ -53,7 +55,7 @@
     } elseif(strlen(trim($_POST["password"])) < 6){
       $password_err = "Password must have atleast 6 characters.";
     } else{
-      $password = trim($_POST["password"]);
+      $password = stripcslashes(trim($_POST["password"]));
     }
     //validate re_password
     if (empty(trim($_POST["confirm_password"]))) {
@@ -66,7 +68,7 @@
       }
     }
     //Check inout errors before insetering in database
-    if (empty($username_err) && empty($password_err) && empty($confirm_password_err)) {
+    if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
       # Prepare insert data in the database table
       $default_level = 'student';
       $sql = "INSERT INTO credentials(username, email, password, level) VALUES ( ?, ?, ?, '$default_level')";
@@ -83,7 +85,7 @@
         //Atempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
           # Redirect to login
-          header("location: login.php");
+          header("location: index.php");
         }else{
           echo "Oops! Something went wrong. Please try again later.";
         }
@@ -252,9 +254,17 @@
                 <p class="mt-4">
                   <a
                     class="text-sm font-medium text-teal-600 hover:underline"
-                    href="./login.php"
+                    href="./index.php"
                   >
                     Already have an account? Login
+                  </a>
+                </p>
+                <p class="mt-1">
+                  <a
+                    class="text-sm font-medium text-red-500 hover:underline"
+                    href="../index.php"
+                  >
+                    back home
                   </a>
                 </p>
               </form>
