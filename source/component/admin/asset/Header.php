@@ -55,7 +55,7 @@
           </span>
             Saved successfully !!
       </div>
-      <div class="absolute top-7  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
+      <div class="absolute -top-10  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
           <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
               <i class="fa fa-times  cursor-pointer text-white text-xs" aria-hidden="true"></i>
           </span>
@@ -100,7 +100,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="students.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -122,7 +122,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="mentors.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -144,7 +144,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="doctors.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -188,7 +188,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="resources.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -210,7 +210,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="settings.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -300,7 +300,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="students.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -322,7 +322,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="mentors.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -344,7 +344,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="doctors.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -388,7 +388,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="resources.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -410,7 +410,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="settings.php"
               >
                 <svg
                   class="w-5 h-5"

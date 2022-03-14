@@ -87,7 +87,7 @@
                             <div class="input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar"></i></span>
                             </div>
-                            <input type="" name="doctor_schedule_date" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required readonly /> 
+                            <input type="text" name="doctor_schedule_date" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required /> 
                         </div>
                     </div>
                     <div class="form-group">
