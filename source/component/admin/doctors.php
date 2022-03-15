@@ -9,23 +9,37 @@
     $fullname = $email = $password = $address = $phonenumber = $dateofbirth = $speciality = $degree = $image = "";
     $fullname_err = $email_err = $password_err = $phonenumber_err = $dateofbirth_err = $speciality_err = $degree_err = $image_err = $insert_msg = "";
 
+
     //Processing form data when submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST["save_doctor"])) {
         # validation of inputs field
 
         #email validation
 
 
+        
+
+        
+        
+        
 
         #Confirm if there is no error before preceddding
-        if (empty($fullname_err) && empty($email_err) && empty($password_err) && empty($phonenumber_err) && empty($dateofbirth_err) && empty($speciality_err) && empty($degree_err) && empty($image_err )) {
-            # prepare insert data in the database
-             
+        if (empty($fullname_err) && empty($email_err) && empty($password_err) && empty($phonenumber_err) && empty($dateofbirth_err) && empty($speciality_err) && empty($degree_err) && empty($image_err ) ) {
+            
+            #image upload
+            $photoImageName = time() .'_'. $_FILES["photoImage"]["name"];
+            $target_location = '../../images/' . $photoImageName;
+            // if(move_uploaded_file($_FILES["photoImage"]["tmp_name"], $target_location)){
+
+            // }
+            
+            
+            // # prepare insert data in the database
             $sql = "INSERT INTO doctors(fullname, email, password, level, address, phone_number, date_of_birth, speciality, degree, image) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
             if ($stmt = mysqli_prepare($link, $sql)) {
                 # Bind variable to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "sssssssssb", $param_fullname , $param_email , $param_password, $param_level, $param_address , $param_phonenumber , $param_dateofbirth , $param_speciality , $param_degree , $param_image );
+                mysqli_stmt_bind_param($stmt, "ssssssssss", $param_fullname , $param_email , $param_password, $param_level, $param_address , $param_phonenumber , $param_dateofbirth , $param_speciality , $param_degree , $param_image );
 
                 # Set the parameters values and execute the statement to insert row
                 $param_fullname = $_POST['fullname']; 
@@ -36,8 +50,10 @@
                 $param_phonenumber = $_POST['phonenumber']; 
                 $param_dateofbirth = $_POST['dateofbirth']; 
                 $param_speciality = $_POST['speciality']; 
-                $param_degree = $_POST['degree']; 
-                $param_image = "image_bo";
+                $param_degree = $_POST['degree'];
+                $param_image = $photoImageName;
+                // $param_image = $profile_image;
+
 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
@@ -194,7 +210,7 @@
     <div class="modalOpen fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-30"
     id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog relative w-auto pointer-events-none  ">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
                 <div
                 class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
                     <div
@@ -267,9 +283,9 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Image</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <label class="block">
+                                    <label for="file-select" class="block">
                                         <span class="sr-only">Choose profile image</span>
-                                        <input type="file" placeholder="Choose file" class="block w-full text-sm text-gray-500
+                                        <input id="file-select" type="file" name="  photoImage" onchange="displayImage(this)" placeholder="Choose file" class="block w-full text-sm text-gray-500
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-xs file:font-semibold
@@ -281,16 +297,19 @@
                                 </div>
                             </div>
                             <div class="form-group w-full">
-                                <div class="border-2 border-white rounded outline outline-2 outline-teal-400 w-40 h-48 bg-teal-50">
-                                    <img src="https://www.gameclimate.com/wp-content/uploads/2012/12/luigis_mansion_dark_moon_orange_brain_ghost-980x980.jpg" class="w-full h-full object-cover border-0">
+                                <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-teal-50">
+                                    <label for="file-select">
+                                        <img id="imageDisplay"  src="../../images/placeholder.png" class="w-full h-full object-cover border-0">
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         
                     </div>
+                    <!--  -->
                     <div
                         class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                        <button type="reset" class="px-6 py-2.5 text-teal-700 border-gray-300 font-medium
+                        <button name="reset_doctor" type="reset" class="px-6 py-2.5 text-teal-700 border-gray-300 font-medium
                         btn-close
                         text-xs
                         leading-tight
@@ -304,7 +323,7 @@
                         duration-150
                         ease-in-out">Close</button>
 
-                        <button type="submit" class="px-6
+                        <button name="save_doctor" type="submit" class="px-6
                         py-2.5
                         bg-teal-600
                         text-white

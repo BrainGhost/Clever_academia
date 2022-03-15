@@ -42,7 +42,7 @@
             <img
               aria-hidden="true"
               class="object-contain w-full h-full"
-              src="../img/man-with-laptop.png"
+              src="../images/man-with-laptop.png"
               alt="Office"
             />
           </div>

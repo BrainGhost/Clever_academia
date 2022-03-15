@@ -52,3 +52,17 @@ dropdown_button.addEventListener("click", () => {
   dropdown_subMenu.classList.toggle("hidden");
   user_icon.classList.toggle("outline");
 });
+
+//Disply image admin -> doctor profile
+
+function displayImage(e) {
+  if (e.files[0]) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      document
+        .querySelector("#imageDisplay")
+        .setAttribute("src", e.target.result);
+    };
+    reader.readAsDataURL(e.files[0]);
+  }
+}

@@ -788,6 +788,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 2.5rem;
 }
 
+.h-40 {
+  height: 10rem;
+}
+
+.h-44 {
+  height: 11rem;
+}
+
 .max-h-0 {
   max-height: 0px;
 }
@@ -854,6 +862,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-10 {
   width: 2.5rem;
+}
+
+.w-48 {
+  width: 12rem;
+}
+
+.w-44 {
+  width: 11rem;
 }
 
 .min-w-full {
@@ -1680,6 +1696,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .outline-teal-600 {
   outline-color: #0d9488;
+}
+
+.outline-gray-100 {
+  outline-color: #f3f4f6;
+}
+
+.outline-gray-50 {
+  outline-color: #f9fafb;
+}
+
+.outline-red-50 {
+  outline-color: #fef2f2;
 }
 
 .drop-shadow-xl {

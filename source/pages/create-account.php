@@ -143,7 +143,7 @@
             <img
               aria-hidden="true"
               class="object-contain w-full md:w-2/3 h-full"
-              src="../img/man-jumping.png"
+              src="../images/man-jumping.png"
               alt="Office"
             />
           </div>

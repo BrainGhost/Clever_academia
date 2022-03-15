@@ -74,7 +74,7 @@
     <section id="home" class="carousel-container p-0 bg-gray-50">
       <div class="w-full owl-carousel relative">
         <div class="image w-full flex justify-end pt-12">
-          <img class="img-fluid" src="img/looking-at-phone.png" alt="" />
+          <img class="img-fluid" src="images/looking-at-phone.png" alt="" />
         </div>
 
         <div
@@ -210,7 +210,7 @@
                 class="section-inside flex items-center flex-col md:flex-row px-0 md:px-10"
               >
                 <div class="image-holder h-full w-full">
-                  <img src="./img/man-with-laptop.png" alt="" />
+                  <img src="./images/man-with-laptop.png" alt="" />
                 </div>
 
                 <div class="tab-content h-full w-full">
@@ -231,7 +231,7 @@
                 class="section-inside flex items-center flex-col md:flex-row px-0 md:px-10"
               >
                 <div class="image-holder h-full w-full">
-                  <img src="./img/man-with-laptop.png" alt="" />
+                  <img src="./images/man-with-laptop.png" alt="" />
                 </div>
 
                 <div class="tab-content h-full w-full">
@@ -252,7 +252,7 @@
                 class="section-inside flex items-center flex-col md:flex-row px-0 md:px-10"
               >
                 <div class="image-holder h-full w-full">
-                  <img src="./img/man-with-laptop.png" alt="" />
+                  <img src="./images/man-with-laptop.png" alt="" />
                 </div>
 
                 <div class="tab-content h-full w-full">
@@ -285,7 +285,7 @@
           <div class="ins">
             <div class="testimony__card">
               <div class="image_holder">
-                <img src="./img/looking-at-phone.png" alt="" />
+                <img src="./images/looking-at-phone.png" alt="" />
               </div>
 
               <div class="relative testimony-text shadow-md">
@@ -300,7 +300,7 @@
             </div>
             <div class="testimony__card">
               <div class="image_holder">
-                <img src="./img/looking-at-phone.png" alt="" />
+                <img src="./images/looking-at-phone.png" alt="" />
               </div>
 
               <div class="relative testimony-text shadow-md">
@@ -315,7 +315,7 @@
             </div>
             <div class="testimony__card">
               <div class="image_holder">
-                <img src="./img/looking-at-phone.png" alt="" />
+                <img src="./images/looking-at-phone.png" alt="" />
               </div>
 
               <div class="relative testimony-text shadow-md">
@@ -330,7 +330,7 @@
             </div>
             <div class="testimony__card">
               <div class="image_holder">
-                <img src="./img/looking-at-phone.png" alt="" />
+                <img src="./images/looking-at-phone.png" alt="" />
               </div>
 
               <div class="relative testimony-text shadow-md">
@@ -345,7 +345,7 @@
             </div>
             <div class="testimony__card">
               <div class="image_holder">
-                <img src="./img/looking-at-phone.png" alt="" />
+                <img src="./images/looking-at-phone.png" alt="" />
               </div>
 
               <div class="relative testimony-text shadow-md">
@@ -360,7 +360,7 @@
             </div>
             <div class="testimony__card">
               <div class="image_holder">
-                <img src="./img/looking-at-phone.png" alt="" />
+                <img src="./images/looking-at-phone.png" alt="" />
               </div>
 
               <div class="relative testimony-text shadow-md">
@@ -375,7 +375,7 @@
             </div>
             <div class="testimony__card">
               <div class="image_holder">
-                <img src="./img/looking-at-phone.png" alt="" />
+                <img src="./images/looking-at-phone.png" alt="" />
               </div>
 
               <div class="relative testimony-text shadow-md">
@@ -390,7 +390,7 @@
             </div>
             <div class="testimony__card">
               <div class="image_holder">
-                <img src="./img/looking-at-phone.png" alt="" />
+                <img src="./images/looking-at-phone.png" alt="" />
               </div>
 
               <div class="relative testimony-text shadow-md">

@@ -178,7 +178,7 @@
             <img
               aria-hidden="true"
               class="object-contain w-full md:w-2/3 h-full"
-              src="../img/looking-at-phone.png"
+              src="../images/looking-at-phone.png"
               alt="Office"
             />
           </div>
