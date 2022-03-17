@@ -64,7 +64,7 @@
           <a href="#testimony" class="">Testimony</a>
           <a href="#contact" class="">Contact us</a>
         </div>
-        <a href="./pages/login.php" class="join-btn"
+        <a href="./pages/index.php" class="join-btn"
           >Join Now<i class="fa fa-arrow-right"></i
         ></a>
       </div>

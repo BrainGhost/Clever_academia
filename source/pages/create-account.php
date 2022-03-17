@@ -197,17 +197,22 @@
                   <span class="text-xs text-red-500"><?php echo $confirm_password_err; ?></span>
                 </label>
 
-                <div class="flex mt-6 text-sm">
+                <div class="block mt-6 text-sm">
                   <label class="flex items-center">
                     <input
                       type="checkbox"
+                      name="checked"
+                      id="checkbox-id"
                       class="text-teal-600 form-checkbox focus:border-teal-400 focus:outline-none focus:shadow-outline-teal border border-gray-200 rounded px-4 py-2"
                     />
-                    <span class="ml-2">
+                    <label class="ml-2" for="checkbox-id">
                       I agree to the
                       <span class="underline">privacy policy</span>
-                    </span>
+                    </label>
                   </label>
+                  <?php if(!isset($_POST['checked'])){ ?>
+                      <span class = "text-xs text-red-500"> <br/> <?php echo "You must agree to terms";?></span>
+                  <?php } ?>
                 </div>
 
                 <!-- You should use a button here, as the anchor is only used for the example  -->

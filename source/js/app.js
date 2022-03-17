@@ -23,6 +23,7 @@ const openModalBtn = document.querySelector(".openModalBtn");
 const modalOpen = document.querySelector(".modalOpen");
 const myModal = document.querySelector("#my-modal");
 const btnClose = document.querySelectorAll(".btn-close");
+const closeNotification = document.querySelector("#close-nft");
 
 openModalBtn.addEventListener("click", () => {
   modalOpen.classList.toggle("hidden");
@@ -34,6 +35,9 @@ window.onclick = function (event) {
     modalOpen.classList.toggle("hidden");
     myModal.classList.toggle("hidden");
   }
+  if (event.target == closeNotification) {
+    closeNotification.classList.toggle("hidden");
+  }
 };
 // The modal will close when the user clicks on the close button
 btnClose.forEach((item) => {
@@ -42,6 +46,9 @@ btnClose.forEach((item) => {
     myModal.classList.toggle("hidden");
   });
 });
+
+//Close notification
+// console.log(closeNotification);
 
 //user dropdown
 const dropdown_button = document.querySelector(".dropdown_button");

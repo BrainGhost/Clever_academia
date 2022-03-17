@@ -1,38 +1,109 @@
-
 <?php
+    global $insert_msg;
+    $insert_msg = "";
     //import the Header
     include './asset/Header.php';
     //include config file
     require_once("../../php/config.php");
 
     //define variables and initialize with empty values
-    $fullname = $email = $password = $address = $phonenumber = $dateofbirth = $speciality = $degree = $image = "";
-    $fullname_err = $email_err = $password_err = $phonenumber_err = $dateofbirth_err = $speciality_err = $degree_err = $image_err = $insert_msg = "";
+    $fullname = $email = $password = $address = $phonenumber = $dateofbirth = $speciality = $degree = $image = $address =  "";
+    $fullname_err = $email_err = $password_err = $phonenumber_err = $dateofbirth_err = $speciality_err = $degree_err = $address_err = "";
 
 
     //Processing form data when submitted
     if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST["save_doctor"])) {
         # validation of inputs field
 
-        #email validation
-
-
+        //validate name
+        if (empty($_POST['fullname'])) {
+            $fullname_err = "Please enter a fullname.";
+        }else {
+            $fullname = trim($_POST['fullname']);
+        }
+        //validate email
+        if (empty($_POST['email'])) {
+            $email_err = "Please enter an email.";
+            // check if e-mail address is well-formed
+        }
+        // elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        //     $email_err = "Invalid email format";
+        // }
+        else {
+            // check if e-mail address already exist
+            $sql = "SELECT doctor_id FROM doctors WHERE email = ?";
+            if ($stmt = mysqli_prepare($link, $sql)) {
+                # Bind variable to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "s", $param_email);
+                #set parameters
+                $param_email = trim($_POST['email']);
+                #atempt to execute the parameter
+                if (mysqli_stmt_execute($stmt)) {
+                    # store result
+                    mysqli_stmt_store_result($stmt);
+                    if (mysqli_stmt_num_rows($stmt) == 1) {
+                        $email_err = "This email is already in the system.";
+                    }else{
+                        $email = trim($_POST['email']);
+                    }
+                }else {
+                    echo "Oops!! something went wrong. please try again later.";
+                }
+                mysqli_stmt_close($stmt);
+            }
+             
+        }
+        //validate password
+        if (empty($_POST['password'])) {
+            $password_err = "Please enter a password.";
+            
+        }elseif (strlen($_POST['password']) < 6) {
+            $password_err = "Please the password must be atleast 6 characters.";
+        }else {
+            $password = trim($_POST['password']);
+        }
+        //validate address
+        if (empty($_POST['address'])) {
+            $address_err = "Please enter an address.";
+        }else {
+            $address = trim($_POST['address']);
+        }
+        //validate phone number
+        if (empty(trim($_POST['phonenumber']))) {
+            $phonenumber_err = "Please enter a phone number. ";
+        }else {
+            $phonenumber = trim($_POST['phonenumber']);
+        }
+        //validate date of birth
+        if (empty($_POST['dateofbirth'])) {
+            $dateofbirth_err = "Please enter a data of birth.";
+        }else {
+            $dateofbirth = trim($_POST['dateofbirth']);
+        }
+        //validate speciality
+        if (empty($_POST['speciality'])) {
+            $speciality_err = "Please enter your speciality.";
+        }else {
+            $speciality= trim($_POST['speciality']);
+        }
+        //validate degree
+        if (empty($_POST['degree'])) {
+            $degree_err = "Please enter a degree";
+        }else {
+            $degree = trim($_POST['degree']);
+        }
         
 
-        
-        
-        
+         
 
         #Confirm if there is no error before preceddding
-        if (empty($fullname_err) && empty($email_err) && empty($password_err) && empty($phonenumber_err) && empty($dateofbirth_err) && empty($speciality_err) && empty($degree_err) && empty($image_err ) ) {
-            
+        if (empty($fullname_err) && empty($email_err) && empty($password_err) && empty($phonenumber_err) && empty($dateofbirth_err) && empty($speciality_err) && empty($degree_err) ) {
             #image upload
             $photoImageName = time() .'_'. $_FILES["photoImage"]["name"];
             $target_location = '../../images/' . $photoImageName;
             // if(move_uploaded_file($_FILES["photoImage"]["tmp_name"], $target_location)){
 
             // }
-            
             
             // # prepare insert data in the database
             $sql = "INSERT INTO doctors(fullname, email, password, level, address, phone_number, date_of_birth, speciality, degree, image) VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -42,22 +113,26 @@
                 mysqli_stmt_bind_param($stmt, "ssssssssss", $param_fullname , $param_email , $param_password, $param_level, $param_address , $param_phonenumber , $param_dateofbirth , $param_speciality , $param_degree , $param_image );
 
                 # Set the parameters values and execute the statement to insert row
-                $param_fullname = $_POST['fullname']; 
-                $param_email = $_POST['email']; 
-                $param_password= password_hash($_POST['password'], PASSWORD_DEFAULT); //Creates password hash
+                $param_fullname = $fullname; 
+                $param_email = $email; 
+                $param_password= password_hash($password, PASSWORD_DEFAULT); //Creates password hash
                 $param_level= 'counselor';
-                $param_address = $_POST['address']; 
-                $param_phonenumber = $_POST['phonenumber']; 
-                $param_dateofbirth = $_POST['dateofbirth']; 
-                $param_speciality = $_POST['speciality']; 
-                $param_degree = $_POST['degree'];
+                $param_address = $address; 
+                $param_phonenumber = $phonenumber; 
+                $param_dateofbirth = $dateofbirth; 
+                $param_speciality =$speciality; 
+                $param_degree = $degree;
                 $param_image = $photoImageName;
                 // $param_image = $profile_image;
 
+                
 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
                     $insert_msg = "Records inserted successfully.";
+                    // header('Location: '.$_SERVER['PHP_SELF'].'?success');
+                    // header('Location: students.php');
+                    // exit;
                 } else{
                     echo "ERROR: Could not execute query: $sql. " . mysqli_error($link);
                 }
@@ -67,13 +142,49 @@
             }else {
                 echo "ERROR: Could not prepare query: $sql. " .mysqli_error($link);
             }
+            
 
         }
         #close connection
         mysqli_close($link);
     }
-?>
+    //Extract data from the database into the table
+    //Check existance of id parameter before processing further
+    if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
+        #prepare a select statement
+        $sql = "SELECT * FROM doctors WHERE doctor_id = ?";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            # Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, 'i', $param_id);
+            // set parameters
+            $param_id = trim($_GET["id"]);
+            //attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                $result = mysqli_stmt_get_result($stmt);
+                if (mysqli_num_rows($result) == 1) {
+                    //Fecth result row as an associative array. since the result set container onliy one row , we don't need to use while loop
+                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                    // retrive individual field value
+                    $fullname = $row[""];
+                    $address = $row[""];
+                } else{
+                    // URL doesn't contain valid id parameter. Redirect to erro page
+                    header("location: doctors");
+                    exit;
+                }
+            }else{
+                echo "Oops! Somethings went wrong. Please try again later.";
+            }
+        }
+        mysqli_stmt_close($stmt);
+        mysqli_close($link);
+    }else{
+        // header("location: students.php");
+        // exit;
+        echo "error";
+    }
+?>
 <!--Overlay Effect-->
 <div
 	class="absolute hidden inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20"
@@ -227,56 +338,64 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Email address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="email" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required   /> 
+                                    <input type="email" value="<?php echo $email; ?>" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $email_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Password</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="password" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required   /> 
+                                    <input type="password" value="<?php echo $password; ?>" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $password_err; ?></span>
                             </div>
                         </div>
                         <div class="row grid grid-cols-2 gap-4 items-center">
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Full name</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required   /> 
+                                    <input type="text" value="<?php echo $fullname; ?>" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $fullname_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Phone No.</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required   /> 
+                                    <input type="text" value="<?php echo $phonenumber; ?>" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $phonenumber_err; ?></span>
                             </div>
                         </div>
                         <div class="row grid grid-cols-2 gap-4 items-center">
                             <div class="form-group w-full">
                                 <label class="text-sm font-medium">Address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required   /> 
+                                    <input type="text" value="<?php echo $address; ?>" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $address_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Date of birth</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required   /> 
+                                    <input type="text" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $dateofbirth_err; ?></span>
                             </div>
                         </div>
                         <div class="row grid grid-cols-2 gap-4 items-center">
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Degree</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required   /> 
+                                    <input type="text" value="<?php echo $degree; ?>" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $degree_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Speciality</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required   /> 
+                                    <input type="text" value="<?php echo $speciality; ?>" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $speciality_err; ?></span>
                             </div>
                         </div>
                         <div class="row grid grid-cols-2 gap-4 items-center">
