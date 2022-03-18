@@ -4,7 +4,7 @@
 
   //Define variables and initialize with empty values
   $username = $password = $confirm_password = $email = "";
-  $username_err = $password_err = $confirm_password_err = $email_err = "";
+  $username_err = $password_err = $confirm_password_err = $email_err = $agree_condition_err = "";
 
   //Procssing form data when is submitted
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -67,8 +67,16 @@
         $confirm_password_err = "Password does not match.";
       }
     }
+
+    //Agree to terms and conditions
+     if(!isset($_POST['checked'])){
+       $agree_condition_err = "You must agree to the terms and condition.";
+     }
+
+
+
     //Check inout errors before insetering in database
-    if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
+    if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($agree_condition_err)) {
       # Prepare insert data in the database table
       $default_level = 'student';
       $sql = "INSERT INTO credentials(username, email, password, level) VALUES ( ?, ?, ?, '$default_level')";
@@ -203,16 +211,14 @@
                       type="checkbox"
                       name="checked"
                       id="checkbox-id"
-                      class="text-teal-600 form-checkbox focus:border-teal-400 focus:outline-none focus:shadow-outline-teal border border-gray-200 rounded px-4 py-2"
+                      class="border-0 focus:ring-0 focus:ring-offset-0 cursor-pointer bg-teal-100 text-teal-600 rounded px-4 py-2"
                     />
                     <label class="ml-2" for="checkbox-id">
                       I agree to the
-                      <span class="underline">privacy policy</span>
+                      <span class="underline cursor-pointer">privacy policy</span>
                     </label>
                   </label>
-                  <?php if(!isset($_POST['checked'])){ ?>
-                      <span class = "text-xs text-red-500"> <br/> <?php echo "You must agree to terms";?></span>
-                  <?php } ?>
+                  <span class = "text-xs text-red-500"> <br/> <?php echo $agree_condition_err;?> </span>
                 </div>
 
                 <!-- You should use a button here, as the anchor is only used for the example  -->

@@ -50,13 +50,8 @@
     >
     <!-- feedback hot toast -->
     <!-- top-7 -->
-      <div id="close-nft" class="absolute <?php echo (!empty($insert_msg)) ? "top-7 flex": "top-10 " ; ?> cursor-pointer left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-emerald-100 p-1 z-50 shadow-md border border-emerald-200 rounded ">
-          <span class=" bg-emerald-400 grid place-items-center rounded-full mx-2 w-6 h-6">
-              <i class="fa fa-check text-white text-xs" aria-hidden="true"></i>
-          </span>
-          <?php echo $insert_msg; ?>
-      </div>
-      <div class="absolute -top-10  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
+      
+      <div class="absolute -top-10  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border  border-red-200 rounded ">
           <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
               <i class="fa fa-times  cursor-pointer text-white text-xs" aria-hidden="true"></i>
           </span>

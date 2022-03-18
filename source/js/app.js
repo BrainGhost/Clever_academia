@@ -1,5 +1,8 @@
-//whyChoice section
+// VARAIBLE DECLARATION
+const modalUsed = document.querySelector("#confirm-modal");
+const modalClose = document.querySelector("#confirm-modal-close");
 
+//whyChoice section
 const button = document.querySelectorAll("[data-tab-target]");
 const globalTab = document.querySelectorAll(".tab-panel");
 
@@ -36,7 +39,13 @@ window.onclick = function (event) {
     myModal.classList.toggle("hidden");
   }
   if (event.target == closeNotification) {
-    closeNotification.classList.toggle("hidden");
+    closeNotification.parentNode.classList.toggle("hidden");
+  }
+  if (event.target == closeNotification) {
+    closeNotification.parentNode.classList.toggle("hidden");
+  }
+  if (event.target == modalClose) {
+    modalUsed.classList.toggle("hidden");
   }
 };
 // The modal will close when the user clicks on the close button
@@ -72,4 +81,16 @@ function displayImage(e) {
     };
     reader.readAsDataURL(e.files[0]);
   }
+}
+
+// i need to create a function to open modal and close them
+// i will passing the respective id attribute as parameters
+
+function alertModal(e) {
+  modalUsed.classList.toggle("hidden");
+}
+
+//Close function notifcation modal
+function close_funct(e) {
+  e.parentNode.parentNode.parentNode.parentNode.classList.toggle("hidden");
 }
