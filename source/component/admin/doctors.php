@@ -220,8 +220,8 @@
         </div>
       </div>
       <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-        <div type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">Deactivate</div>
-        <button type="button" onclick="close_funct(this)" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+        <div type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Deactivate</div>
+        <button type="button" onclick="close_funct(this)" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Cancel</button>
       </div>
     </div>
   </div>
@@ -288,24 +288,24 @@
                                     <td>".$row['address']."</td>
                                     <td>".$row['speciality']."</td>
                                     <td>
-                                        <button onclick='alertModal(this)' class='px-4 py-1 rounded bg-sky-400 hover:bg-sky-500 text-white'>
+                                        <button onclick='alertModal(this)' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-sky-100 text-teal-500 font-medium'>
                                             Active
                                         </button>
-                                        <button class='hidden px-4 py-1 rounded bg-red-400 hover:bg-red-500 text-white'>
+                                        <button class='hidden px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>
                                             Inactive
                                         </button>
                                     </td>
             
                                     <td>
-                                        <div class='flex items-center'>
-                                            <a title='View record' href='read.php?id=".$row['doctor_id']."' class='text-sky-500 grid place-items-center rounded-full hover:text-sky-600 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-eye  cursor-pointer text-xl' aria-hidden='true'></i>
+                                        <div class='flex items-center space-x-4'>
+                                            <a title='View record' href='./action/read.php?viewid=".$row['doctor_id']."' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                                <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Update record'  href='update.php?id=".$row['doctor_id']."' class='text-yellow-500 grid place-items-center rounded-full hover:text-yellow-^00 px-4 transition duration-150 ease-in-out'>
+                                            <a title='Update record'  href='./action/update.php?updateid=".$row['doctor_id']."' class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Delete record'  href='delete.php?id=".$row['doctor_id']."'' class='text-red-500 grid place-items-center rounded-full hover:text-red-^00 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-window-close  cursor-pointer text-xl' aria-hidden='true'></i>
+                                            <a title='Delete record'  href='./action/delete.php?deletedid=".$row['doctor_id']."' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>
+                                                <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i
                                             </a>
                                         </div>
                                     </td>
