@@ -1,6 +1,9 @@
 // VARAIBLE DECLARATION
 const modalUsed = document.querySelector("#confirm-modal");
 const modalClose = document.querySelector("#confirm-modal-close");
+// VARAIBLE DELETE USE MODAL
+const modalUsed_delete = document.querySelector("#confirm-delete-modal");
+const modalClose_delete = document.querySelector("#confirm-delete-modal-close");
 
 //whyChoice section
 const button = document.querySelectorAll("[data-tab-target]");
@@ -38,14 +41,12 @@ window.onclick = function (event) {
     modalOpen.classList.toggle("hidden");
     myModal.classList.toggle("hidden");
   }
-  if (event.target == closeNotification) {
-    closeNotification.parentNode.classList.toggle("hidden");
-  }
-  if (event.target == closeNotification) {
-    closeNotification.parentNode.classList.toggle("hidden");
-  }
+
   if (event.target == modalClose) {
     modalUsed.classList.toggle("hidden");
+  }
+  if (event.target == modalClose_delete) {
+    modalUsed_delete.classList.toggle("hidden");
   }
 };
 // The modal will close when the user clicks on the close button
@@ -57,7 +58,9 @@ btnClose.forEach((item) => {
 });
 
 //Close notification
-// console.log(closeNotification);
+closeNotification.addEventListener("click", (e) => {
+  closeNotification.parentNode.classList.toggle("hidden");
+});
 
 //user dropdown
 const dropdown_button = document.querySelector(".dropdown_button");
@@ -89,8 +92,26 @@ function displayImage(e) {
 function alertModal(e) {
   modalUsed.classList.toggle("hidden");
 }
+function alertModal_delete(e) {
+  modalUsed_delete.classList.toggle("hidden");
+}
 
 //Close function notifcation modal
 function close_funct(e) {
-  e.parentNode.parentNode.parentNode.parentNode.classList.toggle("hidden");
+  e.parentNode.parentNode.parentNode.parentNode.parentNode.classList.toggle(
+    "hidden"
+  );
 }
+
+//Open mobile sidebar
+const toggleSideMenu = document.querySelector("#toggleSideMenu");
+const closeSideMenu = document.querySelector("#closeSideMenu");
+const backdrop = document.querySelector("#isSideMenuOpen");
+
+toggleSideMenu.addEventListener("click", (e) => {
+  e.target.childNodes[1].classList.toggle("hidden");
+  e.target.childNodes[3].classList.toggle("hidden");
+
+  closeSideMenu.classList.toggle("-translate-x-[16rem]");
+  backdrop.classList.toggle("hidden");
+});

@@ -61,7 +61,7 @@
             <a class="ml-3 text-lg font-bold text-gray-800" href="#">
               Clever academia </a
             >|
-            <span class="italic text-sm">Student panel</span>
+            <span class="italic text-sm">Student</span>
           </div>
           <ul class="mt-6">
             <li class="relative px-6 py-3">
