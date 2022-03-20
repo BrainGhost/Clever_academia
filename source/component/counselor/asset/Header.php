@@ -52,7 +52,7 @@
           <span class="bg-emerald-400 grid place-items-center rounded-full mx-2 w-6 h-6">
               <i class="fa fa-check  cursor-pointer text-white text-xs" aria-hidden="true"></i>
           </span>
-            Saved successfully !!
+          delete
       </div>
       <div class="absolute -top-10  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
           <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
@@ -376,4 +376,5 @@
           </div>
           
         </header>
+        <!--  -->
         <main class="h-full pb-16 overflow-y-auto">

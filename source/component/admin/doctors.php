@@ -70,14 +70,20 @@
         //validate phone number
         if (empty(trim($_POST['phonenumber']))) {
             $phonenumber_err = "Please enter a phone number. ";
+        }elseif (!preg_match("/^(+254|0)[1-9]\d{8}$/", $_POST['password'])) {
+            $phonenumber_err = "Phone number Invalid.";
         }else {
             $phonenumber = trim($_POST['phonenumber']);
         }
+        // if (!preg_match("/^[+]?[1-9][0-9]{9,14}$/", $_POST['password'])) {
+        //     $phonenumber_err = "Phone number not valid.";
+        // }
+        // strlen($_POST['password']) < 10 || strlen($_POST['password']) > 15 
         //validate date of birth
         if (empty($_POST['dateofbirth'])) {
             $dateofbirth_err = "Please enter a data of birth.";
         }else {
-            $dateofbirth = trim($_POST['dateofbirth']);
+            $dateofbirth = date("Y-m-d", strtotime(trim($_POST['dateofbirth']))) ;
         }
         //validate speciality
         if (empty($_POST['speciality'])) {
@@ -303,7 +309,7 @@
                                             <a title='View record' href='./action/read.php?viewid=".$row['doctor_id']."' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Update record'  href='./action/update.php?updateid=".$row['doctor_id']."' class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
+                                            <a title='Update record' href='./action/update.php?updateid=".$row['doctor_id']."'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                             
@@ -338,7 +344,7 @@
 		</div>
     </div>
  <!-- Start Modal -->   
-    <div class="modalOpen fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-30 shadow-2xl"
+    <div class="modalOpen fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-50 shadow-2xl"
     id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog relative w-auto pointer-events-none  ">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
@@ -358,14 +364,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Email address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="email" value="" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="email" value="<?php echo $email; ?>" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $email_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Password</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="password" value="" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="password" value="<?php echo $password; ?>" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $password_err; ?></span>
                             </div>
@@ -374,14 +380,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Full name</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $fullname; ?>" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $fullname_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Phone No.</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="tel" value="<?php echo $phonenumber; ?>" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $phonenumber_err; ?></span>
                             </div>
@@ -390,14 +396,14 @@
                             <div class="form-group w-full">
                                 <label class="text-sm font-medium">Address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $address; ?>" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $address_err; ?></span>
                             </div>
                             <div class="form-group w-full">
-                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Date of birth</label>
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Date of birth</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="date" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-teal-50"     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $dateofbirth_err; ?></span>
                             </div>
@@ -406,14 +412,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Degree</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $degree; ?>" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $degree_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Speciality</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $speciality; ?>" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $speciality_err; ?></span>
                             </div>

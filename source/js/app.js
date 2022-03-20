@@ -4,6 +4,10 @@ const modalClose = document.querySelector("#confirm-modal-close");
 // VARAIBLE DELETE USE MODAL
 const modalUsed_delete = document.querySelector("#confirm-delete-modal");
 const modalClose_delete = document.querySelector("#confirm-delete-modal-close");
+//Open mobile sidebar
+const toggleSideMenu = document.querySelector("#toggleSideMenu");
+const closeSideMenu = document.querySelector("#closeSideMenu");
+const backdrop = document.querySelector("#isSideMenuOpen");
 
 //whyChoice section
 const button = document.querySelectorAll("[data-tab-target]");
@@ -48,7 +52,14 @@ window.onclick = function (event) {
   if (event.target == modalClose_delete) {
     modalUsed_delete.classList.toggle("hidden");
   }
+  if (event.target == backdrop) {
+    closeSideMenu.classList.toggle("-translate-x-[16rem]");
+    backdrop.classList.toggle("hidden");
+    toggleSideMenu.childNodes[1].classList.toggle("hidden");
+    toggleSideMenu.childNodes[3].classList.toggle("hidden");
+  }
 };
+
 // The modal will close when the user clicks on the close button
 btnClose.forEach((item) => {
   item.addEventListener("click", () => {
@@ -70,6 +81,7 @@ const user_icon = document.querySelector(".user_icon");
 dropdown_button.addEventListener("click", () => {
   dropdown_subMenu.classList.toggle("hidden");
   user_icon.classList.toggle("outline");
+  console.log(toggleSideMenu);
 });
 
 //Disply image admin -> doctor profile
@@ -102,11 +114,6 @@ function close_funct(e) {
     "hidden"
   );
 }
-
-//Open mobile sidebar
-const toggleSideMenu = document.querySelector("#toggleSideMenu");
-const closeSideMenu = document.querySelector("#closeSideMenu");
-const backdrop = document.querySelector("#isSideMenuOpen");
 
 toggleSideMenu.addEventListener("click", (e) => {
   e.target.childNodes[1].classList.toggle("hidden");
