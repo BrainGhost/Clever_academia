@@ -4,12 +4,15 @@
 /*  */
 /*  */
   //check if the user is logged in, if not the redirect him to the login page
-  if ((!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) )   {
-    if (!isset($_SESSION["level"]) == "admin") {
+  if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)   {
       header("location: ../../pages/index.php");
-      exit;
-    }   
+      exit; 
   }
+  // echo $_SESSION["level"];
+  // if ($_SESSION["level"] !== "admin") {
+  //   header("location: ../../pages/index.php");
+  //   exit; 
+  // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -577,6 +580,5 @@
               </li>
             </ul>
           </div>
-          
         </header>
         <main class="h-full pb-16 overflow-y-auto">

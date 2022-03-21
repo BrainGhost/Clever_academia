@@ -5,12 +5,15 @@
   //check if the user is logged in, if not the redirect him to the login page
    
 
-  if ((!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) )   {
-    if (!isset($_SESSION["level"]) == "student") {
+  if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true )   {
       header("location: ../../pages/index.php");
       exit;
-    }   
   }
+  // echo $_SESSION["level"];
+  // if ((isset($_SESSION["level"]) !== "student")) {
+  //   header("location: ../../pages/index.php");
+  //   // exit; 
+  // }
 ?>
 <!DOCTYPE html>
 <html lang="en">

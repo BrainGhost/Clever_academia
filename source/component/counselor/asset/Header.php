@@ -2,13 +2,16 @@
   //Initialize the session
   session_start();
 
-  //check if the user is logged in, if not the redirect him to the login page
-  if ((!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) )   {
-    if (!isset($_SESSION["level"]) == "counselor") {
+  #check if the user is logged in, if not the redirect him to the login page
+  if ((!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true) )   {
       header("location: ../../pages/index.php");
-      exit;
-    }   
+      exit;  
   }
+  // echo $_SESSION["level"];
+  // if ($_SESSION["level"] !== "counselor") {
+  //     header("location: ../../pages/index.php");
+  //     exit; 
+  // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
