@@ -28,7 +28,8 @@ if (isset($_GET["delete_id"])) {
 
     $result = mysqli_query($link, $sql);
     if ($result) {
-        echo "Deleted success";
+        $_SESSION['insert_msg'] = "Deleted successfully.";
+        $_SESSION['alert_notification'] = "delete";
         header("location: ./index.php");
     }else {
         echo "Oops! Something went wrong. Please try later";
@@ -37,10 +38,68 @@ if (isset($_GET["delete_id"])) {
 }
 
 
-if(isset($_GET["update_id"]))
-{
-    $update_id  = $_GET["update_id"];
-} 
+// $update_id = $_POST["update_id"];
+// echo $update_id;
+
+
+// if($_POST["action"] == 'update')
+// 	{
+//         if(isset($_GET["update_id"]))
+//         {
+//             $update_id = $_POST["update_id"];
+//             //variable
+//             $doctor_schedule_date = date("Y-m-d", strtotime(trim($_POST['doctor_schedule_date'])));
+//             $doctor_schedule_day = date("l", strtotime(trim($_POST['doctor_schedule_date'])));
+//             $doctor_schedule_start_time = trim($_POST['doctor_schedule_start_time']);
+//             $doctor_schedule_end_time = trim($_POST['doctor_schedule_end_time']);
+//             $average_consulting_time = trim($_POST['average_consulting_time']);
+
+//             //statement
+//             $sql = "UPDATE doctor_schedule SET doctor_schedule_date='$doctor_schedule_date',doctor_schedule_day='$doctor_schedule_day',doctor_schedule_start_time='$doctor_schedule_start_time',doctor_schedule_end_time='$doctor_schedule_end_time',average_consulting_time='$average_consulting_time' WHERE doctor_schedule_id= $update_id ";
+//             $result = mysqli_query($link, $sql);
+//             if($result){
+//                 $insert_msg = "Updated successfully.";
+//                 $alert_notification = "success";
+//                 // header("location: ./index.php");
+//             }else{
+//                 echo "Oops! Something went wrong. Please try later";
+//                 die(mysqli_error($link));
+//             }
+
+//         }
+//     }
+
+
+#===========================the working code for updating=============================
+        if(isset($_POST["update"]))
+        {
+            $update_id = trim($_POST['update_id']);
+            //variable
+            $doctor_schedule_date = date("Y-m-d", strtotime(trim($_POST['doctor_schedule_date'])));
+            $doctor_schedule_day = date("l", strtotime(trim($_POST['doctor_schedule_date'])));
+            $doctor_schedule_start_time = trim($_POST['doctor_schedule_start_time']);
+            $doctor_schedule_end_time = trim($_POST['doctor_schedule_end_time']);
+            $average_consulting_time = trim($_POST['average_consulting_time']);
+        
+            //statement
+            $sql = "UPDATE doctor_schedule SET doctor_schedule_date='$doctor_schedule_date',doctor_schedule_day='$doctor_schedule_day',doctor_schedule_start_time='$doctor_schedule_start_time',doctor_schedule_end_time='$doctor_schedule_end_time',average_consulting_time='$average_consulting_time' WHERE doctor_schedule_id= $update_id ";
+            $result = mysqli_query($link, $sql);
+            if($result){
+                $_SESSION['insert_msg'] = "Updated successfully.";
+                $_SESSION['alert_notification'] = "update";
+                header("location: ./index.php");
+                // header("location: ./index.php?success=1");
+            }else{
+                echo "Oops! Something went wrong. Please try later";
+                die(mysqli_error($link));
+            }
+        
+        } 
+
+// if($_POST["action"] == 'update')
+// 	{
+//     }
+ 
 
 
 
@@ -67,7 +126,16 @@ if(isset($_GET["update_id"]))
 
 
 // UPDATE FUNCTIONALITY
-$update_id  = $_GET["update_id"];
+// $update_id  = $_GET["update_id"];
+// $sql = "SELECT * FROM doctor_schedule doctor_schedule_id= $update_id ";
+// $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, average_consulting_time, doctor_id FROM doctor_schedule;";
+// $result = mysqli_query($link, $sql);
+// $row = mysqli_fetch_assoc($result);
+
+// $date = $row['doctor_schedule_date'];
+// $start_time = $row['doctor_schedule_start_time'];
+// $end_time = $row['doctor_schedule_end_time'];
+// $average_time = $row['average_consulting_time'];
 
 if(isset($_POST["add"]))
 {
@@ -104,7 +172,7 @@ if(isset($_POST["add"]))
     }else{
         $doctor_schedule_end_time = trim($_POST['doctor_schedule_end_time']);
     }
-    // date("H:i A")
+    
     if(empty($_POST['average_consulting_time'])){
         $average_consulting_time_err = "Average consulting can not be empty";
     }else{

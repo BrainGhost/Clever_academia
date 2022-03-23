@@ -30,20 +30,52 @@ button.forEach((btn) => {
 });
 //openModal
 const openModalBtn = document.querySelector(".openModalBtn");
+const openModalBtn_update = document.querySelectorAll("[data-userid]");
+
 const modalOpen = document.querySelector(".modalOpen");
+const modalOpen_update = document.querySelector(".modalOpen_update");
 const myModal = document.querySelector("#my-modal");
 const btnClose = document.querySelectorAll(".btn-close");
+const btnClose_update = document.querySelectorAll(".btn-close-update");
 const closeNotification = document.querySelector("#close-nft");
 
 openModalBtn.addEventListener("click", () => {
   modalOpen.classList.toggle("hidden");
   myModal.classList.toggle("hidden");
 });
+//lemme create a hidden input and pass that e.ID
+let inputField = document.createElement("input");
+const formModal = document.querySelector("#modalIMP");
+const updateID = document.querySelector("#updateID");
+updateID.setAttribute("value", "junior");
+
+openModalBtn_update.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modalOpen_update.classList.toggle("hidden");
+    myModal.classList.toggle("hidden");
+    inputField.remove();
+  });
+});
+
+function displayModal(e) {
+  modalOpen_update.classList.toggle("hidden");
+  myModal.classList.toggle("hidden");
+
+  inputField.setAttribute("type", "hidden");
+  updateID.setAttribute("value", e);
+  inputField.setAttribute("value", e);
+  inputField.setAttribute("name", "update_id");
+
+  inputField.setAttribute("readOnly", true);
+  //apend this field to the modal
+  formModal.appendChild(inputField);
+}
 // The modal will close when the user clicks anywhere outside the modal
 window.onclick = function (event) {
   if (event.target == myModal) {
-    modalOpen.classList.toggle("hidden");
+    modalOpen.classList.add("hidden");
     myModal.classList.toggle("hidden");
+    modalOpen_update.classList.add("hidden");
   }
 
   if (event.target == modalClose) {
@@ -64,6 +96,12 @@ window.onclick = function (event) {
 btnClose.forEach((item) => {
   item.addEventListener("click", () => {
     modalOpen.classList.toggle("hidden");
+    myModal.classList.toggle("hidden");
+  });
+});
+btnClose_update.forEach((item) => {
+  item.addEventListener("click", () => {
+    modalOpen_update.classList.toggle("hidden");
     myModal.classList.toggle("hidden");
   });
 });
