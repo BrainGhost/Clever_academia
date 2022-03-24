@@ -1,8 +1,8 @@
-
 <?php
-    include './asset/Header.php'
+    include '../../php/config.php';
+    include './asset/Header.php';
+    date_default_timezone_set("Africa/Nairobi");
 ?>
-
 <!--Overlay Effect-->
 <div
 	class="absolute hidden inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20"
@@ -53,75 +53,66 @@
 					</tr>
 				</thead>
 				<tbody class="bg-white transition duration-300 ease-in-out text-sm text-gray-700 ">
-                    <tr class=" border-b  hover:bg-teal-50 ">
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>
-                            <button class="px-2 py-1 rounded bg-emerald-400 text-white">
-                                Completed
-                            </button>
-                        </td>
-                        <td>
-                            <span class="openModalBtn text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
-                                <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr class=" border-b  hover:bg-teal-50 ">
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>
-                            <button class="px-2 py-1 rounded bg-yellow-400 text-white">
-                                Booked
-                            </button>
-                        </td>
-                        <td>
-                            <span class=" text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
-                                <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr class=" border-b  hover:bg-teal-50 ">
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>
-                            <button class="px-2 py-1 rounded bg-red-400 text-white">
-                                Cancel
-                            </button>
-                        </td>
-                        <td>
-                            <span class=" text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
-                                <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr class=" border-b  hover:bg-teal-50 ">
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>
-                            <button class="px-2 py-1 rounded bg-sky-400 text-white">
-                                In progress
-                            </button>
-                        </td>
-                        <td>
-                            <span class=" text-sky-600 grid place-items-center rounded-full hover:text-sky-700 transition duration-150 ease-in-out">
-                                <i class="fa fa-eye  cursor-pointer text-lg" aria-hidden="true"></i>
-                            </span>
-                        </td>
-                    </tr>
-                    
+                    <?php
+                        
+                        //Display data into the table
+                        $sql  = "SELECT * FROM appointment  
+                                    INNER JOIN doctor_schedule 
+                                    ON doctor_schedule.doctor_schedule_id = appointment.doctor_schedule_id 
+                                    INNER JOIN students 
+                                    ON students.student_id = appointment.student_id";
+                        $result = mysqli_query($link, $sql);
+                        $resultCheck = mysqli_num_rows($result);
+
+                        if ($resultCheck > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                //schedule_status
+                                $status = " ";
+                                if ($row['appointment_status'] == "completed" ) {
+                                    $status = "<button class='px-2 py-1 rounded bg-emerald-400 text-white'>Completed</button>";
+                                }
+                                if ($row['appointment_status'] == "completed" ) {
+                                    $status = "<button class='px-2 py-1 rounded bg-sky-400 text-white'>In progress</button>";
+                                }
+                                if ($row['appointment_status'] == "completed" ) {
+                                    $status = "<button class='px-2 py-1 rounded bg-yellow-400 text-white'>Booked</button>";
+                                }
+                                if ($row['appointment_status'] == "completed" ) {
+                                    $status = "<button class='px-2 py-1 rounded bg-red-400 text-white'>Canceled</button>";
+                                }
+                                echo
+                                "
+                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
+                                    <td>".$row['appointment_id']."</td>
+                                    <td>".$row['doctor_schedule_id']."</td>
+                                    <td>".$row['']."</td>
+                                    <td>".$row['']."</td>
+                                    <td>".$row['']."</td>
+                                    <td>$status</td>
+                                    <td>
+                                        <div class='flex items-center'>
+                                            <a href='javascript:displayModal(".$row['appointment_id'].");'  class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                                <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                ";
+                            }
+                            mysqli_free_result($result);
+                        }else{
+                            echo
+                            "
+                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
+                                <td colspan='8'>
+                                    No records were found.
+                                </td>
+                            </tr>
+                            ";
+                        }
+                        #close connection
+                        mysqli_close($link);
+                    ?> 
 				</tbody>
 
 			</table>
@@ -132,3 +123,5 @@
 <?php
     include './asset/Footer.php'
 ?>
+
+

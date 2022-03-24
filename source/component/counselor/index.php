@@ -107,11 +107,11 @@ if(isset($_POST["add"]))
     if ($_SESSION['insert_msg'] !== "") {
         $action = "";
         if (isset($_POST['delete'])) {
-            $action = 'delete';
+            $action = "delete";
         } elseif (isset($_POST['update'])) {
-            $action = 'update';
+            $action = "update";
         } elseif (isset($_POST['add'])) {
-            $action = 'success';
+            $action = "success";
         }
 
         switch ($action) {
@@ -127,12 +127,12 @@ if(isset($_POST["add"]))
                 $alert_btn_color = 'bg-sky-200 text-sky-700';
                 break;
 
-
+            case 'delete':
                 $alert_msg = "Delete";
                 $alert_div_color = 'bg-red-100 border-red-500 text-red-700';
                 $alert_btn_color = 'bg-red-200 text-red-700';
                 break;
-            case 'delete':    
+                
             default:
                 $alert_msg = "Be Warned";
                 $alert_div_color = 'bg-orange-100 border-orange-500 text-orange-700';
@@ -163,7 +163,7 @@ if(isset($_POST["add"]))
     <div class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color;?> " role="alert">
         <strong class="font-bold"><?php echo $alert_msg; ?>! &nbsp;</strong>
         <span class="block sm:inline mr-12"><?php echo  $insert_msg ? $insert_msg : $_SESSION['insert_msg'] ; ?></span>
-        <span id="close-nft" onclick="<?php $_SESSION['insert_msg'] = null; ?>" class="absolute top-0 bottom-0 right-0 px-3 py-3 <?php echo $alert_btn_color;?> cursor-pointer">
+        <span onclick="closeNFT(this); <?php $_SESSION['insert_msg'] = null; ?>" class="absolute top-0 bottom-0 right-0 px-3 py-3 <?php echo $alert_btn_color;?> cursor-pointer">
             <i class="fa fa-times text-xl pointer-events-none" aria-hidden="true"></i>
         </span>
     </div>

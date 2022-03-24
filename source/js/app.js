@@ -47,7 +47,6 @@ openModalBtn.addEventListener("click", () => {
 let inputField = document.createElement("input");
 const formModal = document.querySelector("#modalIMP");
 const updateID = document.querySelector("#updateID");
-updateID.setAttribute("value", "junior");
 
 openModalBtn_update.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -108,9 +107,13 @@ btnClose_update.forEach((item) => {
 });
 
 //Close notification
-closeNotification.addEventListener("click", (e) => {
-  closeNotification.parentNode.classList.toggle("hidden");
-});
+function closeNFT(e) {
+  e.parentNode.classList.toggle("hidden");
+  // const closeNotification = document.querySelector("#close-nft");
+  // closeNotification.addEventListener("click", (e) => {
+  //   closeNotification.parentNode.classList.toggle("hidden");
+  // });
+}
 
 //user dropdown
 const dropdown_button = document.querySelector(".dropdown_button");
@@ -131,6 +134,9 @@ function displayImage(e) {
     reader.onload = (e) => {
       document
         .querySelector("#imageDisplay")
+        .setAttribute("src", e.target.result);
+      document
+        .querySelector("#imageDisplayer")
         .setAttribute("src", e.target.result);
     };
     reader.readAsDataURL(e.files[0]);

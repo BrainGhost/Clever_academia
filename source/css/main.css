@@ -594,6 +594,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: 2.25rem;
 }
 
+.top-16 {
+  top: 4rem;
+}
+
+.-top-20 {
+  top: -5rem;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -1384,6 +1392,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-teal-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(20 184 166 / var(--tw-bg-opacity));
+}
+
+.bg-teal-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(45 212 191 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-60 {
@@ -2191,6 +2204,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(204 251 241 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-teal-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(20 184 166 / var(--tw-bg-opacity));
+}
+
 .hover\:text-teal-700:hover {
   --tw-text-opacity: 1;
   color: rgb(15 118 110 / var(--tw-text-opacity));
@@ -2325,6 +2343,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .focus\:bg-sky-50:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(240 249 255 / var(--tw-bg-opacity));
+}
+
+.focus\:bg-teal-500:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(20 184 166 / var(--tw-bg-opacity));
 }
 
 .focus\:placeholder-gray-500:focus::-moz-placeholder {

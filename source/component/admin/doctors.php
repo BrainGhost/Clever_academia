@@ -1,13 +1,13 @@
 <?php
-    $insert_msg = "";
+    //include config file
+    include("../../php/config.php");
     //import the Header
     include './asset/Header.php';
-    //include config file
-    require_once("../../php/config.php");
+    
 
     //define variables and initialize with empty values
     $fullname = $email = $password = $address = $phonenumber = $dateofbirth = $speciality = $degree = $image = $address =  "";
-    $fullname_err = $email_err = $password_err = $phonenumber_err = $dateofbirth_err = $speciality_err = $degree_err = $address_err = $insert_msg = $alert_notification = "";
+    $fullname_err = $email_err = $password_err = $phonenumber_err = $dateofbirth_err = $speciality_err = $degree_err = $address_err = $insert_msg = $alert_notification = $status_insert = "";
 
 
     //Processing form data when submitted
@@ -70,11 +70,10 @@
         //validate phone number
         if (empty(trim($_POST['phonenumber']))) {
             $phonenumber_err = "Please enter a phone number. ";
-        }elseif (!preg_match("/^(+254|0)[1-9]\d{8}$/", $_POST['password'])) {
-            $phonenumber_err = "Phone number Invalid.";
         }else {
             $phonenumber = trim($_POST['phonenumber']);
         }
+        
         // if (!preg_match("/^[+]?[1-9][0-9]{9,14}$/", $_POST['password'])) {
         //     $phonenumber_err = "Phone number not valid.";
         // }
@@ -111,11 +110,11 @@
             // }
             
             // # prepare insert data in the database
-            $sql = "INSERT INTO doctors(fullname, email, password, level, address, phone_number, date_of_birth, speciality, degree, image) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO doctors(fullname, email, password, level, address, phone_number, date_of_birth, speciality, degree, image, doctor_status) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
             if ($stmt = mysqli_prepare($link, $sql)) {
                 # Bind variable to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "ssssssssss", $param_fullname , $param_email , $param_password, $param_level, $param_address , $param_phonenumber , $param_dateofbirth , $param_speciality , $param_degree , $param_image );
+                mysqli_stmt_bind_param($stmt, "sssssssssss", $param_fullname , $param_email , $param_password, $param_level, $param_address , $param_phonenumber , $param_dateofbirth , $param_speciality , $param_degree , $param_image, $param_status );
 
                 # Set the parameters values and execute the statement to insert row
                 $param_fullname = $fullname; 
@@ -128,17 +127,15 @@
                 $param_speciality =$speciality; 
                 $param_degree = $degree;
                 $param_image = $photoImageName;
-                // $param_image = $profile_image;
+                $param_status = 0;
 
                 
 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
+                    $insert_msg = "Record inserted successfully.";
                     $alert_notification = "success";
-                    $insert_msg = "Records inserted successfully.";
-                    // header('Location: '.$_SERVER['PHP_SELF'].'?success');
-                    // header('Location: students.php');
-                    // exit;
+                    
                 } else{
                     $insert_msg = "Records not saved.";
                 }
@@ -155,42 +152,7 @@
 
         
     }
-    //Extract data from the database into the table
-    //Check existance of id parameter before processing further
-    // if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
-    //     #prepare a select statement
-    //     $sql = "SELECT * FROM doctors WHERE doctor_id = ?";
-    //     if ($stmt = mysqli_prepare($link, $sql)) {
-    //         # Bind variables to the prepared statement as parameters
-    //         mysqli_stmt_bind_param($stmt, 'i', $param_id);
-    //         // set parameters
-    //         $param_id = trim($_GET["id"]);
-    //         //attempt to execute the prepared statement
-    //         if (mysqli_stmt_execute($stmt)) {
-    //             $result = mysqli_stmt_get_result($stmt);
-    //             if (mysqli_num_rows($result) == 1) {
-    //                 //Fecth result row as an associative array. since the result set container onliy one row , we don't need to use while loop
-    //                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    //                 // retrive individual field value
-    //                 $fullname = $row[""];
-    //                 $address = $row[""];
-    //             } else{
-    //                 // URL doesn't contain valid id parameter. Redirect to erro page
-    //                 header("location: doctors");
-    //                 exit;
-    //             }
-    //         }else{
-    //             echo "Oops! Somethings went wrong. Please try again later.";
-    //         }
-    //     }
-    //     mysqli_stmt_close($stmt);
-    //     mysqli_close($link);
-    // }else{
-    //     // header("location: students.php");
-    //     // exit;
-    //     echo "error";
-    // }
     
 
 ?>
@@ -201,47 +163,60 @@
 ></div>
 <!-- Remove everything INSIDE this div to a really blank page -->
 <!-- CONFIRMATION ACTIVATE ACCOUNT-->
-<!-- <div id="confirm-modal" class="hidden fixed z-20 inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
-  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    
-    <div id="confirm-modal-close" class="fixed inset-0 bg-gray-600 bg-opacity-60 transition-opacity" aria-hidden="true"></div>
 
-    
-    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-    <div class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-        <div class="sm:flex sm:items-start">
-          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-            
-            <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-          </div>
-          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Deactivate account</h3>
-            <div class="mt-2">
-              <p class="text-sm text-gray-500">Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-        <div type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Deactivate</div>
-        <button type="button" onclick="close_funct(this)" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div> -->
 <!-- NOTIFICATION ALERTS -->
-<div class="p-4 rounded px-4 py-3 absolute <?php echo (!empty($insert_msg)) ? "top-7 flex": "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo ($alert_notification == 'success' ) ? 'bg-emerald-100 border-emerald-500 text-emerald-700' : 'bg-red-100 border-red-500 text-red-700' ;?> " role="alert">
-    <strong class="font-bold"><?php echo ($alert_notification == 'success' ) ? 'Success' : 'Danger' ;?>!</strong>
-    <span class="block sm:inline mr-12"><?php echo $insert_msg; ?></span>
-    <span id="close-nft" class="absolute top-0 bottom-0 right-0 px-3 py-3 <?php echo ($alert_notification == 'success' ) ? 'bg-emerald-200 text-emerald-700' : 'bg-red-200 text-red-700' ;?> cursor-pointer">
-        <i class="fa fa-times text-xl pointer-events-none" aria-hidden="true"></i>
-    </span>
-</div>
+<?php
+    
+    if ($_SESSION['insert_msg'] !== "") {
+        $action = "";
+        if (isset($_POST['delete'])) {
+            $action = "delete";
+        } elseif (isset($_POST['update_doctor'])) {
+            $action = "update";
+        } elseif (isset($_POST['save_doctor'])) {
+            $action = "success";
+        }
 
+        switch ($action) {
+            case 'success':
+                $alert_msg = "Success";
+                $alert_div_color = 'bg-emerald-100 border-emerald-500 text-emerald-700';
+                $alert_btn_color = 'bg-emerald-200 text-emerald-700';
+                break;
+                
+            case 'update':
+                $alert_msg = "Update";
+                $alert_div_color = 'bg-sky-100 border-sky-500 text-sky-700';
+                $alert_btn_color = 'bg-sky-200 text-sky-700';
+                break;
+
+            case 'delete':
+                $alert_msg = "Delete";
+                $alert_div_color = 'bg-red-100 border-red-500 text-red-700';
+                $alert_btn_color = 'bg-red-200 text-red-700';
+                break;
+                
+            default:
+                $alert_msg = "Be Warned";
+                $alert_div_color = 'bg-orange-100 border-orange-500 text-orange-700';
+                $alert_btn_color = 'bg-orange-200 text-orange-700';
+                break;
+        }
+      
+?>
+
+    <div class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color;?> " role="alert">
+        <strong class="font-bold"><?php echo $alert_msg; ?>! &nbsp;</strong>
+        <span class="block sm:inline mr-12"><?php echo  $insert_msg ? $insert_msg : $_SESSION['insert_msg'] ; ?></span>
+        <span onclick="closeNFT(this); <?php $_SESSION['insert_msg'] = null; ?>" class="absolute top-0 bottom-0 right-0 px-3 py-3 <?php echo $alert_btn_color;?> cursor-pointer">
+            <i class="fa fa-times text-xl pointer-events-none" aria-hidden="true"></i>
+        </span>
+    </div>
+
+<?php     
+    }
+?>
 
 <div class="student-container container px-6 mx-auto grid relative">
     <div class="flex items-center border-b">
@@ -286,6 +261,13 @@
                         
                         if ($resultCheck > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
+                                //schedule_status
+                                $status = $row['doctor_status'];
+                                if ($row['doctor_status'] == 1 ) {
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Active</a>";
+                                }else{
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
+                                }
                                 echo 
                                 "
                                 <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
@@ -295,25 +277,18 @@
                                     <td>".$row['phone_number']."</td>
                                     <td>".$row['address']."</td>
                                     <td>".$row['speciality']."</td>
-                                    <td>
-                                        <button class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-sky-100 text-teal-500 font-medium'>
-                                            Active
-                                        </button>
-                                        <button class='hidden px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>
-                                            Inactive
-                                        </button>
-                                    </td>
+                                    <td>$status_insert</td>
             
                                     <td>
                                         <div class='flex items-center space-x-4'>
                                             <a title='View record' href='./action/read.php?viewid=".$row['doctor_id']."' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Update record' href='./action/update.php?updateid=".$row['doctor_id']."'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
+                                            <a title='Update record' href='javascript:displayModal(".$row['doctor_id'].");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                             
-                                            <a title='Delete record' href='./action/delete.php?deletedid=".$row['doctor_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
+                                            <a title='Delete record' href='./doctor_action.php?deletedid=".$row['doctor_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>
@@ -343,7 +318,8 @@
 			</table>
 		</div>
     </div>
- <!-- Start Modal -->   
+ <!-- Start Modal -->
+ <!-- =================================================INSERT DATA INTO THE DB==================================================== -->   
     <div class="modalOpen fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-50 shadow-2xl"
     id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog relative w-auto pointer-events-none  ">
@@ -430,7 +406,7 @@
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
                                     <label for="file-select" class="block">
                                         <span class="sr-only">Choose profile image</span>
-                                        <input id="file-select" type="file" name="  photoImage" onchange="displayImage(this)" placeholder="Choose file" class="block w-full text-sm text-gray-500
+                                        <input id="file-select" type="file" name="photoImage" onchange="displayImage(this)" placeholder="Choose file" class="block w-full text-sm text-gray-500
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-xs file:font-semibold
@@ -468,7 +444,7 @@
                         duration-150
                         ease-in-out">Close</button>
 
-                        <button name="save_doctor" type="submit" class="px-6
+                        <button type="submit" name="save_doctor" class="px-6
                         py-2.5
                         bg-teal-600
                         text-white
@@ -490,11 +466,208 @@
             </form>
         </div>
     </div>
+    <!-- =================================================UPDATE DATA INTO THE DB==================================================== -->
+   
+    <div class="modalOpen_update fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-50 shadow-2xl"
+    id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog relative w-auto pointer-events-none  ">
+            <form action="./action/doctor_action.php" method="post" enctype="multipart/form-data">
+                <div
+                class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
+                    <div
+                        class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                        <h5 class="text-2xl font-medium leading-normal text-gray-600">Update Counselor details</h5>
+                        <button type="button"
+                        class="btn-close-update box-content w-6 h-6 p-1  text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                        data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div id="modalIMP">
+                        <input id="updateID" type="hidden" name="update_id">
+                    </div>
+                    <div class="modal-body relative p-4 text-gray-600">
+                        <div class="row grid md:grid-cols-2 gap-4 ">
+                            <div class="form-group w-full">
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Email address</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <input type="email" value="<?php echo $email; ?>" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                </div>
+                                <span class="text-xs text-red-500"><?php echo $email_err; ?></span>
+                            </div>
+                            <div class="form-group w-full">
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Password</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <input type="password" value="<?php echo $password; ?>" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                </div>
+                                <span class="text-xs text-red-500"><?php echo $password_err; ?></span>
+                            </div>
+                        </div>
+                        <div class="row grid md:grid-cols-2 gap-4 items-center">
+                            <div class="form-group w-full">
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Full name</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <input type="text" value="<?php echo $fullname; ?>" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                </div>
+                                <span class="text-xs text-red-500"><?php echo $fullname_err; ?></span>
+                            </div>
+                            <div class="form-group w-full">
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Phone No.</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <input type="tel" value="<?php echo $phonenumber; ?>" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                </div>
+                                <span class="text-xs text-red-500"><?php echo $phonenumber_err; ?></span>
+                            </div>
+                        </div>
+                        <div class="row grid md:grid-cols-2 gap-4 items-center">
+                            <div class="form-group w-full">
+                                <label class="text-sm font-medium">Address</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <input type="text" value="<?php echo $address; ?>" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                </div>
+                                <span class="text-xs text-red-500"><?php echo $address_err; ?></span>
+                            </div>
+                            <div class="form-group w-full">
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Date of birth</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <input type="date" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-teal-50"     /> 
+                                </div>
+                                <span class="text-xs text-red-500"><?php echo $dateofbirth_err; ?></span>
+                            </div>
+                        </div>
+                        <div class="row grid md:grid-cols-2 gap-4 items-center">
+                            <div class="form-group w-full">
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Degree</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <input type="text" value="<?php echo $degree; ?>" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                </div>
+                                <span class="text-xs text-red-500"><?php echo $degree_err; ?></span>
+                            </div>
+                            <div class="form-group w-full">
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Speciality</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <input type="text" value="<?php echo $speciality; ?>" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                </div>
+                                <span class="text-xs text-red-500"><?php echo $speciality_err; ?></span>
+                            </div>
+                        </div>
+                        <div class="row grid md:grid-cols-2 gap-4 items-center">
+                            <div class="form-group w-full">
+                                <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Image</label>
+                                <div class="input-group flex text-gray-600 w-full rounded py-2">
+                                    <label for="file-select" class="block">
+                                        <span class="sr-only">Choose profile image</span>
+                                        <input id="file-select" type="file" name="photoImage" onchange="displayImage(this)" placeholder="Choose file" class="block w-full text-sm text-gray-500
+                                        file:mr-4 file:py-2 file:px-4
+                                        file:rounded-full file:border-0
+                                        file:text-xs file:font-semibold
+                                        file:bg-teal-50 file:text-teal-700
+                                        hover:file:bg-teal-100
+                                        hover:cursor-pointer
+                                        "/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group w-full">
+                                <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-teal-50">
+                                    <label for="file-select">
+                                        <img id="imageDisplayer"  src="../../images/placeholder.png" class="w-full h-full object-cover border-0">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!--  -->
+                    <div
+                        class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                        <button name="reset_doctor" type="reset" class="px-6 py-2.5 text-teal-700 border-gray-300 font-medium
+                        btn-close-update
+                        text-xs
+                        leading-tight
+                        uppercase
+                        rounded
+                        shadow-md
+                        hover:bg-gray-50 hover:shadow-lg
+                        focus:bg-gray-50 focus:shadow-lg focus:outline-none focus:ring-0
+                        active:bg-gray-50 active:shadow-lg
+                        transition
+                        duration-150
+                        ease-in-out">Close</button>
+
+                        <button name="update_doctor" type="submit" class="px-6
+                        py-2.5
+                        bg-teal-400
+                        text-white
+                        font-medium
+                        text-xs
+                        leading-tight
+                        uppercase
+                        rounded
+                        shadow-md
+                        hover:bg-teal-500 hover:shadow-lg
+                        focus:bg-teal-500 focus:shadow-lg focus:outline-none focus:ring-0
+                        active:bg-teal-600 active:shadow-lg
+                        transition
+                        duration-150
+                        ease-in-out
+                        ml-1">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+
 </div>
-
-
 <!-- End Modal -->
+<!-- ================================CHANGE FROM ACTIVE TO INACTIVE WITH A MODAL====================================== -->
+<!-- CONFIRMATION INACTIVE -> ACTIVE ACCOUNT-->
 
+    <div id="confirm-delete-modal" class="hidden fixed z-20 inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            
+            <div id="confirm-delete-modal-close" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+            <!-- This element is to trick the browser into centering the modal contents. -->
+            <!-- <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span> -->
+            
+                <div class="inline-block relative align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-text-50">
+
+                   <form method="POST" action="./action/update.php">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-teal-100  sm:h-10 sm:w-10">
+                                    <!-- Heroicon name: outline/exclamation -->
+                                    <svg class="h-6 w-6 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div id="modalSTATUS">
+                                    <input id="updateSTATUS" type="hidden" name="updateSTATUS_id">
+                                    <input id="updateSTATUS_TEXT" type="hidden" name="updateSTATUS_TEXT">
+                                    
+                                </div>
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    
+                                    <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Desactivate account</h3>
+                                    <div class="mt-2">
+                                    <p class="text-sm text-gray-500">Are you sure you want to do this? this will disable +this user credentials+ and who be able to connect or login.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="submit" name="update_status" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Change Status</button>
+                            <a href="./doctors.php" class="mt-3 w-full inline-flex justify-center rounded-md border border-teal-300 shadow-sm px-5 py-2 bg-white text-base font-medium text-teal-600 hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">  
+                                Cancel
+                            </a>    
+                        </div>
+                    </form>
+                </div>  
+        </div>
+    </div>
 <?php
     include './asset/Footer.php'
 ?>

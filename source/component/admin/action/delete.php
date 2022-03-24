@@ -2,21 +2,23 @@
 # include config file
 require_once "../../../php/config.php";
 //Process delete operation after confirmation
-if (isset($_GET["deletedid"]) && !empty($_GET["deletedid"])) {
-    $deleteId  = $_GET["deletedid"];
+// if (isset($_GET["deletedid"])) {
+//     $deleteId  = $_GET["deletedid"];
     
-    #prepare a delete statment
-    $sql = "DELETE FROM doctors WHERE doctor_id=$deleteId";
+//     #prepare a delete statment
+//     $sql = "DELETE FROM doctors WHERE doctor_id=$deleteId";
 
-    $result = mysqli_query($link, $sql);
-    if ($result) {
-        echo "Deleted sucess";
-        header("location: ../doctors.php");
-    }else {
-        echo "Oops! Something went wrong. Please try later";
-        die(mysqli_error($link));
-    }
-}
+//     $result = mysqli_query($link, $sql);
+//     if ($result) {
+//         $_SESSION['insert_msg'] = "Deleted successfully.";
+//         $_SESSION['alert_notification'] = "delete";
+//         header("location: ../doctors.php");
+//     }else {
+//         echo "Oops! Something went wrong. Please try later";
+//         die(mysqli_error($link));
+//     }
+// }
+
   //DELETING DOCTOR FROM THE DATABASE
 //   if (isset($_POST["doctor_id"]) && !empty($_POST["doctor_id"]))   {
 

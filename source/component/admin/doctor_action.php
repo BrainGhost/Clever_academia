@@ -1,5 +1,5 @@
 <?php
-    include("../../../php/config.php");
+    include("../../php/config.php");
 
 
     
@@ -13,7 +13,7 @@
         if ($result) {
             $_SESSION['insert_msg'] = "Deleted successfully.";
             $_SESSION['alert_notification'] = "delete";
-            header("location: ../doctors.php");
+            header("location: ./doctors.php");
         }else {
             echo "Oops! Something went wrong. Please try later";
             die(mysqli_error($link));
@@ -38,7 +38,7 @@
             if($result){
                 $_SESSION['insert_msg'] = "Status change successfully.";
                 $_SESSION['alert_notification'] = "success";
-                header("location: ../doctors.php");
+                header("location: ./doctors.php");
             }else{
                 echo "Oops! Something went wrong. Please try later";
                 die(mysqli_error($link));
@@ -61,7 +61,7 @@ if(isset($_POST["update_doctor"]))
 
     #image upload
     $photoImageName = time() .'_'. $_FILES["photoImage"]["name"];
-    $target_location = '../../../images/' . $photoImageName;
+    $target_location = '../../images/' . $photoImageName;
 
     //statement
     $sql = "UPDATE doctors SET fullname='$fullname',email='$email',password='$password',address='$address',phone_number='$phonenumber',date_of_birth='$dateofbirth',speciality='$speciality',degree='$degree',image='?' WHERE doctor_id= $update_id ";
@@ -69,7 +69,7 @@ if(isset($_POST["update_doctor"]))
     if($result){
         $_SESSION['insert_msg'] = "Updated successfully.";
         $_SESSION['alert_notification'] = "update";
-        header("location: ../doctors.php");
+        header("location: ./doctors.php");
     }else{
         echo "Oops! Something went wrong. Please try later";
         die(mysqli_error($link));
