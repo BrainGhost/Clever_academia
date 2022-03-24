@@ -65,7 +65,8 @@
                 $_SESSION["id"] = $id;
                 $_SESSION["username"] = $username;
                 $_SESSION["email"] = $email; 
-                $_SESSION["level"] = "student"; 
+                $_SESSION["level"] = "student";
+                $_SESSION["insert_msg"] = "";
 
                 // Redirect user to welcome page
                 header("location: ../component/student/index.php");
@@ -80,6 +81,7 @@
                 $_SESSION["username"] = $username;
                 $_SESSION["email"] = $email;
                 $_SESSION["level"] = "counselor";
+                $_SESSION["insert_msg"] = "";
 
                 // Redirect user to welcome page
                 header("location: ../component/counselor/index.php");
@@ -94,6 +96,8 @@
                 $_SESSION["username"] = $username;
                 $_SESSION["email"] = $email;
                 $_SESSION["level"] = "admin";
+                $_SESSION["level"] = "admin";
+                $_SESSION["insert_msg"] = "";
 
                 // Redirect user to welcome page
                 header("location: ../component/admin/index.php");

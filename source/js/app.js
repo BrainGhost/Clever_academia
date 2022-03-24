@@ -56,7 +56,7 @@ openModalBtn_update.forEach((btn) => {
     inputField.remove();
   });
 });
-
+//update function
 function displayModal(e) {
   modalOpen_update.classList.toggle("hidden");
   myModal.classList.toggle("hidden");
@@ -70,6 +70,7 @@ function displayModal(e) {
   //apend this field to the modal
   formModal.appendChild(inputField);
 }
+
 // The modal will close when the user clicks anywhere outside the modal
 window.onclick = function (event) {
   if (event.target == myModal) {
@@ -142,10 +143,17 @@ function displayImage(e) {
 function alertModal(e) {
   modalUsed.classList.toggle("hidden");
 }
-function alertModal_delete(e) {
+// =====================CONFIRM MODAL============================
+function displayModal_inactive(e, status) {
   modalUsed_delete.classList.toggle("hidden");
-}
 
+  const updateSTATUS = document.querySelector("#updateSTATUS");
+  const updateSTATUS_TEXT = document.querySelector("#updateSTATUS_TEXT");
+  // updateSTATUS.setAttribute("value", e);
+  updateSTATUS.setAttribute("value", e);
+  updateSTATUS_TEXT.setAttribute("value", status);
+}
+// ======================END CONFIRM MODAL===========================
 //Close function notifcation modal
 function close_funct(e) {
   e.parentNode.parentNode.parentNode.parentNode.parentNode.classList.toggle(

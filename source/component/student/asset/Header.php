@@ -276,27 +276,13 @@
       </aside>
       <!-- Mobile sidebar -->
       <!-- Backdrop -->
-      <!-- <div
-        x-show="isSideMenuOpen"
-        x-transition:enter="transition ease-in-out duration-150"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in-out duration-150"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
-      ></div> -->
+      <div
+        id="isSideMenuOpen"
+        class="hidden fixed inset-0 z-10 bg-black bg-opacity-30"
+      ></div>
       <aside
-        class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden"
-        x-show="isSideMenuOpen"
-        x-transition:enter="transition ease-in-out duration-150"
-        x-transition:enter-start="opacity-0 transform -translate-x-20"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in-out duration-150"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0 transform -translate-x-20"
-        @click.away="closeSideMenu"
-        @keydown.escape="closeSideMenu"
+        class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden transition-all ease-in-out duration-500 delay-100 transform -translate-x-[16rem]"
+        id="closeSideMenu"
       >
         <div class="py-4 text-gray-500">
           <div class="">
@@ -521,22 +507,13 @@
           >
             <!-- Mobile hamburger -->
             <button
-              class="p-1 -ml-1 mr-5 rounded-md md:hidden focus:outline-none focus:shadow-outline-teal"
-              @click="toggleSideMenu"
+              class="p-1 -ml-1 mr-5 rounded-md md:hidden focus:outline-none flex items-center"
+              id="toggleSideMenu"
               aria-label="Menu"
             >
-              <svg
-                class="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
+            <i class="text-2xl fa fa-bars pointer-events-none" aria-hidden="true"></i>
+            <i class="text-2xl fa fa-times pointer-events-none hidden" aria-hidden="true"></i>
+              
             </button>
             <!-- Search input -->
             <div class="flex justify-center flex-1 lg:mr-32">

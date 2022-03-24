@@ -10,7 +10,7 @@ date_default_timezone_set("Africa/Nairobi");
 
 // define variable and initialixze them with an empty string
 $doctor_id = $doctor_schedule_date = $doctor_schedule_day = $doctor_schedule_start_time = $doctor_schedule_end_time = $average_consulting_time = "";
-$doctor_schedule_date_err = $doctor_schedule_start_time_err = $doctor_schedule_end_time_err = $average_consulting_time_err = $insert_msg = $alert_notification = "";
+$doctor_schedule_date_err = $doctor_schedule_start_time_err = $doctor_schedule_end_time_err = $average_consulting_time_err = $insert_msg = $alert_notification = $status_insert = "";
 
 if($_SESSION["level"] == "counselor"){
     $doctor_id = $_SESSION["id"];
@@ -58,6 +58,8 @@ if(isset($_POST["add"]))
         $average_consulting_time = trim($_POST['average_consulting_time']);
     }
 
+    
+
     #insert data into the database if all the errors are cleared
     if (empty($doctor_id_err) && empty($doctor_schedule_date_err) && empty($doctor_schedule_start_time_err) && empty($doctor_schedule_end_time_err) && empty($average_consulting_time_err)) {
         # insert the data if all errors are lifted
@@ -96,8 +98,11 @@ if(isset($_POST["add"]))
     /* <?php echo ($alert_notification == 'success' ) ? 'Success' : 'Update' ;?> -> alert_msg*/
     /* <?php echo ($alert_notification == 'success' ) ? 'Success' : 'Update' ;?> -> alert_div_color*/
     /* <?php echo ($alert_notification == 'success' ) ? 'Success' : 'Update' ;?> -> alert_btn_color */
-    
-    
+    // $_SESSION["insert_msg"] = "junior";
+    // if ($_SESSION["insert_msg"] = "junior") {
+    //     $_SESSION["insert_msg"] = null;
+    // } 
+
     
     if ($_SESSION['insert_msg'] !== "") {
         $action = "";
@@ -201,13 +206,21 @@ if(isset($_POST["add"]))
 				</thead>
 				<tbody>
                     <?php
+                        
                         //Display data into the table
-                        $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, average_consulting_time, doctor_id FROM doctor_schedule;";
+                        $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, average_consulting_time, schedule_status, doctor_id FROM doctor_schedule;";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
 
                         if ($resultCheck > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
+                                //schedule_status
+                                $status = $row['schedule_status'];
+                                if ($row['schedule_status'] == 1 ) {
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_schedule_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Active</a>";
+                                }else{
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_schedule_id'].",".$status.");' type='button' name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
+                                }
                                 echo
                                 "
                                 <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
@@ -216,15 +229,10 @@ if(isset($_POST["add"]))
                                     <td>".$row['doctor_schedule_start_time']."</td>
                                     <td>".$row['doctor_schedule_end_time']."</td>
                                     <td>".$row['average_consulting_time']." Minutes</td>
-                                    <td>
-                                        <a href='javascript:displayModal(".$row['doctor_schedule_id'].");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-sky-100 text-teal-500 font-medium'>Active</a>
-
-                                        <button type='button' name='change_status' value='Inactive'  class='hidden px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'></button
-
-                                    </td>
+                                    <td>$status_insert</td>
                                     <td>
                                         <div class='flex items-center'>
-                                            <a href='#?update_id=".$row['doctor_schedule_id']."' data-userid='openModalBtn_update' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                            <a href='javascript:displayModal(".$row['doctor_schedule_id'].");'  class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                             <a href='schedule_action.php?delete_id=".$row['doctor_schedule_id']."' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 ml-5 transition duration-150 ease-in-out'>
@@ -386,11 +394,6 @@ if(isset($_POST["add"]))
         //     }
         
         // }
-
-        
-
-        #close connection
-        mysqli_close($link);
     ?>
 
 
@@ -469,7 +472,7 @@ if(isset($_POST["add"]))
                             <span class="text-xs text-red-500"><?php echo $average_consulting_time_err; ?></span>
                         </div>
                     </div>
-                    <!--  -->
+                    <!-- button -->
                     <div
                         class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
                         <button type="reset" name="close" class="px-6 py-2.5 text-sky-500 border-sky-300 font-medium
@@ -510,8 +513,75 @@ if(isset($_POST["add"]))
     </div>
 </div>
 
+<!-- ================================CHANGE FROM ACTIVE TO INACTIVE WITH A MODAL====================================== -->
+<!-- CONFIRMATION INACTIVE -> ACTIVE ACCOUNT-->
+<?php
 
-<!-- Modal -->
+    // if(isset($_POST['update_status'])){
+    //     $next_status = "active";
+    //     // if ($row['schedule_status'] == 'active') {
+    //     //     $next_status = 'inactive';
+    //     // }else{
+    //     //     $next_status = 'active';
+    //     // }
+    //     $updateSTATUS_id = trim($_POST['updateSTATUS_id']);
+    //     $sql = "UPDATE doctor_schedule SET schedule_status='$next_status' WHERE doctor_schedule_id= $updateSTATUS_id ";
+    //     $result = mysqli_query($link, $sql);
+    //         if($result){
+    //             $insert_msg = "Status change successfully.";
+    //             $alert_notification = "success";
+    //         }else{
+    //             echo "Oops! Something went wrong. Please try later";
+    //             die(mysqli_error($link));
+    //         }
+    // }
+
+    #close connection
+    mysqli_close($link);
+?>
+    <div id="confirm-delete-modal" class="hidden fixed z-20 inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            
+            <div id="confirm-delete-modal-close" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+            <!-- This element is to trick the browser into centering the modal contents. -->
+            <!-- <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span> -->
+            
+                <div class="inline-block relative align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-text-50">
+
+                   <form method="POST" action="./schedule_action.php">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-teal-100  sm:h-10 sm:w-10">
+                                    <!-- Heroicon name: outline/exclamation -->
+                                    <svg class="h-6 w-6 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div id="modalSTATUS">
+                                    <input id="updateSTATUS" type="hidden" name="updateSTATUS_id">
+                                    <input id="updateSTATUS_TEXT" type="hidden" name="updateSTATUS_TEXT">
+                                    
+                                </div>
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    
+                                    <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Change status mteal</h3>
+                                    <div class="mt-2">
+                                    <p class="text-sm text-gray-500">Are you sure you want to change the status of this data? data may be disable or enable. Click it again to undone the changes.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="submit" name="update_status" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Change Status</button>
+                            <a href="./index.php" class="mt-3 w-full inline-flex justify-center rounded-md border border-teal-300 shadow-sm px-5 py-2 bg-white text-base font-medium text-teal-600 hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">  
+                                Cancel
+                            </a>    
+                        </div>
+                    </form>
+                </div>  
+        </div>
+    </div>
 
 <?php
     include './asset/Footer.php'
