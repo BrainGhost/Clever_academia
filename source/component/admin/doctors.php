@@ -651,7 +651,7 @@
                                 </div>
                                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                     
-                                    <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Desactivate account</h3>
+                                    <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Change account status</h3>
                                     <div class="mt-2">
                                     <p class="text-sm text-gray-500">Are you sure you want to do this? this will disable +this user credentials+ and who be able to connect or login.</p>
                                     </div>

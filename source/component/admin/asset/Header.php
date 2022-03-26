@@ -1,18 +1,11 @@
 <?php
+ob_start();
   //Initialize the session
   session_start();
-/*  */
-/*  */
   //check if the user is logged in, if not the redirect him to the login page
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)   {
       header("location: ../../pages/index.php");
-      exit; 
   }
-  // echo $_SESSION["level"];
-  // if ($_SESSION["level"] !== "admin") {
-  //   header("location: ../../pages/index.php");
-  //   exit; 
-  // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,28 +155,7 @@
                 <span class="ml-4">Doctors</span>
               </a>
             </li>
-            <li class="relative px-6 py-3">
-              <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
-              >
-                <svg
-                  class="w-5 h-5"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                  ></path>
-                </svg>
-                <span class="ml-4">Appointments</span>
-              </a>
-            </li>
+
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
@@ -346,28 +318,6 @@
                   ></path>
                 </svg>
                 <span class="ml-4">Doctors</span>
-              </a>
-            </li>
-            <li class="relative px-6 py-3">
-              <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
-              >
-                <svg
-                  class="w-5 h-5"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                  ></path>
-                </svg>
-                <span class="ml-4">Appointments</span>
               </a>
             </li>
             <li class="relative px-6 py-3">
@@ -555,9 +505,7 @@
               <!-- Profile menu -->
               <li class="relative dropdown">
                 <div class="dropdown_button cursor-pointer text-sm font-medium text-gray-600">
-                  <span class="pr-2">
-                    <?php echo htmlspecialchars($_SESSION["username"]);?>
-                  </span>
+                  <span class="pr-2"><?php echo htmlspecialchars($_SESSION["username"]);?></span>
                   <button
                   class="user_icon align-middle rounded-full border-2 border-white outline-1 outline-teal-600 focus:outline-none"
                 >
