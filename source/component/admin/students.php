@@ -108,8 +108,9 @@
 
 			</table>
 		</div>
-         <!-- Start Modal -->
- <!-- =================================================INSERT DATA INTO THE DB==================================================== -->   
+    </div>
+        <!-- Start Modal -->
+    <!-- =================================================INSERT DATA INTO THE DB==================================================== -->   
     <div class="modalOpen fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-50 shadow-2xl"
     id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog relative w-auto pointer-events-none  ">
@@ -255,10 +256,6 @@
                 </div>
             </form>
         </div>
-    </div>
-
-
-
     </div>
 </div>
 

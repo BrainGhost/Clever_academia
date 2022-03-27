@@ -7,14 +7,15 @@
 
     //define variables and initialize with empty values
     $resource_name = $ofYear = $file =  "";
-    $resource_name_err = $ofYear_err = $file = $insert_msg_err = "";
+    $resource_name_err = $ofYear_err = $file_err = $insert_msg_err = "";
 
     #############################################
     // change the timezone from berlin to kenya/nairobi
     date_default_timezone_set("Africa/Nairobi");
+    
 
+    # Insert resources into the DB
     $author = $_SESSION['username'];
-
     
     if(isset($_POST["upload_resource"])){
         //validate name
@@ -26,17 +27,18 @@
         //year
         if (empty($_POST['ofYear'])) {
             $ofYear_err = "Please enter the year of the document.";
-        }elseif (trim($_POST['ofYear']) > date('Y-m-d') ) {
+        }elseif (trim($_POST['ofYear']) > date("Y")) {
             # check if the date inserted is > to the current data
-            $ofYear_err = "Invalid date.";
+            $ofYear_err = "Invalid year.";
         }else {
-            $ofYear = date("Y-m-d", strtotime(trim($_POST['ofYear'])));
+            $ofYear = trim($_POST['ofYear']);
         }
+        
         // //resources
         // if (empty($_POST['resource_image'])) {
         //     $file_err = "Please enter the file.";
         // }
-        $file = "jun";
+        
         #date of creation
         $created_on = date("Y-m-d");
 
@@ -46,16 +48,49 @@
             $status = "processing";
         }
 
-        if (empty($resource_name_err) && empty($ofYear_err)) {
+        if (empty($resource_name_err) && empty($ofYear_err) && empty($file_err)) {
             # file upload [pdf, word, img]
+            # upload file, [PDF, WORD, PNG and JPEG] ==================START======================
+        $fileName = $_FILES['resource_image']['name'];
+        $fileTmpName = $_FILES['resource_image']['tmp_name'];
+        $fileSize = $_FILES['resource_image']['size'];
+        $fileType = $_FILES['resource_image']['type'];
+        $fileError = $_FILES['resource_image']['error'];
 
+        $fileExt = explode('.', $fileName);
+        
+        $fileActualExt = strtolower(end($fileExt));
+
+        $allowed = array('jpg', 'jpeg', 'png', 'pdf', 'word');
+
+        if (in_array($fileActualExt, $allowed)) {
+            if ($fileError === 0) {
+                if ($fileSize < 2000000) { //no more than 2mb = 2.000.000
+                    $fileNameNew = $resource_name.'-'.$ofYear.'_'.time().'.'.$fileActualExt;
+                    $fileDestination = '../../resources/'.$fileNameNew;
+                    $fileStored = move_uploaded_file($fileTmpName, $fileDestination);
+                    if ($fileStored === true ) {
+                        $file = $fileNameNew;
+                    }else{
+                        echo "The file was not uploaded to the DB";
+                    }
+                }else{
+                    echo "Your file is too large."; 
+                }
+            }else{
+                echo "There were an error uploading this file.";
+            }
+        }else{
+            echo "you can not upload file of this type.";
+        }
+        # =========================================END================================================
             #status = approve, processing, denied
             #sql
             $sql = "INSERT INTO resources(resource_name, ofyear, resource_file, created_on, author, resource_status) VALUES ('$resource_name','$ofYear','$file','$created_on','$author','$status')";
             $result = mysqli_query($link, $sql);
             if($result){
                 $_SESSION['insert_msg'] = "Resources inserted successfully.";
-                $_SESSION['alert_notification'] = "success";
+                $_SESSION['alert_notification_resources'] = 'success';
                 header("location: ./resources.php");
                 
             }else{
@@ -84,7 +119,7 @@
             </a>
         </button>
     </div>
-    <div class="form mt-4  w-[1000px] h-auto outline-none overflow-x-hidden overflow-y-auto z-50 shadow-xl"
+    <div class="form mt-4 lg:w-[700px] h-auto outline-none overflow-x-hidden overflow-y-auto z-50 shadow-xl"
     id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="relative w-auto pointer-events-none  ">
             <form method="post" enctype="multipart/form-data">
@@ -100,20 +135,20 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Name</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" name="resource_name" placeholder="Name of the Item" value="<?php echo $resource_name; ?>" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" name="resource_name" placeholder="Name of the Item" value="<?php echo $resource_name; ?>" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $resource_name_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Year</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="date" value="<?php echo $ofYear; ?>" name="ofYear" id="ofYear" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-teal-50"     /> 
+                                    <input type="number" min="2000" max="2050" maxlength="4" step="1" placeholder="<?php echo date("Y");?>"  name="ofYear" id="ofYear" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded" /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $ofYear_err; ?></span>
                             </div>
                         </div>
                         
-                        <div class="row grid md:grid-cols-2 gap-4 items-center">
+                        <div class="row grid grid-cols-2 gap-4 items-center">
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Image</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
@@ -129,10 +164,11 @@
                                         "/>
                                     </label>
                                 </div>
+                                <span class="text-xs text-red-500"><?php echo $file_err; ?></span>
                             </div>
                             <div class="form-group w-full">
-                                <div class="border-2 border-white rounded outline outline-2 outline-gray-100 w-60 h-80 overflow-hidden bg-white">
-                                    <label for="file-select">
+                                <div class="border-2 border-white rounded outline outline-2 outline-gray-100 w-60 h-80 overflow-hidden bg-white grid place-items-center">
+                                    <label for="file-select" class="">
                                         <img id="imageDisplay"  src="../../images/camera.png" class="w-full h-full object-contain border-0">
                                     </label>
                                 </div>
@@ -181,7 +217,7 @@
     </div>
 </div>
 
-<!-- End Modal -->
+
 
 <?php
     include './asset/Footer.php'

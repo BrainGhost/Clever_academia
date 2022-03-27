@@ -108,225 +108,221 @@
 
 			</table>
 		</div>
-                 <!-- Start Modal -->
- <!-- =================================================INSERT DATA INTO THE DB==================================================== -->   
-    <div class="modalOpen fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-[440px] outline-none overflow-x-hidden overflow-y-auto scrollbar-hi20 hover:bg-opacity-50 z-50 shadow-2xl"
-    id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog relative w-auto pointer-events-none  ">
-                <div
-                class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
+    </div>
+             <!-- Start Modal -->
+        <!-- ===========================================INSERT DATA INTO THE DB==================================================== -->   
+        <div class="modalOpen fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-[440px] outline-none overflow-x-hidden overflow-y-auto scrollbar-hi20 hover:bg-opacity-50 z-50 shadow-2xl"
+        id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog relative w-auto pointer-events-none  ">
                     <div
-                        class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-                        <h5 class="text-2xl font-medium leading-normal text-gray-600">Mentor requests</h5>
-                        <button type="button"
-                        class="btn-close box-content w-6 h-6 p-1  text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-                        data-bs-dismiss="modal" aria-label="Close">
-                            <i class="fa fa-times text-xl"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body relative p-4 text-gray-600 bg-white">
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
+                    class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
+                        <div
+                            class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                            <h5 class="text-2xl font-medium leading-normal text-gray-600">Mentor requests</h5>
+                            <button type="button"
+                            class="btn-close box-content w-6 h-6 p-1  text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                            data-bs-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times text-xl"></i>
+                            </button>
                         </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                        <div class="modal-body relative p-4 text-gray-600 bg-white">
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
                                 </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
                                 </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
                                 </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
+                            </div>
+                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
+                                <div class=" flex flex-1 p-2">
+                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
+                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="details flex-1 ml-3 overflow-hidden">
+                                        <a class="font-medium text-gray-800">Junior balibonera</a>
+                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
+                                    </div>   
+                                    <div class="times text-gray-800 uppercase">
+                                        <span>11:30 am</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
+                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
+                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
+                                </div>   
                             </div>
                             
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
-                        </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
                             
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
-                        </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
-                        </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
-                        </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
-                        </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
-                        </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
-                        </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
-                        </div>
-                        <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                            <div class=" flex flex-1 p-2">
-                                <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                    <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                </div>
-                                <div class="details flex-1 ml-3 overflow-hidden">
-                                    <a class="font-medium text-gray-800">Junior balibonera</a>
-                                    <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                </div>   
-                                <div class="times text-gray-800 uppercase">
-                                    <span>11:30 am</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                            </div>   
                         </div>
                         
-                        
                     </div>
-                    
-                </div>
+            </div>
         </div>
-    </div>
-
-
-
-
-    </div>
 </div>
 
 <!-- End Modal -->

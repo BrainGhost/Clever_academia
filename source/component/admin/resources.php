@@ -3,19 +3,19 @@
     include ('./asset/Header.php');
 
 // <!-- NOTIFICATION ALERTS -->
-
 $insert_msg = "";
 
 if ($_SESSION['insert_msg'] !== "") {
         $action = "";
-        if ($_SESSION['alert_notification'] = "delete") {
-            $action = "delete";
-        } elseif ($_SESSION['alert_notification'] = "update") {
-            $action = "update";
-        } elseif ($_SESSION['alert_notification'] = "success") {
-            $action = "success";
-        }
+        // if ($_SESSION['alert_notification_resources'] = 'delete') {
+        //     $action = "delete";
+        // } elseif ($_SESSION['alert_notification_resources'] = 'update') {
+        //     $action = "update";
+        // } elseif ($_SESSION['alert_notification_resources'] = 'success') {
+        //     $action = $_SESSION['alert_notification_resources'];
+        // }
 
+        $action = $_SESSION['alert_notification_resources'];
         switch ($action) {
             case 'success':
                 $alert_msg = "Success";
@@ -53,14 +53,19 @@ if ($_SESSION['insert_msg'] !== "") {
 <?php     
     }
 ?>
+<!--Overlay Effect-->
+<div
+	class="absolute hidden inset-0 bg-gray-600 bg-opacity-60 overflow-y-auto h-full w-full z-20"
+	id="my-modal"
+></div>
 <!-- Remove everything INSIDE this div to a really blank page -->
 <div class="student-container container px-6 mx-auto grid relative">
     <div class="flex items-center border-b">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 flex-1">
             E-resources management
         </h2>
-        <span class="">
-            <i class="fa fa-book text-teal-600 hover:text-teal-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+        <span class="openModalBtn">
+            <i class="fa fa-book text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
@@ -130,14 +135,13 @@ if ($_SESSION['insert_msg'] !== "") {
             
                                     <td>
                                         <div class='flex items-center space-x-4'>
-                                            <a title='View record' href='./action/read.php?viewid=".$row['resource_id']."' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                            <a title='Download resource' href=''   class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                                <i class='fa fa-download  cursor-pointer text-lg' aria-hidden='true'></i>
+                                            </a>
+                                            <a title='View resource' href='./view.php?viewId=".$row['resource_id']." && viewName=".$row['resource_name']."' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Update record' href='javascript:displayModal(".$row['resource_id'].");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
-                                            </a>
-                                            
-                                            <a title='Delete record' href='./doctor_action.php?deletedid=".$row['resource_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
+                                            <a title='Delete resource' href='./doctor_action.php?deletedid=".$row['resource_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>

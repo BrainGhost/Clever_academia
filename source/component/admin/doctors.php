@@ -129,6 +129,8 @@
                 $param_image = $photoImageName;
                 $param_status = 0;
 
+                 #insert the username and password to the credential talle 
+                 $sql = "INSERT INTO credentials(username, email, password, level) VALUES ('$param_fullname ','$param_email','$param_password','counselor')";
                 
 
                 // Attempt to execute the prepared statement

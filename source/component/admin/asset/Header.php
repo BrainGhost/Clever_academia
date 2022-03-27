@@ -529,4 +529,4 @@ ob_start();
             </ul>
           </div>
         </header>
-        <main class="h-full pb-16 overflow-y-auto">
+        <main class="h-full overflow-y-auto">
