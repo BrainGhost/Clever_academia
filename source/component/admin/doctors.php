@@ -103,11 +103,11 @@
         #Confirm if there is no error before preceddding
         if (empty($fullname_err) && empty($email_err) && empty($password_err) && empty($phonenumber_err) && empty($dateofbirth_err) && empty($speciality_err) && empty($degree_err) ) {
             #image upload
+            
             $photoImageName = time() .'_'. $_FILES["photoImage"]["name"];
+            $photo_tmp_name = $_FILES["photoImage"]["tmp_name"];
             $target_location = '../../images/' . $photoImageName;
-            // if(move_uploaded_file($_FILES["photoImage"]["tmp_name"], $target_location)){
-
-            // }
+            
             
             // # prepare insert data in the database
             $sql = "INSERT INTO doctors(fullname, email, password, level, address, phone_number, date_of_birth, speciality, degree, image, doctor_status) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
@@ -129,14 +129,19 @@
                 $param_image = $photoImageName;
                 $param_status = 0;
 
-                 #insert the username and password to the credential talle 
-                 $sql = "INSERT INTO credentials(username, email, password, level) VALUES ('$param_fullname ','$param_email','$param_password','counselor')";
                 
-
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
-                    $insert_msg = "Record inserted successfully.";
-                    $alert_notification = "success";
+                    #insert the username and password to the credential talle 
+                    $sql = "INSERT INTO credentials(username, email, password, profile, level) VALUES ('$param_fullname ','$param_email','$param_password', '$param_image','counselor')";
+                    $result = mysqli_query($link, $sql);
+                    if ($result) {
+                        move_uploaded_file($photo_tmp_name, $target_location);
+                        $insert_msg = "Record inserted successfully.";
+                        $alert_notification = "success";
+                    }else{
+                        echo '<script type="text/javascript"> alert("FAILED!! Not inserted")</script>';
+                    }
                     
                 } else{
                     $insert_msg = "Records not saved.";
@@ -244,13 +249,14 @@
 				<thead class="bg-teal-600 border-b">
 					<tr class="text-sm font-medium text-teal-50 text-left">
 						<th data-priority="1">Doctor ID</th>
-                        <th data-priority="2">Doctor name</th>
-						<th data-priority="3">Email address</th>
-                        <th data-priority="4">Doctor phone No.</th>
-                        <th data-priority="5">Doctor speciality</th>
-						<th data-priority="6">Speciality</th>
-						<th data-priority="7">Status</th>
-						<th data-priority="8">Action</th>
+						<th data-priority="2">Profile</th>
+                        <th data-priority="3">Doctor name</th>
+						<th data-priority="4">Email address</th>
+                        <th data-priority="5">Doctor phone No.</th>
+                        <th data-priority="6">Doctor speciality</th>
+						<th data-priority="7">Speciality</th>
+						<th data-priority="8">Status</th>
+						<th data-priority="9">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -259,44 +265,43 @@
                         $sql  = "SELECT * FROM doctors;";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
-                        #continue in the table itself
                         
                         if ($resultCheck > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                //schedule_status
-                                $status = $row['doctor_status'];
+                            while ($row = mysqli_fetch_assoc($result)) {         
+                                $status = $row['doctor_status'];    
                                 if ($row['doctor_status'] == 1 ) {
                                     $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Active</a>";
                                 }else{
                                     $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
                                 }
-                                echo 
-                                "
-                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
-                                    <td>".$row['doctor_id']."</td>
-                                    <td>".$row['fullname']."</td>
-                                    <td>".$row['email']."</td>
-                                    <td>".$row['phone_number']."</td>
-                                    <td>".$row['address']."</td>
-                                    <td>".$row['speciality']."</td>
-                                    <td>$status_insert</td>
-            
+                                ?>
+
+                                <tr class='display_image bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
+                                    <td><?php echo $row['doctor_id'] ?></td>
+                                    <td><img src="<?php echo "../../images/".$row['image']; ?>" alt="Image" class="w-20 h-20"></td>
+                                    <td><?php echo $row['fullname'] ;?></td>
+                                    <td><?php echo $row['email'] ;?></td>
+                                    <td><?php echo $row['phone_number'] ?></td>
+                                    <td><?php echo $row['address'] ?></td>
+                                    <td><?php echo $row['speciality'] ?></td>
+                                    <td><?php echo $status_insert ?></td>
                                     <td>
                                         <div class='flex items-center space-x-4'>
-                                            <a title='View record' href='./action/read.php?viewid=".$row['doctor_id']."' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                            <a title='View record' href='./action/read.php?viewid="<?php $row['doctor_id'] ?>"' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Update record' href='javascript:displayModal(".$row['doctor_id'].");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
+                                            <a title='Update record' href='javascript:displayModal("<?php $row['doctor_id'] ?>");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                             
-                                            <a title='Delete record' href='./doctor_action.php?deletedid=".$row['doctor_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
+                                            <a title='Delete record' href='./doctor_action.php?deletedid="<?php $row['doctor_id'] ?>"'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>
                                     </td>
                                 </tr>
-                                ";  
+                                
+                            <?php     
                             }
                             mysqli_free_result($result);
                         }else{

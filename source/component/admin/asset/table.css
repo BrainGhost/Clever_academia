@@ -6,3 +6,6 @@ th {
 td {
   padding: 1rem 1.5rem;
 }
+tr.display_image td {
+  padding: 0 !important;
+}

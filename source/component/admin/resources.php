@@ -119,7 +119,7 @@ if ($_SESSION['insert_msg'] !== "") {
 
                                 $author_display = $row['author'];
                                 if ($author_display = $_SESSION["username"]) {
-                                    $author_name = "me";
+                                    $author_name = "Me";
                                 }else {
                                     $author_name = $row['author'];
                                 }
@@ -132,7 +132,6 @@ if ($_SESSION['insert_msg'] !== "") {
                                     <td>$author_name</td>
                                     <td>".$row['created_on']."</td>
                                     <td>$status_insert</td>
-            
                                     <td>
                                         <div class='flex items-center space-x-4'>
                                             <a title='Download resource' href=''   class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
