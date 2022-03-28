@@ -5,15 +5,18 @@
     
     if (isset($_GET["deletedid"])) {
         $deleteId  = $_GET["deletedid"];
-        
+        $deleteEmail  = $_GET["deletedemail"];
         #prepare a delete statment
         $sql = "DELETE FROM doctors WHERE doctor_id=$deleteId";
     
         $result = mysqli_query($link, $sql);
         if ($result) {
-            $_SESSION['insert_msg'] = "Deleted successfully.";
-            $_SESSION['alert_notification'] = "delete";
-            header("location: ./doctors.php");
+            $sql =  "DELETE FROM credentials WHERE email = $deleteEmail";
+            if(mysqli_query($link, $sql)){
+                $_SESSION['insert_msg'] = "Deleted successfully.";
+                $_SESSION['alert_notification'] = "delete";
+                header("location: ./doctors.php");
+            }
         }else {
             echo "Oops! Something went wrong. Please try later";
             die(mysqli_error($link));
@@ -58,18 +61,23 @@ if(isset($_POST["update_doctor"]))
     $dateofbirth = date("Y-m-d", strtotime(trim($_POST['dateofbirth']))) ;
     $speciality= trim($_POST['speciality']);
     $degree = trim($_POST['degree']);
+    #
 
     #image upload
-    $photoImageName = time() .'_'. $_FILES["photoImage"]["name"];
+    $photo = $_FILES["photoImager"];
+    echo print_r($photo);
+    $photoImageName = time() .'_'. $_FILES["photoImager"]["name"];
+    $photo_tmp_name = $_FILES["photoImager"]["tmp_name"];
     $target_location = '../../images/' . $photoImageName;
 
     //statement
-    $sql = "UPDATE doctors SET fullname='$fullname',email='$email',password='$password',address='$address',phone_number='$phonenumber',date_of_birth='$dateofbirth',speciality='$speciality',degree='$degree',image='?' WHERE doctor_id= $update_id ";
+    $sql = "UPDATE doctors SET fullname='$fullname',email='$email',password='$password',address='$address',phone_number='$phonenumber',date_of_birth='$dateofbirth',speciality='$speciality',degree='$degree',image=' $photoImageName' WHERE doctor_id= $update_id ";
     $result = mysqli_query($link, $sql);
     if($result){
+        move_uploaded_file($photo_tmp_name, $target_location);
         $_SESSION['insert_msg'] = "Updated successfully.";
         $_SESSION['alert_notification'] = "update";
-        header("location: ./doctors.php");
+        // header("location: ./doctors.php");
     }else{
         echo "Oops! Something went wrong. Please try later";
         die(mysqli_error($link));

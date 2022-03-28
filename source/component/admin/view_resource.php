@@ -23,7 +23,7 @@ if (isset($_GET['viewId']) && isset($_GET['viewName']) ) {
 ?>
 
 <!-- ===========================================VIEW THE DETAIL RESOURCES FROM THE THE DB AND DOWNLOAD==================================================== -->
-<div class="student-container container px-6 w-full h-screen  overflow-hidden">
+<div class="student-container container px-6 w-full h-auto  overflow-hidden">
     <div class="flex items-center border-b bg-white shadow-lg px-4">
         <h2 class="my-6 text-2xl text-center font-semibold text-gray-700 flex-1 ">
             <?php echo $viewName; ?>
@@ -58,18 +58,8 @@ if (isset($_GET['viewId']) && isset($_GET['viewName']) ) {
            </div>
         </div>
         <!-- view my pdf here -->
-        <div class="bg-yellow-500 mt-2">
-            <?php
-            echo $file;
-                $filedisplay = $file;
-                $filename = $file;
-                header('Content-type:application.pdf');
-                header('Content-Description: inline; filename"' . $filedisplay .'"');
-                header('Content-Transfer-Encoding: binary');
-                header('Accept-Ranges: bytes');
-                @readfile($filedisplay);
-            ?>
-            <embed src="<?php echo $file; ?>" type="application/pdf" width="300" height="300">
+        <div class="mt-2 grid place-items-center">
+            <iframe class="bg-white  object-contain w-full " src="<?php echo "../../resources/".$file."#toolbar=0"; ?>" type="application/pdf" min-width="60%" height="800px">
         </div>
         <div class="footer flex mt-2 justify-end items-center">
             <input 

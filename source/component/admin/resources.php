@@ -137,7 +137,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                             <a title='Download resource' href=''   class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-download  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='View resource' href='./view.php?viewId=".$row['resource_id']." && viewName=".$row['resource_name']."' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
+                                            <a title='View resource' href='./view_resource.php?viewId=".$row['resource_id']." && viewName=".$row['resource_name']."' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                             <a title='Delete resource' href='./doctor_action.php?deletedid=".$row['resource_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  

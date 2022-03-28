@@ -287,14 +287,14 @@
                                     <td><?php echo $status_insert ?></td>
                                     <td>
                                         <div class='flex items-center space-x-4'>
-                                            <a title='View record' href='./action/read.php?viewid="<?php $row['doctor_id'] ?>"' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                            <a title='View record' href=' <?php echo "./view_doctor.php?viewId=".$row['doctor_id']."";?>' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Update record' href='javascript:displayModal("<?php $row['doctor_id'] ?>");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
+                                            <a title='Update record' href='javascript:displayModal("<?php echo $row['doctor_id']; ?>");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                             
-                                            <a title='Delete record' href='./doctor_action.php?deletedid="<?php $row['doctor_id'] ?>"'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
+                                            <a title='Delete record' href='./doctor_action.php?deletedid="<?php echo $row['doctor_id']; ?>" && deletedemail="<?php echo $row['email']; ?>"'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>
@@ -314,8 +314,7 @@
                             </tr>
                             ";
                         }
-
-                        #close connection
+                       #close connection
                         mysqli_close($link);
                      ?>
 
@@ -478,7 +477,7 @@
     <div class="modalOpen_update fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-50 shadow-2xl"
     id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog relative w-auto pointer-events-none  ">
-            <form action="./action/doctor_action.php" method="post" enctype="multipart/form-data">
+            <form action="./doctor_action.php" method="post" enctype="multipart/form-data">
                 <div
                 class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
                     <div
@@ -564,7 +563,7 @@
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
                                     <label for="file-select" class="block">
                                         <span class="sr-only">Choose profile image</span>
-                                        <input id="file-select" type="file" name="photoImage" onchange="displayImage(this)" placeholder="Choose file" class="block w-full text-sm text-gray-500
+                                        <input id="file-select" type="file" name="photoImager" onchange="displayImage(this)" placeholder="Choose file" class="block w-full text-sm text-gray-500
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-xs file:font-semibold

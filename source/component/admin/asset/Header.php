@@ -37,6 +37,23 @@ ob_start();
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="./asset/table.css">
+    <style>
+    @media print {
+      /* Hide every other element */
+        body *:not(.print_container):not(.print_container *) {
+          visibility: hidden;
+        }
+        /* The display print conatiner element */
+        .print_container{
+          visibility: visible;
+          position: absolute;
+          top: 0;
+        }
+        .print_container *{
+          box-shadow: none !important;
+        }
+    }
+  </style>
     <title>Clever academia | Learning platform</title>
   </head>
   <body>
@@ -511,7 +528,8 @@ ob_start();
                 >
                   <img
                     class="object-cover w-8 h-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                    src="<?php echo "../../images/".$_SESSION['profile']; ?>"
+                    src="../../images/placeholder.png"
                     alt=""
                     aria-hidden="true"
                   />

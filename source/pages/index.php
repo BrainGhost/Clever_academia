@@ -35,7 +35,7 @@
     //validate credentials 
     if (empty($email_err) && empty($password_err)) {
       # Prepare a select statement
-      $sql = "SELECT cred_id, username, email, password, level FROM credentials WHERE email = ? LIMIT 1";
+      $sql = "SELECT cred_id, username, email, password, profile,  level FROM credentials WHERE email = ? LIMIT 1";
 
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variable to the prepared statement as parameters
@@ -52,19 +52,25 @@
           # check if the email exits, if yes the verify password
           if (mysqli_stmt_num_rows($stmt) == 1) {
             # bind result variale
-            mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password, $level);
+            mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password, $profile, $level);
             if (mysqli_stmt_fetch($stmt)) {
               if ((password_verify($password, $hashed_password)) && ($level === "student")) {
 
                 # Password is correct, so start a new session
                 session_start();
-
+               
                 # store data in session variales
                 // Store data in session variables
                 $_SESSION["loggedin"] = true;
                 $_SESSION["id"] = $id;
                 $_SESSION["username"] = $username;
                 $_SESSION["email"] = $email; 
+                 #check if the user has an image or not
+                if ($profile !== "") {
+                  $_SESSION["profile"] = $profile;
+                }else{
+                  $_SESSION["profile"] = "placeholder.png";
+                }
                 $_SESSION["level"] = "student";
                 $_SESSION["insert_msg"] = "";
 
@@ -80,6 +86,12 @@
                 $_SESSION["id"] = $id;
                 $_SESSION["username"] = $username;
                 $_SESSION["email"] = $email;
+                 #check if the user has an image or not
+                if ($profile !== "") {
+                  $_SESSION["profile"] = $profile;
+                }else{
+                  $_SESSION["profile"] = "placeholder.png";
+                }
                 $_SESSION["level"] = "counselor";
                 $_SESSION["insert_msg"] = "";
 
@@ -95,7 +107,12 @@
                 $_SESSION["id"] = $id;
                 $_SESSION["username"] = $username;
                 $_SESSION["email"] = $email;
-                $_SESSION["level"] = "admin";
+                 #check if the user has an image or not
+                if ($profile !== "") {
+                  $_SESSION["profile"] = $profile;
+                }else{
+                  $_SESSION["profile"] = "placeholder.png";
+                }
                 $_SESSION["level"] = "admin";
                 $_SESSION["insert_msg"] = "";
 
