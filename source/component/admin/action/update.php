@@ -76,4 +76,5 @@ if(isset($_POST["update_doctor"]))
     }
 
 }
+
 ?>

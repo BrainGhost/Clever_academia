@@ -84,5 +84,20 @@ if(isset($_POST["update_doctor"]))
     }
 
 }
+#===========================Deleting resources=============================
+if (isset($_GET["resourceid"])) {
+    $resourceId  = $_GET["resourceid"];
+    #prepare a delete statment
+    $sql = "DELETE FROM resources WHERE resource_id=$resourceId";
 
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        $_SESSION['insert_msg'] = "Deleted successfully.";
+        $_SESSION['alert_notification'] = "delete";
+        header("location: ./resources.php");
+    }else {
+        echo "Oops! Something went wrong. Please try later";
+        die(mysqli_error($link));
+    }
+}
 ?>

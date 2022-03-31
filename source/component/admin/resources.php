@@ -55,9 +55,10 @@ if ($_SESSION['insert_msg'] !== "") {
 
     if(isset($_POST['approved_status'])){
         $updateSTATUS_id = trim($_POST['updateSTATUS_id']);
+        echo $updateSTATUS_id;
         
         $next_status = "approved";
-        $sql = "UPDATE resources SET resource_status='$next_status' WHERE resource_id= $updateSTATUS_id ";
+        $sql = "UPDATE resources SET resource_status='$next_status' WHERE resource_id= $updateSTATUS_id";
         $result = mysqli_query($link, $sql);
             if($result){
                 $_SESSION['insert_msg'] = "Approved successfully.";
@@ -72,7 +73,7 @@ if ($_SESSION['insert_msg'] !== "") {
         $updateSTATUS_id = trim($_POST['updateSTATUS_id']);
         
         $next_status = "denied";
-        $sql = "UPDATE resources SET resource_status='$next_status' WHERE resource_id= 54 ";
+        $sql = "UPDATE resources SET resource_status='$next_status' WHERE resource_id= $updateSTATUS_id";
         $result = mysqli_query($link, $sql);
             if($result){
                 $_SESSION['insert_msg'] = "Denied set successfully.";
@@ -147,7 +148,6 @@ if ($_SESSION['insert_msg'] !== "") {
                                     $status_insert = "<a href='javascript:displayModal_inactive(".$row['resource_id'].");' type='button' name='change_status' class='px-4 py-1 border border-yellow-500 bg-yellow-50 rounded-xl  hover:bg-yellow-100 text-yellow-500 font-medium'>Processing</a>"; 
                                 }
 
-
                                 $author_display = $row['author'];
                                 if ($author_display = $_SESSION["username"]) {
                                     $author_name = "Me";
@@ -171,7 +171,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                             <a title='View resource' href='./view_resource.php?viewId=".$row['resource_id']." && viewName=".$row['resource_name']."' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Delete resource' href='./doctor_action.php?deletedid=".$row['resource_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
+                                            <a title='Delete resource' href='./doctor_action.php?resourceid=".$row['resource_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>
@@ -224,7 +224,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                 </div>
                                 <div id="modalSTATUS">
                                     <input id="updateSTATUS" type="hidden" name="updateSTATUS_id"> 
-                                    <input id="updateSTATUS_TEXT" type="hidden" name="updateSTATUS_id"> 
+                                    <!-- <input id="updateSTATUS_TEXT" type="hidden" name="updateSTATUS_id">  -->
                                 </div>
                                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                     
