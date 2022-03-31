@@ -57,16 +57,18 @@ if (isset($_GET['viewId']) && isset($_GET['viewName']) ) {
                <span class="mt-2"><?php echo date("Y-dd-m")?></span>
            </div>
         </div>
-        <!-- view my pdf here -->
-        <div class="mt-2 grid place-items-center">
-            <iframe class="bg-white  object-contain w-full " src="<?php echo "../../resources/".$file."#toolbar=0"; ?>" type="application/pdf" min-width="60%" height="800px">
-        </div>
         <div class="footer flex mt-2 justify-end items-center">
-            <input 
+            <button
+            onclick=""
             type="submit"
             class="block cursor-pointer w-auto px-4 py-2 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-teal-600 border border-transparent rounded-lg active:bg-teal-600 hover:bg-teal-700 focus:outline-none focus:shadow-outline-purple"
             value="Download"
-            >
+            >Download</button>
         </div>
+        <!-- view my pdf here -->
+        <div class="mt-2 grid place-items-center">
+            <iframe class="bg-white object-contain w-full border-none" src="<?php echo "../../resources/".$file."#toolbar=0"; ?>" type="application/pdf" min-width="60%" height="800px" loading="lazy" seamless name="<?php echo $viewName; ?>">
+        </div>
+        
     </div>
 </div>

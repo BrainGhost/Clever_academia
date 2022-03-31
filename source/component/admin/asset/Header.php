@@ -4,7 +4,7 @@ ob_start();
   session_start();
   //check if the user is logged in, if not the redirect him to the login page
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)   {
-      header("location: ../../pages/index.php");
+      header("location: ../index.php");
   }
 ?>
 <!DOCTYPE html>

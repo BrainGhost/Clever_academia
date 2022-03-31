@@ -659,7 +659,7 @@
                                     
                                     <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Change account status</h3>
                                     <div class="mt-2">
-                                    <p class="text-sm text-gray-500">Are you sure you want to do this? this will disable +this user credentials+ and who be able to connect or login.</p>
+                                    <p class="text-sm text-gray-500">Are you sure you want to do this? this will disable +this user credentials+ and will not be able to connect or login.</p>
                                     </div>
                                 </div>
                             </div>
