@@ -3,7 +3,7 @@
   require_once("../php/config.php");
 
   //Define variables and initialize with empty values
-  $username = $password = $confirm_password = $email = "";
+  $username = $password = $confirm_password = $email = $gotStudentID = "";
   $username_err = $password_err = $confirm_password_err = $email_err = $agree_condition_err = "";
 
   //Procssing form data when is submitted
@@ -15,7 +15,7 @@
       $username_err = "Username can only contain letters, numbers, and underscores.";
     }else{
       //prepare a select statement
-      $sql = "SELECT cred_id FROM credentials WHERE username = ?";
+      $sql = "SELECT student_cred_id FROM student_credentials WHERE username = ?";
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variales to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -27,8 +27,6 @@
         if (mysqli_stmt_execute($stmt)) {
           # Store result
           mysqli_stmt_store_result($stmt);
-
-          
             if(mysqli_stmt_num_rows($stmt) == 1){
               $username_err = "This username is already taken.";
             } else{
@@ -47,8 +45,52 @@
     }elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
       $email_err = "Please enter valid an email.";
     }else {
-      $email = stripcslashes(trim($_POST["email"]));
-    }
+      // check if e-mail address already exist in the Student credentials table
+      $sql = "SELECT student_id FROM students WHERE email = ?";
+      if ($stmt = mysqli_prepare($link, $sql)) {
+          # Bind variable to the prepared statement as parameters
+          mysqli_stmt_bind_param($stmt, "s", $param_email);
+          #set parameters
+          $param_email = trim($_POST['email']);
+          #atempt to execute the parameter
+          if (mysqli_stmt_execute($stmt)) {
+              # store result
+              mysqli_stmt_store_result($stmt);
+              #get result
+              $result = mysqli_stmt_bind_result($stmt, $studentID);
+              mysqli_stmt_fetch($stmt);
+              $gotStudentID = $studentID;
+              
+              if (mysqli_stmt_num_rows($stmt) == 0) {
+                  $email_err = "Your student account does not exist. Please contact your adminstration";
+              }else{
+                
+                // check if students exist in the Students table
+                $sql = "SELECT student_cred_id FROM student_credentials WHERE email = ?";
+                if ($stmt = mysqli_prepare($link, $sql)) {
+                    # Bind variable to the prepared statement as parameters
+                    mysqli_stmt_bind_param($stmt, "s", $param_email);
+                    #set parameters
+                    $param_email = trim($_POST['email']);
+                    #atempt to execute the parameter
+                    if (mysqli_stmt_execute($stmt)) {
+                      # store result
+                      mysqli_stmt_store_result($stmt);
+                      if (mysqli_stmt_num_rows($stmt) == 1) {
+                          $email_err = "You already have an account. Try to login";
+                      }else{
+                        $email = stripcslashes(trim($_POST["email"]));
+                      }
+                    }
+                }   
+              }
+          }else {
+              echo "Oops!! something went wrong. please try again later.";
+          }
+          mysqli_stmt_close($stmt);
+      }
+       
+  }
     //Validate password
     if(empty(trim($_POST["password"]))){
       $password_err = "Please enter a password.";     
@@ -78,17 +120,17 @@
     //Check inout errors before insetering in database
     if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($agree_condition_err)) {
       # Prepare insert data in the database table
-      $default_level = 'student';
-      $sql = "INSERT INTO credentials(username, email, password, level) VALUES ( ?, ?, ?, '$default_level')";
+      $sql = "INSERT INTO student_credentials(username, email, password, student_id) VALUES ( ?, ?, ?, ?)";
 
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variale to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_email, $param_password);
+        mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_email, $param_password, $gotStudentID);
 
         //set parameters
         $param_username = $username;
         $param_email = $email;
         $param_password = password_hash($password, PASSWORD_DEFAULT);//creates a password hash
+        $param_student_id = $gotStudentID;
 
         //Atempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
