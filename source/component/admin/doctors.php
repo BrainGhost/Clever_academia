@@ -8,8 +8,7 @@
     //define variables and initialize with empty values
     $fullname = $email = $password = $address = $phonenumber = $dateofbirth = $speciality = $degree = $image = $address =  "";
     $fullname_err = $email_err = $password_err = $phonenumber_err = $dateofbirth_err = $speciality_err = $degree_err = $address_err = $insert_msg = $alert_notification = $status_insert = "";
-
-
+    
     //Processing form data when submitted
     if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST["save_doctor"])) {
         # validation of inputs field

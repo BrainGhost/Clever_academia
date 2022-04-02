@@ -120,22 +120,36 @@
     //Check inout errors before insetering in database
     if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($agree_condition_err)) {
       # Prepare insert data in the database table
-      $sql = "INSERT INTO student_credentials(username, email, password, student_id) VALUES ( ?, ?, ?, ?)";
+      $sql = "INSERT INTO student_credentials(username, email, password, status, student_id) VALUES ( ?, ?, ?, ?, ?)";
 
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variale to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_email, $param_password, $gotStudentID);
+        mysqli_stmt_bind_param($stmt, "sssii", $param_username, $param_email, $param_password, $param_status, $gotStudentID);
 
         //set parameters
         $param_username = $username;
         $param_email = $email;
         $param_password = password_hash($password, PASSWORD_DEFAULT);//creates a password hash
+        $param_status = 1;//status TRUE which means the account is active
         $param_student_id = $gotStudentID;
 
         //Atempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
-          # Redirect to login
-          header("location: index.php");
+          // update the student details hasAcount to TRUE
+          $sql = "UPDATE students SET has_account = ? WHERE student_id = $gotStudentID";
+          if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "i", $param_hasAccount);           
+            // Set parameters
+            $param_hasAccount = 1;
+            if(mysqli_stmt_execute($stmt)){
+              # Redirect to login
+              header("location: index.php");
+            }else{
+              echo "Oops! Something went wrong. Please try again later.";
+            }
+          }
+          ##
         }else{
           echo "Oops! Something went wrong. Please try again later.";
         }
