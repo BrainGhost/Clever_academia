@@ -230,23 +230,23 @@
             Counselor management
         </h2>
         <span class="openModalBtn">
-            <i class="fa fa-user-plus text-teal-600 hover:text-teal-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-user-plus text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
         <div class="search flex justify-end">
             <div class=" w-96 my-2">
                 <div class="flex items-center">
-                    <label for="" class="block text-teal-700 text-sm px-2"> Search </label>
-                    <input type="text" placeholder="" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " >
+                    <label for="" class="block text-<?php echo $primary_color; ?>-700 text-sm px-2"> Search </label>
+                    <input type="text" placeholder="" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " >
                 </div>
             </div> 
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
         <div id='recipients' class=" max-w-full rounded shadow bg-white">
             <table id="example" class="w-full">
-				<thead class="bg-teal-600 border-b">
-					<tr class="text-sm font-medium text-teal-50 text-left">
+				<thead class="bg-<?php echo $primary_color; ?>-600 border-b">
+					<tr class="text-sm font-medium text-<?php echo $primary_color; ?>-50 text-left">
 						<th data-priority="1">Doctor ID</th>
 						<th data-priority="2">Profile</th>
                         <th data-priority="3">Doctor name</th>
@@ -261,7 +261,7 @@
 				<tbody>
                     <?php
                         //Display data into the table 
-                        $sql  = "SELECT * FROM doctors;";
+                        $sql  = "SELECT * FROM doctors WHERE level = 'counselor';";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
                         
@@ -269,15 +269,15 @@
                             while ($row = mysqli_fetch_assoc($result)) {         
                                 $status = $row['doctor_status'];    
                                 if ($row['doctor_status'] == 1 ) {
-                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Active</a>";
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-sky-500 bg-sky-50 rounded  hover:bg-sky-100 text-sky-500 font-medium'>Active</a>";
                                 }else{
                                     $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
                                 }
                                 ?>
 
-                                <tr class='display_image bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
+                                <tr class='display_image bg-white border-b transition duration-300 ease-in-out hover:bg-<?php echo $primary_color; ?>-50 text-sm text-gray-900 font-light'>
                                     <td><?php echo $row['doctor_id'] ?></td>
-                                    <td><img src="<?php echo "../../images/".$row['image']; ?>" alt="Image" class="w-20 h-20"></td>
+                                    <td><img src="<?php echo "../../images/".$row['image']; ?>" alt="Image" class="w-16 h-16"></td>
                                     <td><?php echo $row['fullname'] ;?></td>
                                     <td><?php echo $row['email'] ;?></td>
                                     <td><?php echo $row['phone_number'] ?></td>
@@ -306,7 +306,7 @@
                         }else{
                             echo
                             "
-                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
+                            <tr class='bg-<?php echo $primary_color; ?>-50 border border-<?php echo $primary_color; ?>-100 border-t-0 text-sm text-<?php echo $primary_color; ?>-900 font-semibold text-center'>
                                 <td colspan='8'>
                                     No records were found.
                                 </td>
@@ -345,14 +345,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Email address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="email" value="<?php echo $email; ?>" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="email" value="<?php echo $email; ?>" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $email_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Password</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="password" value="<?php echo $password; ?>" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="password" value="<?php echo $password; ?>" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $password_err; ?></span>
                             </div>
@@ -361,14 +361,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Full name</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $fullname; ?>" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $fullname; ?>" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $fullname_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Phone No.</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="tel" value="<?php echo $phonenumber; ?>" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="tel" value="<?php echo $phonenumber; ?>" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $phonenumber_err; ?></span>
                             </div>
@@ -377,14 +377,14 @@
                             <div class="form-group w-full">
                                 <label class="text-sm font-medium">Address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $address; ?>" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $address; ?>" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $address_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Date of birth</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="date" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-teal-50"     /> 
+                                    <input type="date" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-<?php echo $primary_color; ?>-50"     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $dateofbirth_err; ?></span>
                             </div>
@@ -393,14 +393,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Degree</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $degree; ?>" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $degree; ?>" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $degree_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Speciality</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $speciality; ?>" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $speciality; ?>" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $speciality_err; ?></span>
                             </div>
@@ -415,15 +415,15 @@
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-xs file:font-semibold
-                                        file:bg-teal-50 file:text-teal-700
-                                        hover:file:bg-teal-100
+                                        file:bg-<?php echo $primary_color; ?>-50 file:text-<?php echo $primary_color; ?>-700
+                                        hover:file:bg-<?php echo $primary_color; ?>-100
                                         hover:cursor-pointer
                                         "/>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group w-full">
-                                <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-teal-50">
+                                <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-<?php echo $primary_color; ?>-50">
                                     <label for="file-select">
                                         <img id="imageDisplay"  src="../../images/placeholder.png" class="w-full h-full object-cover border-0">
                                     </label>
@@ -435,7 +435,7 @@
                     <!--  -->
                     <div
                         class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                        <button name="reset_doctor" type="reset" class="px-6 py-2.5 text-teal-700 border-gray-300 font-medium
+                        <button name="reset_doctor" type="reset" class="px-6 py-2.5 text-<?php echo $primary_color; ?>-700 border-gray-300 font-medium
                         btn-close
                         text-xs
                         leading-tight
@@ -451,7 +451,7 @@
 
                         <button type="submit" name="save_doctor" class="px-6
                         py-2.5
-                        bg-teal-600
+                        bg-<?php echo $primary_color; ?>-600
                         text-white
                         font-medium
                         text-xs
@@ -459,9 +459,9 @@
                         uppercase
                         rounded
                         shadow-md
-                        hover:bg-teal-700 hover:shadow-lg
-                        focus:bg-teal-700 focus:shadow-lg focus:outline-none focus:ring-0
-                        active:bg-teal-800 active:shadow-lg
+                        hover:bg-<?php echo $primary_color; ?>-700 hover:shadow-lg
+                        focus:bg-<?php echo $primary_color; ?>-700 focus:shadow-lg focus:outline-none focus:ring-0
+                        active:bg-<?php echo $primary_color; ?>-800 active:shadow-lg
                         transition
                         duration-150
                         ease-in-out
@@ -496,14 +496,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Email address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="email" value="<?php echo $email; ?>" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="email" value="<?php echo $email; ?>" name="email" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $email_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Password</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="password" value="<?php echo $password; ?>" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="password" value="<?php echo $password; ?>" name="password" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $password_err; ?></span>
                             </div>
@@ -512,14 +512,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Full name</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $fullname; ?>" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $fullname; ?>" name="fullname" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $fullname_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Phone No.</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="tel" value="<?php echo $phonenumber; ?>" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="tel" value="<?php echo $phonenumber; ?>" name="phonenumber" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $phonenumber_err; ?></span>
                             </div>
@@ -528,14 +528,14 @@
                             <div class="form-group w-full">
                                 <label class="text-sm font-medium">Address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $address; ?>" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $address; ?>" name="address" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $address_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Date of birth</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="date" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-teal-50"     /> 
+                                    <input type="date" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-<?php echo $primary_color; ?>-50"     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $dateofbirth_err; ?></span>
                             </div>
@@ -544,14 +544,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Degree</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $degree; ?>" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $degree; ?>" name="degree" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $degree_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Speciality</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $speciality; ?>" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $speciality; ?>" name="speciality" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $speciality_err; ?></span>
                             </div>
@@ -566,15 +566,15 @@
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-xs file:font-semibold
-                                        file:bg-teal-50 file:text-teal-700
-                                        hover:file:bg-teal-100
+                                        file:bg-<?php echo $primary_color; ?>-50 file:text-<?php echo $primary_color; ?>-700
+                                        hover:file:bg-<?php echo $primary_color; ?>-100
                                         hover:cursor-pointer
                                         "/>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group w-full">
-                                <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-teal-50">
+                                <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-<?php echo $primary_color; ?>-50">
                                     <label for="file-select">
                                         <img id="imageDisplayer"  src="../../images/placeholder.png" class="w-full h-full object-cover border-0">
                                     </label>
@@ -586,7 +586,7 @@
                     <!--  -->
                     <div
                         class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                        <button name="reset_doctor" type="reset" class="px-6 py-2.5 text-teal-700 border-gray-300 font-medium
+                        <button name="reset_doctor" type="reset" class="px-6 py-2.5 text-<?php echo $primary_color; ?>-700 border-gray-300 font-medium
                         btn-close-update
                         text-xs
                         leading-tight
@@ -602,7 +602,7 @@
 
                         <button name="update_doctor" type="submit" class="px-6
                         py-2.5
-                        bg-teal-400
+                        bg-<?php echo $primary_color; ?>-400
                         text-white
                         font-medium
                         text-xs
@@ -610,9 +610,9 @@
                         uppercase
                         rounded
                         shadow-md
-                        hover:bg-teal-500 hover:shadow-lg
-                        focus:bg-teal-500 focus:shadow-lg focus:outline-none focus:ring-0
-                        active:bg-teal-600 active:shadow-lg
+                        hover:bg-<?php echo $primary_color; ?>-500 hover:shadow-lg
+                        focus:bg-<?php echo $primary_color; ?>-500 focus:shadow-lg focus:outline-none focus:ring-0
+                        active:bg-<?php echo $primary_color; ?>-600 active:shadow-lg
                         transition
                         duration-150
                         ease-in-out
@@ -643,9 +643,9 @@
                    <form method="POST" action="./action/update.php">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
                             <div class="sm:flex sm:items-start">
-                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-teal-100  sm:h-10 sm:w-10">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-<?php echo $primary_color; ?>-100  sm:h-10 sm:w-10">
                                     <!-- Heroicon name: outline/exclamation -->
-                                    <svg class="h-6 w-6 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <svg class="h-6 w-6 text-<?php echo $primary_color; ?>-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                     </svg>
                                 </div>
@@ -656,7 +656,7 @@
                                 </div>
                                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                     
-                                    <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Change account status</h3>
+                                    <h3 class="text-lg leading-6 font-medium text-<?php echo $primary_color; ?>-900" id="modal-title">Change account status</h3>
                                     <div class="mt-2">
                                     <p class="text-sm text-gray-500">Are you sure you want to do this? this will disable +this user credentials+ and will not be able to connect or login.</p>
                                     </div>
@@ -664,8 +664,8 @@
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="submit" name="update_status" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Change Status</button>
-                            <a href="./doctors.php" class="mt-3 w-full inline-flex justify-center rounded-md border border-teal-300 shadow-sm px-5 py-2 bg-white text-base font-medium text-teal-600 hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">  
+                            <button type="submit" name="update_status" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-<?php echo $primary_color; ?>-500 text-base font-medium text-white hover:bg-<?php echo $primary_color; ?>-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-<?php echo $primary_color; ?>-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Change Status</button>
+                            <a href="./doctors.php" class="mt-3 w-full inline-flex justify-center rounded-md border border-<?php echo $primary_color; ?>-300 shadow-sm px-5 py-2 bg-white text-base font-medium text-<?php echo $primary_color; ?>-600 hover:bg-<?php echo $primary_color; ?>-50 focus:outline-none focus:ring-2 focus:ring-<?php echo $primary_color; ?>-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">  
                                 Cancel
                             </a>    
                         </div>

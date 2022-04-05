@@ -1,17 +1,16 @@
 <?php
   //Initialize the session
   session_start();
-
+  //backgound color
+  $primary_color = "";
+  if(isset($_SESSION["primary_color"])){
+    $primary_color = $_SESSION["primary_color"];
+  }
   #check if the user is logged in, if not the redirect him to the login page
-  if ((!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true) )   {
-      header("location: ../../pages/index.php");
+  if ((!isset($_SESSION["loggedin_counselor"]) && $_SESSION["loggedin_counselor"] !== true) )   {
+      header("location: ../index.php");
       exit;  
   }
-  // echo $_SESSION["level"];
-  // if ($_SESSION["level"] !== "counselor") {
-  //     header("location: ../../pages/index.php");
-  //     exit; 
-  // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +39,7 @@
     />
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="./asset/table.css">
+    <link rel="stylesheet" href="../../css/table.css">
     
     <title>Clever academia | Learning platform</title>
   </head>
@@ -72,7 +71,7 @@
             <a class="ml-3 text-lg font-bold text-gray-800 " href="#">
               Clever academia </a
             >|
-            <span class="italic text-sm">Counselor</span>
+            <span class="italic text-sm text-<?php echo $primary_color; ?>-600">Counselor</span>
           </div>
           <ul class="mt-6">
             <li class="relative px-6 py-3">
@@ -102,7 +101,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 active:text-red-500"
-                href="appointments.php"
+                href="./appointments.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -124,7 +123,7 @@
           </ul>
           <div class="px-6 my-6">
             <button
-              class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-teal-600 border border-transparent rounded-lg active:bg-teal-600 hover:bg-teal-700 focus:outline-none focus:shadow-outline-teal"
+              class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-<?php echo $primary_color; ?>-600 border border-transparent rounded-lg active:bg-<?php echo $primary_color; ?>-600 hover:bg-<?php echo $primary_color; ?>-700 focus:outline-none focus:shadow-outline-<?php echo $primary_color; ?>"
             >
               Profile
               <span class="ml-2" aria-hidden="true">+</span>
@@ -147,14 +146,14 @@
             <a class="ml-3 text-lg font-bold text-gray-800" href="#">
               Clever academia </a
             >|
-            <span class="italic text-sm">Counselor</span>
+            <span class="italic text-sm text-<?php echo $primary_color; ?>-600">Counselor</span>
           </div>
 
           <ul class="mt-6">
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
-                href="../index.html"
+                href="./index.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -178,7 +177,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
-                href="../cards.html"
+                href="./appointments.php"
               >
                 <svg
                   class="w-5 h-5"
@@ -201,7 +200,7 @@
           </ul>
           <div class="px-6 my-6">
             <button
-              class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-teal-600 border border-transparent rounded-lg active:bg-teal-600 hover:bg-teal-700 focus:outline-none focus:shadow-outline-teal"
+              class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-<?php echo $primary_color; ?>-600 border border-transparent rounded-lg active:bg-<?php echo $primary_color; ?>-600 hover:bg-<?php echo $primary_color; ?>-700 focus:outline-none focus:shadow-outline-<?php echo $primary_color; ?>"
             >
               Create account
               <span class="ml-2" aria-hidden="true">+</span>
@@ -212,7 +211,7 @@
       <div class="flex flex-col flex-1">
         <header class="z-10 py-4 shadow-md bg-white">
           <div
-            class="container flex items-center justify-between h-full px-6 mx-auto text-teal-600"
+            class="container flex items-center justify-between h-full px-6 mx-auto text-<?php echo $primary_color; ?>-600"
           >
             <!-- Mobile hamburger -->
             <button
@@ -227,7 +226,7 @@
             <!-- Search input -->
             <div class="flex justify-center flex-1 lg:mr-32 ">
               <div
-                class=" relative w-full max-w-xl mr-6 focus-within:text-teal-500"
+                class=" relative w-full max-w-xl mr-6 focus-within:text-<?php echo $primary_color; ?>-500"
               >
                 <div class="absolute inset-y-0 flex items-center pl-2">
                   <svg
@@ -244,7 +243,7 @@
                   </svg>
                 </div>
                 <input
-                  class="w-full px-4 py-2 pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md focus:placeholder-gray-500 focus:bg-white outline-none focus:outline-2 focus:outline-teal-500"
+                  class="w-full px-4 py-2 pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md focus:placeholder-gray-500 focus:bg-white outline-none focus:outline-2 focus:outline-<?php echo $primary_color; ?>-500"
                   type="text"
                   placeholder="Search"
                   aria-label="Search"
@@ -256,7 +255,7 @@
               <!-- Notifications menu -->
               <li class="relative">
                 <button
-                  class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-teal"
+                  class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-<?php echo $primary_color; ?>"
                   @click="toggleNotificationsMenu"
                   @keydown.escape="closeNotificationsMenu"
                   aria-label="Notifications"
@@ -334,7 +333,7 @@
                     
                   </span>
                   <button
-                  class="user_icon pointer-events-none align-middle rounded-full border-2 border-white outline-1 outline-teal-600 focus:outline-none"
+                  class="user_icon pointer-events-none align-middle rounded-full border-2 border-white outline-1 outline-<?php echo $primary_color; ?>-600 focus:outline-none"
                 >
                   <img
                     class="object-cover w-8 h-8 rounded-full"
@@ -348,8 +347,8 @@
                 <div class="dropdown_menu text-gray-700 text-sm  bg-white absolute right-0 top-9 pt-2 rounded shadow-lg drop-shadow-xl hidden">
                   <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Profile</div>
                   <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Settings</div>
-                  <div class="flex border-t-[1px] font-medium hover:cursor-pointer hover:bg-red-500 hover:text-white">
-                    <a class="py-2 px-6" href="../../php/logout.php">Logout</a>
+                  <div class="flex border-t-[1px] font-medium hover:cursor-pointer text-<?php echo $primary_color; ?>-500 hover:bg-<?php echo $primary_color; ?>-500 hover:text-white">
+                    <a class="py-2 px-6" href="../../php/logout_other.php">Logout</a>
                   </div>
                 </div>
               </li>

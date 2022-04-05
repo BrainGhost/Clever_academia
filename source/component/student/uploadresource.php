@@ -105,17 +105,17 @@
 <div class="student-container container px-6 mx-auto grid relative">
     <div class="flex items-center border-b">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 flex-1">
-            E-resources management
+            E-resources
         </h2>
         <span class="">
-            <i class="fa fa-book text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-book text-teal-600 hover:text-teal-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
         <button class="new-resources">
-            <a href='./resources.php' type='button' name='upload-resource' value='upload' class='flex items-center px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>
+            <a href='./resources.php' type='button' name='upload-resource' value='upload' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>
                 close
-                <i class="fa fa-times text-<?php echo $primary_color; ?>-600 text-xl ml-2" aria-hidden="true"></i>
+                <i class="fa fa-times text-teal-600 text-xl ml-2" aria-hidden="true"></i>
             </a>
         </button>
     </div>
@@ -135,14 +135,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Name</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" name="resource_name" placeholder="Name of the Item" value="<?php echo $resource_name; ?>" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " /> 
+                                    <input type="text" name="resource_name" placeholder="Name of the Item" value="<?php echo $resource_name; ?>" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $resource_name_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Year</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="number" min="2000" max="2050" maxlength="4" step="1" placeholder="<?php echo date("Y");?>"  name="ofYear" id="ofYear" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded" /> 
+                                    <input type="number" min="2000" max="2050" maxlength="4" step="1" placeholder="<?php echo date("Y");?>"  name="ofYear" id="ofYear" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded" /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $ofYear_err; ?></span>
                             </div>
@@ -158,8 +158,8 @@
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-xs file:font-semibold
-                                        file:bg-<?php echo $primary_color; ?>-50 file:text-<?php echo $primary_color; ?>-700
-                                        hover:file:bg-<?php echo $primary_color; ?>-100
+                                        file:bg-teal-50 file:text-teal-700
+                                        hover:file:bg-teal-100
                                         hover:cursor-pointer
                                         "/>
                                     </label>
@@ -179,7 +179,7 @@
                     <!--  -->
                     <div
                         class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                        <a href="./resources.php" name="cancel" class="px-6 py-2.5 text-<?php echo $primary_color; ?>-700 border-gray-300 font-medium
+                        <a href="./resources.php" name="cancel" class="px-6 py-2.5 text-teal-700 border-gray-300 font-medium
                         -close
                         text-xs
                         leading-tight
@@ -195,7 +195,7 @@
 
                         <button type="submit" name="upload_resource" class="px-6
                         py-2.5
-                        bg-<?php echo $primary_color; ?>-600
+                        bg-teal-600
                         text-white
                         font-medium
                         text-xs
@@ -203,9 +203,9 @@
                         uppercase
                         rounded
                         shadow-md
-                        hover:bg-<?php echo $primary_color; ?>-700 hover:shadow-lg
-                        focus:bg-<?php echo $primary_color; ?>-700 focus:shadow-lg focus:outline-none focus:ring-0
-                        active:bg-<?php echo $primary_color; ?>-800 active:shadow-lg
+                        hover:bg-teal-700 hover:shadow-lg
+                        focus:bg-teal-700 focus:shadow-lg focus:outline-none focus:ring-0
+                        active:bg-teal-800 active:shadow-lg
                         transition
                         duration-150
                         ease-in-out

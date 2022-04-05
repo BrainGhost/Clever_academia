@@ -11,4 +11,4 @@
     session_destroy();
 
     //Redirect to login page
-    header("location: ../pages/index.php");
+    header("location: ../component/index.php");

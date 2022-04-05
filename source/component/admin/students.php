@@ -15,26 +15,26 @@
             Student management
         </h2>
         <span class="">
-            <i class="fa fa-user text-teal-600 hover:text-teal-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-user text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
         <button name="new_resources">
-            <a href='./editStudent.php' type='button' name='' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>New Student</a>
+            <a href='./editStudent.php' type='button' name='' class='flex items-center px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>New Student</a>
         </button>
         <div class="search flex justify-end">
             <div class=" w-96 my-2">
                 <div class="flex items-center">
-                    <label for="" class="block text-teal-700 text-sm px-2"> Search </label>
-                    <input type="text" placeholder="Search students" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " >
+                    <label for="" class="block text-<?php echo $primary_color; ?>-700 text-sm px-2"> Search </label>
+                    <input type="text" placeholder="Search students" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " >
                 </div>
             </div> 
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
         <div id='recipients' class=" max-w-full rounded shadow bg-white">
             <table id="example" class="w-full">
-				<thead class="bg-teal-600 border-b">
-					<tr class="text-sm font-medium text-teal-50 text-left">
+				<thead class="bg-<?php echo $primary_color; ?>-600 border-b">
+					<tr class="text-sm font-medium text-<?php echo $primary_color; ?>-50 text-left">
 						<th data-priority="1">ID</th>
 						<th data-priority="1">profile</th>
                         <th data-priority="2">student name</th>
@@ -63,14 +63,14 @@
                                 //schedule_status
                                 $status = $row['student_status'];
                                 if ($row['student_status'] == 1 ) {
-                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['student_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Active</a>";
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['student_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-sky-500 bg-sky-50 rounded  hover:bg-sky-100 text-sky-500 font-medium'>Active</a>";
                                 }else{
                                     $status_insert = "<a href='javascript:displayModal_inactive(".$row['student_id'].",".$status.");' type='button' name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
                                 }
                                 #has an account TRUE or FALSE
                                 $hasAccount = $row['has_account'];
                                 if ($hasAccount == 1 ) {
-                                    $has_account = "<span class='text-teal-400 font-medium uppercase'>true</span>";
+                                    $has_account = "<span class='text-sky-400 font-medium uppercase'>true</span>";
                                 }else{
                                     $has_account = "<span class='text-red-400 font-medium uppercase'>false</a>"; 
                                 }
@@ -81,9 +81,9 @@
                                    $profile = "../../images/placeholder.png";
                                 }
                                 ?>
-                                <tr class='display_image bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
+                                <tr class='display_image bg-white border-b transition duration-300 ease-in-out hover:bg-<?php echo $primary_color; ?>-50 text-sm text-gray-900 font-light'>
                                     <td><?php echo $row['student_id'] ?></td>
-                                    <td><img src="<?php echo $profile; ?>" alt="" class="w-20 h-16 rounded-full"></td>
+                                    <td><img src="<?php echo $profile; ?>" alt="" class="w-16 h-16"></td>
                                     <td><?php echo $row['lastname']." ".$row['firstname'] ;?></td>
                                     <td><?php echo $row['gender'] ;?></td>
                                     <td><?php echo $row['phone_number'] ;?></td>
@@ -97,14 +97,14 @@
             
                                     <td>
                                         <div class='flex items-center space-x-4'>
-                                            <a title='View record' href='./action/read.php?viewid=".$row['student_id']."' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                            <a title='View record' href='./action/read.php?viewid="<?php echo $row['student_id'];?>" && deletedstatus ="<?php echo $row['has_account'];?>"' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <a title='Update record' href='javascript:displayModal(".$row['student_id'].");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
+                                            <a title='Update record' href='javascript:displayModal("<?php echo $row['student_id']; ?>");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                             
-                                            <a title='Delete record' href='./doctor_action.php?deletedid=".$row['student_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
+                                            <a title='Delete record' href='./doctor_action.php?deletedid="<?php echo $row['student_id'];?>" && deletedstatus ="<?php echo $row['has_account'];?>"'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>
@@ -116,7 +116,7 @@
                         }else{
                             echo
                             "
-                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
+                            <tr class='bg-<?php echo $primary_color; ?>-50 border border-<?php echo $primary_color; ?>-100 border-t-0 text-sm text-<?php echo $primary_color; ?>-900 font-semibold text-center'>
                                 <td colspan='8'>
                                     No student records were found.
                                 </td>
@@ -153,20 +153,20 @@
                    <form method="POST" action="./action/update.php">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
                             <div class="sm:flex sm:items-start">
-                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-teal-100  sm:h-10 sm:w-10">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-<?php echo $primary_color; ?>-100  sm:h-10 sm:w-10">
                                     <!-- Heroicon name: outline/exclamation -->
-                                    <svg class="h-6 w-6 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <svg class="h-6 w-6 text-<?php echo $primary_color; ?>-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                     </svg>
                                 </div>
                                 <div id="modalSTATUS">
-                                    <input id="updateSTATUS" type="text" name="updateSTATUS_id">
-                                    <input id="updateSTATUS_TEXT" type="text" name="updateSTATUS_TEXT">
+                                    <input id="updateSTATUS" type="hidden" name="updateSTATUS_id">
+                                    <input id="updateSTATUS_TEXT" type="hidden" name="updateSTATUS_TEXT">
                                     
                                 </div>
                                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                     
-                                    <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Change account status</h3>
+                                    <h3 class="text-lg leading-6 font-medium text-<?php echo $primary_color; ?>-900" id="modal-title">Change account status</h3>
                                     <div class="mt-2">
                                     <p class="text-sm text-gray-500">Are you sure you want to do this? this will disable +this user credentials+ and will not be able to connect or login.</p>
                                     </div>
@@ -174,8 +174,8 @@
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="submit" name="update_status_student" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Change Status</button>
-                            <a href="./students.php" class="mt-3 w-full inline-flex justify-center rounded-md border border-teal-300 shadow-sm px-5 py-2 bg-white text-base font-medium text-teal-600 hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">  
+                            <button type="submit" name="update_status_student" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-<?php echo $primary_color; ?>-500 text-base font-medium text-white hover:bg-<?php echo $primary_color; ?>-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-<?php echo $primary_color; ?>-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Change Status</button>
+                            <a href="./students.php" class="mt-3 w-full inline-flex justify-center rounded-md border border-<?php echo $primary_color; ?>-300 shadow-sm px-5 py-2 bg-white text-base font-medium text-<?php echo $primary_color; ?>-600 hover:bg-<?php echo $primary_color; ?>-50 focus:outline-none focus:ring-2 focus:ring-<?php echo $primary_color; ?>-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">  
                                 Cancel
                             </a>    
                         </div>

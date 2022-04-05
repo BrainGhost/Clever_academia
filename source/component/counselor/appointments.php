@@ -23,9 +23,9 @@
             Appointment list
             </h2>
             <div class="flex h-8">
-                <input type="text" placeholder="" class="bg-slate-100 text-gray-600 block w-full mr-2 px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " >
-                <input type="text" placeholder="" class="bg-slate-100 text-gray-600 block w-full mr-2 px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " >
-                <span class="bg-teal-600 grid place-items-center rounded hover:bg-teal-700 transition duration-150 ease-in-out">
+                <input type="text" placeholder="" class="bg-slate-100 text-gray-600 block w-full mr-2 px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " >
+                <input type="text" placeholder="" class="bg-slate-100 text-gray-600 block w-full mr-2 px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " >
+                <span class="bg-<?php echo $primary_color; ?>-600 grid place-items-center rounded hover:bg-<?php echo $primary_color; ?>-700 transition duration-150 ease-in-out">
                     <i class="fa fa-search px-2 text-white  cursor-pointer text-lg" aria-hidden="true"></i>
                 </span>
             </div>
@@ -35,14 +35,14 @@
             <div class=" w-96 mt-8 my-2">
                 <div class="flex items-center">
                     <label for="" class="block text-gray-700 text-sm px-2"> Search </label>
-                    <input type="text" placeholder="" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " >
+                    <input type="text" placeholder="" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " >
                 </div>
             </div> 
         </div>
         <div id='recipients' class="overflow-hidden ">
             <table id="example" class="min-w-full " style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-				<thead class="bg-teal-600 border-b">
-					<tr class="text-sm font-medium text-teal-50 text-left">
+				<thead class="bg-<?php echo $primary_color; ?>-600 border-b">
+					<tr class="text-sm font-medium text-white text-left">
 						<th data-priority="1">Appointment No.</th>
 						<th data-priority="2">Patient Name</th>
 						<th data-priority="3">Appointment Date</th>
@@ -82,7 +82,7 @@
                                 }
                                 echo
                                 "
-                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
+                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-<?php echo $primary_color; ?>-50 text-sm text-gray-900 font-light'>
                                     <td>".$row['appointment_id']."</td>
                                     <td>".$row['doctor_schedule_id']."</td>
                                     <td>".$row['']."</td>
@@ -103,7 +103,7 @@
                         }else{
                             echo
                             "
-                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
+                            <tr class='bg-<?php echo $primary_color; ?>-50 border border-<?php echo $primary_color; ?>-100 border-t-0 text-sm text-<?php echo $primary_color; ?>-900 font-semibold text-center'>
                                 <td colspan='8'>
                                     No records were found.
                                 </td>

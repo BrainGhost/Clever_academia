@@ -3,7 +3,7 @@
   session_start();
 
   //check if the user is already logged in, if yes then redirect him or her to the welcome page
-  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true){
+  if(isset($_SESSION['loggedin_student']) && $_SESSION['loggedin_student'] === true){
     header("location: ../component/student/index.php");
     exit;
   }
@@ -13,7 +13,8 @@
 
   //Define variables and initialize with empty values
   $email = $password = "";
-  $email_err = $password_err = $login_err = "" ;
+  $email_err = $password_err = "" ;
+  // $login_err = [];
 
   //Procssing form data when is submitted
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -35,8 +36,11 @@
     //validate credentials 
     if (empty($email_err) && empty($password_err)) {
       # Prepare a select statement
-      $sql = "SELECT cred_id, username, email, password, profile,  level FROM credentials WHERE email = ? LIMIT 1";
+      $sql = "SELECT student_credentials.student_cred_id, student_credentials.username, student_credentials.email, student_credentials.password, student_credentials.status, students.firstname, students.lastname, students.level, students.student_status FROM student_credentials INNER JOIN students ON student_credentials.student_cred_id = students.student_id WHERE email = ? LIMIT 1;";
 
+      $sql = "SELECT Orders.OrderID, Customers.CustomerName
+      FROM student_credentials
+      INNER JOIN students ON student_credentials.student_cred_id = students.student_id;";
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variable to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "s", $param_email);
@@ -52,80 +56,43 @@
           # check if the email exits, if yes the verify password
           if (mysqli_stmt_num_rows($stmt) == 1) {
             # bind result variale
-            mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password, $profile, $level);
+            mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password, $student_status, $student_id);
             if (mysqli_stmt_fetch($stmt)) {
-              if ((password_verify($password, $hashed_password)) && ($level === "student")) {
+              if ($student_status == 1) {
+                if (password_verify($password, $hashed_password)) {
 
-                # Password is correct, so start a new session
-                session_start();
-               
-                # store data in session variales
-                // Store data in session variables
-                $_SESSION["loggedin"] = true;
-                $_SESSION["id"] = $id;
-                $_SESSION["username"] = $username;
-                $_SESSION["email"] = $email; 
-                 #check if the user has an image or not
-                if ($profile !== "") {
-                  $_SESSION["profile"] = $profile;
-                }else{
-                  $_SESSION["profile"] = "placeholder.png";
+                  # Password is correct, so start a new session
+                  session_start();
+                 
+                  # store data in session variales
+                  // Store data in session variables
+                  $_SESSION["loggedin_student"] = true;
+                  $_SESSION["id"] = $id;
+                  $_SESSION["username"] = $username;
+                  $_SESSION["email"] = $email; 
+                   #check if the user has an image or not
+                  // if ($profile !== "") {
+                  //   $_SESSION["profile"] = $profile;
+                  // }else{
+                  //   $_SESSION["profile"] = "placeholder.png";
+                  // }
+                  // $_SESSION["level"] = $level;
+                  // $_SESSION["insert_msg"] = "";
+  
+                  // Redirect user to welcome page
+                  header("location: ../component/student/index.php");
+                }else {
+                  # Password not valid, display a generic error
+                  $login_err[] = "Invalid email or password.";
                 }
-                $_SESSION["level"] = "student";
-                $_SESSION["insert_msg"] = "";
-
-                // Redirect user to welcome page
-                header("location: ../component/student/index.php");
-              }elseif ((password_verify($password, $hashed_password)) && ($level === "counselor")) {
-                # Password is correct, so start a new session
-                session_start();
-
-                # store data in session variales
-                // Store data in session variables
-                $_SESSION["loggedin"] = true;
-                $_SESSION["id"] = $id;
-                $_SESSION["username"] = $username;
-                $_SESSION["email"] = $email;
-                 #check if the user has an image or not
-                if ($profile !== "") {
-                  $_SESSION["profile"] = $profile;
-                }else{
-                  $_SESSION["profile"] = "placeholder.png";
-                }
-                $_SESSION["level"] = "counselor";
-                $_SESSION["insert_msg"] = "";
-
-                // Redirect user to welcome page
-                header("location: ../component/counselor/index.php");
-              }elseif ((password_verify($password, $hashed_password)) && ($level === "admin")) {
-                # Password is correct, so start a new session
-                session_start();
-
-                # store data in session variales
-                // Store data in session variables
-                $_SESSION["loggedin"] = true;
-                $_SESSION["id"] = $id;
-                $_SESSION["username"] = $username;
-                $_SESSION["email"] = $email;
-                 #check if the user has an image or not
-                if ($profile !== "") {
-                  $_SESSION["profile"] = $profile;
-                }else{
-                  $_SESSION["profile"] = "placeholder.png";
-                }
-                $_SESSION["level"] = "admin";
-                $_SESSION["insert_msg"] = "";
-
-                // Redirect user to welcome page
-                header("location: ../component/admin/index.php");
-              }else {
-                # Password not valid, display a generic error
-                $login_err = "Invalid email or password.";
+              }else{
+                $login_err[] = "Your account has been desactivated! Please contact the admin .";
               }
+              
             }
           }else {
             # username doesn't exist, display an error message
-            $login_err = "Invalid email or password. ";
+            $login_err[] = "Invalid email or password. ";
           }
         }else{
           echo "Oops! Something went wrong. Please try again later";
@@ -177,17 +144,20 @@
   <body>
     <div class="flex items-center min-h-screen p-6 bg-gray-50">
       <!-- feedback hot toast -->
-      <?php if (!empty($login_err)) {
-        echo 
-        '
-          <div class="absolute top-7  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
-            <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
-                <i class="fa fa-times  cursor-pointer text-white text-xs" aria-hidden="true"></i>
-            </span>'
-              . $login_err .
-          '</div>
-        ';
-      }
+      <?php
+        if (isset($login_err)) {
+          foreach($login_err as $login_err) {
+            echo 
+            '
+            <div onclick="this.remove();" class="absolute top-7 cursor-pointer  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
+              <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
+                  <i class="fa fa-times text-white text-xs" aria-hidden="true"></i>
+              </span>
+              '.$login_err.'
+            </div>
+            ';
+          }
+        }
       ?>
       
       <!-- begining code -->

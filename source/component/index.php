@@ -3,22 +3,21 @@
   session_start();
 
   //check if the user is already logged in, if yes then redirect him or her to the welcome page
-  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true ){
-    if ($_SESSION['level'] === 'admin') {
-      header("location: ./component/admin/");
+    //check if the user is already logged in, if yes then redirect him or her to the welcome page
+    if(isset($_SESSION['loggedin_admin']) && $_SESSION['loggedin_admin'] === true){
+      header("location: ./admin/index.php");
       exit;
-    }else {
-      header("location: ./component/counselor/");
+    }elseif (isset($_SESSION['loggedin_counselor']) && $_SESSION['loggedin_counselor'] === true) {
+      header("location: ./counselor/index.php");
       exit;
     }
-  }
   
   //include config file
   require_once("../php/config.php");
 
   //Define variables and initialize with empty values
   $email = $password = "";
-  $email_err = $password_err = $login_err = "" ;
+  $email_err = $password_err = "" ;
 
   //Procssing form data when is submitted
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -40,7 +39,7 @@
     //validate credentials 
     if (empty($email_err) && empty($password_err)) {
       # Prepare a select statement
-      $sql = "SELECT cred_id, username, email, password, profile,  level FROM credentials WHERE email = ? LIMIT 1";
+      $sql = "SELECT doctor_id, fullname, email, password, image,  level, doctor_status FROM doctors WHERE email = ? LIMIT 1";
 
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variable to the prepared statement as parameters
@@ -57,19 +56,20 @@
           # check if the email exits, if yes the verify password
           if (mysqli_stmt_num_rows($stmt) == 1) {
             # bind result variale
-            mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password, $profile, $level);
+            mysqli_stmt_bind_result($stmt, $id, $fullname, $email, $hashed_password, $profile, $level, $doctor_status);
             if (mysqli_stmt_fetch($stmt)) {
-              if ((password_verify($password, $hashed_password)) && ($level === "couselor")) {
+              if ($doctor_status == 1) {
+                if ((password_verify($password, $hashed_password)) && ($level === "counselor")) {
                   # Password is correct, so start a new session
                   session_start();
-
+  
                   # store data in session variales
                   // Store data in session variables
-                  $_SESSION["loggedin"] = true;
+                  $_SESSION["loggedin_counselor"] = true;
                   $_SESSION["id"] = $id;
-                  $_SESSION["username"] = $username;
+                  $_SESSION["username"] = $fullname;
                   $_SESSION["email"] = $email;
-                  #check if the user has an image or not
+                   #check if the user has an image or not
                   if ($profile !== "") {
                     $_SESSION["profile"] = $profile;
                   }else{
@@ -77,38 +77,47 @@
                   }
                   $_SESSION["level"] = "counselor";
                   $_SESSION["insert_msg"] = "";
-
+  
+                  //passing primary color as session
+                  $_SESSION['primary_color'] = "sky";
+  
                   // Redirect user to welcome page
                   header("location: ./counselor/index.php");
-              }elseif ((password_verify($password, $hashed_password)) && ($level === "admin")) {
-                # Password is correct, so start a new session
-                session_start();
-
-                # store data in session variales
-                // Store data in session variables
-                $_SESSION["loggedin"] = true;
-                $_SESSION["id"] = $id;
-                $_SESSION["username"] = $username;
-                $_SESSION["email"] = $email;
-                 #check if the user has an image or not
-                if ($profile !== "") {
-                  $_SESSION["profile"] = $profile;
-                }else{
-                  $_SESSION["profile"] = "placeholder.png";
+                }elseif ((password_verify($password, $hashed_password)) && ($level === "admin")) {
+                  # Password is correct, so start a new session
+                  session_start();
+  
+                  # store data in session variales
+                  // Store data in session variables
+                  $_SESSION["loggedin_admin"] = true;
+                  $_SESSION["id"] = $id;
+                  $_SESSION["username"] = $fullname;
+                  $_SESSION["email"] = $email;
+                   #check if the user has an image or not
+                  if ($profile !== "") {
+                    $_SESSION["profile"] = $profile;
+                  }else{
+                    $_SESSION["profile"] = "placeholder.png";
+                  }
+                  $_SESSION["level"] = "admin";
+                  $_SESSION["insert_msg"] = "";
+                  //passing primary color as session
+                  $_SESSION['primary_color'] = "red";
+  
+                  // Redirect user to welcome page
+                  header("location: ./admin/index.php");
+                }else {
+                  # Password not valid, display a generic error
+                  $login_err[] = "Invalid email or password.";
                 }
-                $_SESSION["level"] = "admin";
-                $_SESSION["insert_msg"] = "";
-
-                // Redirect user to welcome page
-                header("location: ../component/admin/index.php");
-              }else {
-                # Password not valid, display a generic error
-                $login_err = "Invalid email or password.";
+              }else{
+                $login_err[] = "Your account has been desactivated! Please contact the admin .";
               }
+              
             }
           }else {
             # username doesn't exist, display an error message
-            $login_err = "Invalid email or password. ";
+            $login_err[] = "Invalid email or password.";
           }
         }else{
           echo "Oops! Something went wrong. Please try again later";
@@ -160,17 +169,20 @@
   <body>
     <div class="flex items-center min-h-screen p-6 bg-gray-50">
       <!-- feedback hot toast -->
-      <?php if (!empty($login_err)) {
-        echo 
-        '
-          <div class="absolute top-7  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
-            <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
-                <i class="fa fa-times  cursor-pointer text-white text-xs" aria-hidden="true"></i>
-            </span>'
-              . $login_err .
-          '</div>
-        ';
-      }
+      <?php
+        if (isset($login_err)) {
+          foreach($login_err as $login_err) {
+            echo 
+            '
+            <div onclick="this.remove();" class="absolute top-7 cursor-pointer  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border border-red-200 rounded ">
+              <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
+                  <i class="fa fa-times text-white text-xs" aria-hidden="true"></i>
+              </span>
+              '.$login_err.'
+            </div>
+            ';
+          }
+        }
       ?>
       
       <!-- begining code -->

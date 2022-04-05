@@ -45,7 +45,7 @@
 				<tbody>
                     <?php
                         //Display data into the table 
-                        $sql  = "SELECT * FROM students;";
+                        $sql  = "SELECT * FROM mentors;";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
                         #continue in the table itself
@@ -62,7 +62,7 @@
                                 echo 
                                 "
                                 <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
-                                    <td>".$row['student_id']."</td>
+                                    <td>".$row['mentor_id']."</td>
                                     <td>".$row['fullname']."</td>
                                     <td>".$row['email']."</td>
                                     <td>".$row['phone_number']."</td>

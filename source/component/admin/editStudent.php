@@ -173,14 +173,14 @@
             Student management
         </h2>
         <span class="">
-            <i class="fa fa-user text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-user text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
         <button class="new-resources">
-            <a href='./students.php' type='button' name='upload-resource' value='upload' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>
+            <a href='./students.php' type='button' name='upload-resource' value='upload' class='flex items-center px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>
                 close
-                <i class="fa fa-times text-teal-600 text-xl ml-2" aria-hidden="true"></i>
+                <i class="fa fa-times text-<?php echo $primary_color; ?>-600 text-xl ml-2" aria-hidden="true"></i>
             </a>
         </button>
     </div>
@@ -199,14 +199,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">First name</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $firstname; ?>" name="firstname" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $firstname; ?>" name="firstname" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $firstname_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Last name</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $lastname; ?>" name="lastname" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $lastname; ?>" name="lastname" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $lastname_err; ?></span>
                             </div>
@@ -215,15 +215,15 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Email</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="email" value="<?php echo $email; ?>" name="email" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="email" value="<?php echo $email; ?>" name="email" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $email_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Gender</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="radio" name="gender" value="Male" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "/>Male 
-                                    <input type="radio" name="gender" value="Female" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "/>Female
+                                    <input type="radio" name="gender" value="Male" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "/>Male 
+                                    <input type="radio" name="gender" value="Female" id="" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "/>Female
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $gender_err; ?></span>
                             </div>
@@ -232,14 +232,14 @@
                         <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Date of birth</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="date" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-teal-50"     /> 
+                                    <input type="date" value="<?php echo $dateofbirth; ?>" name="dateofbirth" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded cursor-pointer bg-<?php echo $primary_color; ?>-50"     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $dateofbirth_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Phone No.</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="tel" value="<?php echo $phonenumber; ?>" name="phonenumber" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="tel" value="<?php echo $phonenumber; ?>" name="phonenumber" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $phonenumber_err; ?></span>
                             </div> 
@@ -248,7 +248,7 @@
                             <div class="form-group w-full">
                                 <label class="text-sm font-medium">Address</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $address; ?>" name="address" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $address; ?>" name="address" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $address_err; ?></span>
                             </div>
@@ -256,14 +256,14 @@
                                 <div class="w-full">
                                     <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Registration</label>
                                     <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                        <input type="number" min="2000" max="2050" maxlength="4" step="1" placeholder="<?php echo date("Y");?>"  name="registration" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded" /> 
+                                        <input type="number" min="2000" max="2050" maxlength="4" step="1" placeholder="<?php echo date("Y");?>"  name="registration" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded" /> 
                                     </div>
                                     <span class="text-xs text-red-500"><?php echo $registration_err; ?></span>
                                 </div>
                                 <div class="w-full ml-4 hidden">
                                     <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Graduation</label>
                                     <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                        <input type="number" min="2000" max="2050" maxlength="4" step="1" placeholder="<?php echo date("Y");?>"  name="graduation" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded" /> 
+                                        <input type="number" min="2000" max="2050" maxlength="4" step="1" placeholder="<?php echo date("Y");?>"  name="graduation" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded" /> 
                                     </div>
                                     <span class="text-xs text-red-500"><?php echo $graduation_err; ?></span>
                                 </div>
@@ -273,14 +273,14 @@
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Department</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $department; ?>" name="department" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $department; ?>" name="department" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $department_err; ?></span>
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Course</label>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <input type="text" value="<?php echo $course; ?>" name="course" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "     /> 
+                                    <input type="text" value="<?php echo $course; ?>" name="course" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "     /> 
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $course_err; ?></span>
                             </div>
@@ -295,15 +295,15 @@
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-xs file:font-semibold
-                                        file:bg-teal-50 file:text-teal-700
-                                        hover:file:bg-teal-100
+                                        file:bg-<?php echo $primary_color; ?>-50 file:text-<?php echo $primary_color; ?>-700
+                                        hover:file:bg-<?php echo $primary_color; ?>-100
                                         hover:cursor-pointer
                                         "/>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group w-full">
-                                <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-teal-50">
+                                <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-<?php echo $primary_color; ?>-50">
                                     <label for="file-select">
                                         <img id="imageDisplay"  src="../../images/placeholder.png" class="w-full h-full object-cover border-0">
                                     </label>
@@ -315,7 +315,7 @@
                     <!--  -->
                     <div
                         class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                        <a href="./students.php" name="cancel" class="px-10 py-3 text-teal-700 border-gray-300 font-medium
+                        <a href="./students.php" name="cancel" class="px-10 py-3 text-<?php echo $primary_color; ?>-700 border-gray-300 font-medium
                         -close
                         text-xs
                         leading-tight
@@ -331,7 +331,7 @@
 
                         <button type="submit" name="add_student" class="px-10
                         py-3
-                        bg-teal-600
+                        bg-<?php echo $primary_color; ?>-600
                         text-white
                         font-medium
                         text-xs
@@ -339,9 +339,9 @@
                         uppercase
                         rounded
                         shadow-md
-                        hover:bg-teal-700 hover:shadow-lg
-                        focus:bg-teal-700 focus:shadow-lg focus:outline-none focus:ring-0
-                        active:bg-teal-800 active:shadow-lg
+                        hover:bg-<?php echo $primary_color; ?>-700 hover:shadow-lg
+                        focus:bg-<?php echo $primary_color; ?>-700 focus:shadow-lg focus:outline-none focus:ring-0
+                        active:bg-<?php echo $primary_color; ?>-800 active:shadow-lg
                         transition
                         duration-150
                         ease-in-out
