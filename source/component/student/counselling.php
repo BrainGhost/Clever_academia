@@ -12,9 +12,8 @@ date_default_timezone_set("Africa/Nairobi");
 $doctor_id = $doctor_schedule_date = $doctor_schedule_day = $doctor_schedule_start_time = $doctor_schedule_end_time = $average_consulting_time = "";
 $doctor_schedule_date_err = $doctor_schedule_start_time_err = $doctor_schedule_end_time_err = $average_consulting_time_err = $insert_msg = $alert_notification = $status_insert = "";
 
-if($_SESSION["level"] == "counselor"){
-    $doctor_id = $_SESSION["id"];
-}
+$student_id = $_SESSION["student_id"];
+
 // INSERT FUNCTIONALITY
 if(isset($_POST["add"]))
 {
@@ -179,21 +178,21 @@ if(isset($_POST["add"]))
             Schedule Management
         </h2>
         <span class="openModalBtn">
-            <i class="fa fa-plus-circle text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 cursor-pointer text-3xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-plus-circle text-teal-600 hover:text-teal-700 cursor-pointer text-3xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2">
         <div class="search flex justify-end">
             <div class=" w-96 my-2">
                 <div class="flex items-center">
-                    <label for="" class="block text-<?php echo $primary_color; ?>-700 text-sm px-2"> Search </label>
-                    <input type="text" placeholder="" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " >
+                    <label for="" class="block text-teal-700 text-sm px-2"> Search </label>
+                    <input type="text" placeholder="" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " >
                 </div>
             </div>
         </div>
         <div id='recipients' class="overflow-hidden rounded shadow bg-white">
             <table id="example" class="min-w-full" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-				<thead class="bg-<?php echo $primary_color; ?>-600 border-b">
+				<thead class="bg-teal-600 border-b">
 					<tr class="text-sm font-medium text-white text-left">
 						<th data-priority="1">Schedule date</th>
 						<th data-priority="2">Schedule day</th>
@@ -223,7 +222,7 @@ if(isset($_POST["add"]))
                                 }
                                 echo
                                 "
-                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-<?php echo $primary_color; ?>-50 text-sm text-gray-900 font-light'>
+                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
                                     <td>".$row['doctor_schedule_date']."</td>
                                     <td>".$row['doctor_schedule_day']."</td>
                                     <td>".$row['doctor_schedule_start_time']."</td>
@@ -247,7 +246,7 @@ if(isset($_POST["add"]))
                         }else{
                             echo
                             "
-                            <tr class='bg-<?php echo $primary_color; ?>-50 border border-<?php echo $primary_color; ?>-100 border-t-0 text-sm text-<?php echo $primary_color; ?>-900 font-semibold text-center'>
+                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
                                 <td colspan='8'>
                                     No records were found.
                                 </td>
@@ -285,7 +284,7 @@ if(isset($_POST["add"]))
                                 <div class="input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                     <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar"></i></span>
                                 </div>
-                                <input type="date" name="doctor_schedule_date" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 bg-<?php echo $primary_color; ?>-50 cursor-pointer rounded "  autocomplete="off" />
+                                <input type="date" name="doctor_schedule_date" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 bg-teal-50 cursor-pointer rounded "  autocomplete="off" />
                             </div>
                             <span class="text-xs text-red-500"><?php echo $doctor_schedule_date_err; ?></span>
                         </div>
@@ -295,7 +294,7 @@ if(isset($_POST["add"]))
                                 <div class="input-group-prepend input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
                                 </div>
-                                <input type="time" min="09:00" max="18:00" name="doctor_schedule_start_time" id="doctor_schedule_start_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "   autocomplete="off" />
+                                <input type="time" min="09:00" max="18:00" name="doctor_schedule_start_time" id="doctor_schedule_start_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "   autocomplete="off" />
                             </div>
                             <span class="text-xs text-red-500"><?php echo $doctor_schedule_start_time_err; ?></span>
                         </div>
@@ -305,7 +304,7 @@ if(isset($_POST["add"]))
                                 <div class="input-group-prepend input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
                                 </div>
-                                <input type="time" min="09:00" max="18:00" name="doctor_schedule_end_time" id="doctor_schedule_end_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded "  autocomplete="off" />
+                                <input type="time" min="09:00" max="18:00" name="doctor_schedule_end_time" id="doctor_schedule_end_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "  autocomplete="off" />
                             </div>
                             <span class="text-xs text-red-500"><?php echo $doctor_schedule_end_time_err; ?></span>
                         </div>
@@ -315,7 +314,7 @@ if(isset($_POST["add"]))
                                 <div class="input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
                                 </div>
-                                <select name="average_consulting_time" id="average_consulting_time" class="bg-white form-control text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded" >
+                                <select name="average_consulting_time" id="average_consulting_time" class="bg-white form-control text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded" >
                                     <option value="">Select Consulting Duration</option>
                                     <?php
                                     $count = 0;
@@ -332,7 +331,7 @@ if(isset($_POST["add"]))
                     </div>
                     <div
                         class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                        <button type="button" class="px-6 py-2.5 text-<?php echo $primary_color; ?>-700 border-gray-300 font-medium
+                        <button type="button" class="px-6 py-2.5 text-teal-700 border-gray-300 font-medium
                         btn-close
                         text-xs
                         leading-tight
@@ -348,7 +347,7 @@ if(isset($_POST["add"]))
 
                         <button type="submit" name="add" class="px-6
                         py-2.5
-                        bg-<?php echo $primary_color; ?>-600
+                        bg-teal-600
                         text-white
                         font-medium
                         text-xs
@@ -356,9 +355,9 @@ if(isset($_POST["add"]))
                         uppercase
                         rounded
                         shadow-md
-                        hover:bg-<?php echo $primary_color; ?>-700 hover:shadow-lg
-                        focus:bg-<?php echo $primary_color; ?>-700 focus:shadow-lg focus:outline-none focus:ring-0
-                        active:bg-<?php echo $primary_color; ?>-800 active:shadow-lg
+                        hover:bg-teal-700 hover:shadow-lg
+                        focus:bg-teal-700 focus:shadow-lg focus:outline-none focus:ring-0
+                        active:bg-teal-800 active:shadow-lg
                         transition
                         duration-150
                         ease-in-out
@@ -427,7 +426,7 @@ if(isset($_POST["add"]))
                                 <div class="input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                     <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar"></i></span>
                                 </div>
-                                <input type="date" name="doctor_schedule_date" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 bg-sky-50 cursor-pointer rounded " required autocomplete="off" />
+                                <input type="date" name="doctor_schedule_date" id="doctor_schedule_date" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 bg-sky-50 cursor-pointer rounded " required autocomplete="off" />
                             </div>
                             <span class="text-xs text-red-500"><?php echo $doctor_schedule_date_err; ?></span>
                         </div>
@@ -437,7 +436,7 @@ if(isset($_POST["add"]))
                                 <div class="input-group-prepend input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
                                 </div>
-                                <input type="time" min="09:00" max="18:00" name="doctor_schedule_start_time" id="doctor_schedule_start_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " required  autocomplete="off" />
+                                <input type="time" min="09:00" max="18:00" name="doctor_schedule_start_time" id="doctor_schedule_start_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required  autocomplete="off" />
                             </div>
                             <span class="text-xs text-red-500"><?php echo $doctor_schedule_start_time_err; ?></span>
                         </div>
@@ -447,7 +446,7 @@ if(isset($_POST["add"]))
                                 <div class="input-group-prepend input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
                                 </div>
-                                <input type="time" min="09:00" max="18:00" name="doctor_schedule_end_time" id="doctor_schedule_end_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " required autocomplete="off" />
+                                <input type="time" min="09:00" max="18:00" name="doctor_schedule_end_time" id="doctor_schedule_end_time" class="form-control datetimepicker-input text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required autocomplete="off" />
                             </div>
                             <span class="text-xs text-red-500"><?php echo $doctor_schedule_end_time_err; ?></span>
                         </div>
@@ -457,7 +456,7 @@ if(isset($_POST["add"]))
                                 <div class="input-group-prepend bg-gray-100 py-2 px-3 text-base">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
                                 </div>
-                                <select name="average_consulting_time" id="average_consulting_time" class="bg-white form-control text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded" required >
+                                <select name="average_consulting_time" id="average_consulting_time" class="bg-white form-control text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded" required >
                                     <option value="">Select Consulting Duration</option>
                                     <?php
                                     $count = 0;
@@ -552,9 +551,9 @@ if(isset($_POST["add"]))
                    <form method="POST" action="./schedule_action.php">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
                             <div class="sm:flex sm:items-start">
-                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-<?php echo $primary_color; ?>-100  sm:h-10 sm:w-10">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-teal-100  sm:h-10 sm:w-10">
                                     <!-- Heroicon name: outline/exclamation -->
-                                    <svg class="h-6 w-6 text-<?php echo $primary_color; ?>-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <svg class="h-6 w-6 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                     </svg>
                                 </div>
@@ -565,7 +564,7 @@ if(isset($_POST["add"]))
                                 </div>
                                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                     
-                                    <h3 class="text-lg leading-6 font-medium text-<?php echo $primary_color; ?>-900" id="modal-title">Change status</h3>
+                                    <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Change status</h3>
                                     <div class="mt-2">
                                     <p class="text-sm text-gray-500">Are you sure you want to change the status of this data? data may be disable or enable. Click it again to undone the changes.</p>
                                     </div>
@@ -573,8 +572,8 @@ if(isset($_POST["add"]))
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="submit" name="update_status" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-<?php echo $primary_color; ?>-500 text-base font-medium text-white hover:bg-<?php echo $primary_color; ?>-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-<?php echo $primary_color; ?>-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Change Status</button>
-                            <a href="./index.php" class="mt-3 w-full inline-flex justify-center rounded-md border border-<?php echo $primary_color; ?>-300 shadow-sm px-5 py-2 bg-white text-base font-medium text-<?php echo $primary_color; ?>-600 hover:bg-<?php echo $primary_color; ?>-50 focus:outline-none focus:ring-2 focus:ring-<?php echo $primary_color; ?>-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">  
+                            <button type="submit" name="update_status" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">Change Status</button>
+                            <a href="./index.php" class="mt-3 w-full inline-flex justify-center rounded-md border border-teal-300 shadow-sm px-5 py-2 bg-white text-base font-medium text-teal-600 hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm cursor-pointer">  
                                 Cancel
                             </a>    
                         </div>

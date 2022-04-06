@@ -36,11 +36,10 @@
     //validate credentials 
     if (empty($email_err) && empty($password_err)) {
       # Prepare a select statement
-      $sql = "SELECT student_credentials.student_cred_id, student_credentials.username, student_credentials.email, student_credentials.password, student_credentials.status, students.firstname, students.lastname, students.level, students.student_status FROM student_credentials INNER JOIN students ON student_credentials.student_cred_id = students.student_id WHERE email = ? LIMIT 1;";
-
-      $sql = "SELECT Orders.OrderID, Customers.CustomerName
-      FROM student_credentials
-      INNER JOIN students ON student_credentials.student_cred_id = students.student_id;";
+      $sql = "SELECT student_credentials.student_cred_id, student_credentials.username, student_credentials.email, student_credentials.password, students.firstname, students.lastname, students.profile, students.level, students.student_status, students.student_id 
+      FROM student_credentials 
+      INNER JOIN students 
+      ON student_credentials.student_id = students.student_id WHERE student_credentials.email = ? LIMIT 1;";
       if ($stmt = mysqli_prepare($link, $sql)) {
         # Bind variable to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "s", $param_email);
@@ -56,7 +55,7 @@
           # check if the email exits, if yes the verify password
           if (mysqli_stmt_num_rows($stmt) == 1) {
             # bind result variale
-            mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password, $student_status, $student_id);
+            mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password, $firstname, $lastname, $profile, $level,$student_status, $student_id);
             if (mysqli_stmt_fetch($stmt)) {
               if ($student_status == 1) {
                 if (password_verify($password, $hashed_password)) {
@@ -68,16 +67,17 @@
                   // Store data in session variables
                   $_SESSION["loggedin_student"] = true;
                   $_SESSION["id"] = $id;
-                  $_SESSION["username"] = $username;
-                  $_SESSION["email"] = $email; 
+                  $_SESSION["student_id"] = $student_id;
+                  $_SESSION["username"] = "$lastname "." $firstname";
+                  $_SESSION["email"] = $email;
                    #check if the user has an image or not
-                  // if ($profile !== "") {
-                  //   $_SESSION["profile"] = $profile;
-                  // }else{
-                  //   $_SESSION["profile"] = "placeholder.png";
-                  // }
-                  // $_SESSION["level"] = $level;
-                  // $_SESSION["insert_msg"] = "";
+                  if ($profile !== "") {
+                    $_SESSION["profile"] = $profile;
+                  }else{
+                    $_SESSION["profile"] = "placeholder.png";
+                  }
+                  $_SESSION["level"] = $level;
+                  $_SESSION["insert_msg"] = "";
   
                   // Redirect user to welcome page
                   header("location: ../component/student/index.php");

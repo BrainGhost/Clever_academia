@@ -644,7 +644,7 @@ ob_start();
                   <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Profile</div>
                   <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Settings</div>
                   <div class="flex border-t-[1px] font-medium hover:cursor-pointer text-teal-500 hover:bg-teal-500 hover:text-white">
-                    <a class="py-2 px-6" href="../php/logout.php">Logout</a>
+                    <a class="py-2 px-6" href="../../php/logout.php">Logout</a>
                   </div>
                 </div>
               </li>
