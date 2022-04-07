@@ -104,44 +104,58 @@ if ($_SESSION['insert_msg'] !== "") {
                         if ($resultCheck > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 //schedule_status
-                                // $status = $row['resource_status'];
                                 if ($row['status'] == "approved" ) {
                                     $status_insert = "<span class='text-sky-400 font-medium'>Approved</span>";
                                 }elseif($row['status'] == "processing" ) {
-                                    $status_insert = "<span class='text-orange-400 font-medium'>Processing...</span>";
+                                    $status_insert = "<span class='text-red-400 font-medium'>Processing...</span>";
                                 }else{
                                     $status_insert = ""; 
                                 }
+                                $application_id = $row['application_id'];
+                                $motif = $row['motif'];
+                                $date = $row['date'];
+
+                                if($row['status'] !== "approved"){
+
                                 
                                 ?>
-                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
-                                    <td><?php echo $row['application_id']; ?></td>
-                                    <td><?php echo $row['motif']; ?></td>
-                                    <td><?php echo $row['date']; ?></td>
-                                    <td><?php echo $status_insert; ?></td>
-                                    <td>
-                                        <div class='flex items-center space-x-4'>
-                                            <a title='edit' href=''   class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
-                                            </a>
-                                            <a title='delete' href='./view_resource.php?deletedId=<?php echo $row['application_id']; ?>' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
-                                            </a>
-                                            <!-- <?php if ($row['resource_status'] == "approved") {
-                                                ?> -->
-                                                
-                                                <!-- <?php
-                                            } ?> -->
-                                        </div>
-                                    </td>
-                                </tr>
-                                <?php 
+                                    <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
+                                        <td><?php echo $application_id; ?></td>
+                                        <td><?php echo $motif; ?></td>
+                                        <td><?php echo $date; ?></td>
+                                        <td><?php echo $status_insert; ?></td>
+                                        <td>
+                                            <div class='flex items-center space-x-4'>
+                                                <a title='edit' href='applymentor.php?editID=<?php echo $application_id; ?>'  class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                                    <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
+                                                </a>
+                                                <a title='delete' href='./student_action.php?deletedID=<?php echo $application_id; ?>' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>
+                                                    <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                <?php
+                                }else{
+                                    echo 
+                                    "
+                                    <tr class='bg-white text-teal-900 font-semibold text-center'>
+                                        <td colspan='8'>
+                                            <div class='flex justify-center'>
+                                                <h1 class='bg-teal-50 shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You already a mentor, you can now user you priviliges to create study groups to help other student to react their potential by teaching each other.</h1>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    ";
+                                    
+                                }
                             }
                             mysqli_free_result($result);
                         }else { ?>
                             <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
                                 <td colspan='8'>
-                                    No resources records were found.
+                                    No request found.
                                 </td>
                             </tr>
                             <?php
@@ -158,53 +172,6 @@ if ($_SESSION['insert_msg'] !== "") {
 		</div>
     </div>
 </div>
-<!-- End Modal -->
-<!-- ================================CHANGE FROM APPROVED, DENIED ETC  WITH A MODAL====================================== -->
-
-    <div id="confirm-delete-modal" class="hidden fixed z-20 inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            
-            <div id="confirm-delete-modal-close" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-            <!-- This element is to trick the browser into centering the modal contents. -->
-            <!-- <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span> -->
-            
-                <div class="inline-block relative align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-text-50">
-
-                   <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
-                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
-                            <div class="sm:flex sm:items-start">
-                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 bg-teal-100  sm:h-10 sm:w-10">
-                                    <!-- Heroicon name: outline/exclamation -->
-                                    <svg class="h-6 w-6 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                    </svg>
-                                </div>
-                                <div id="modalSTATUS">
-                                    <input id="updateSTATUS" type="hidden" name="updateSTATUS_id"> 
-                                    <!-- <input id="updateSTATUS_TEXT" type="hidden" name="updateSTATUS_id">  -->
-                                </div>
-                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                    
-                                    <h3 class="text-lg leading-6 font-medium text-teal-900" id="modal-title">Change resources status</h3>
-                                    <div class="mt-2">
-                                    <p class="text-sm text-gray-500">Are you sure you want to do this? this will change the resource status, which is your action now.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="submit" name="approved_status" value="approved" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-5 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-20 sm:text-sm cursor-pointer">
-                                Approved
-                            </button>
-                            <button type="submit" name="denied_status" value="denied" class="mt-3 w-full inline-flex justify-center rounded-md border border-teal-300 shadow-sm px-5 py-2 bg-teal-50 text-base font-medium text-teal-600 hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm cursor-pointer">  
-                                Denied
-                            </button>    
-                        </div>
-                    </form>
-                </div>  
-        </div>
-    </div>
 
 <?php
     include './asset/Footer.php'

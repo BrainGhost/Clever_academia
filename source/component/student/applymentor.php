@@ -2,13 +2,24 @@
     include("../../php/config.php");
     include('./asset/Header.php');
 
-    
-
-
     //define variables and initialize with empty values
     // $application_reason =  "";
     $application_reason_err = $insert_msg = "";
+    ############################################
+    $motif_update = "";
+  if (isset($_GET["editID"])) {
+     $editID = $_GET["editID"];
+     //Display data into the table 
+     $sql  = "SELECT * FROM mentor_application WHERE application_id = $editID";
+     $result = mysqli_query($link, $sql);
 
+     while ($row = mysqli_fetch_assoc($result)) {
+        $motif_update = $row['motif'];
+    }
+    mysqli_free_result($result);
+
+  }
+                        
     #############################################
     // change the timezone from berlin to kenya/nairobi
     date_default_timezone_set("Africa/Nairobi");
@@ -24,38 +35,61 @@
         }else {
             $application_reason = trim($_POST['application_reason']);
         }
-        // elseif(strlen(trim($_POST['application_reason'] < 200))) {
-        //     $application_reason_err = "No more than 200 words.";
-        // }
         
         #date of creation
         $created_on = date("Y-m-d");
 
-        // if (isset($_SESSION["level"]) && $_SESSION["level"] === "mentor") {
-        //     $insert_msg = "Your already a member, can not apply twice";
-        // }elseif (isset($_SESSION["level"]) && $_SESSION["level"] === "processing") {
-        //     $insert_msg = "your mentor process is underway, you will notified as soon as it is approved.";
-        // }else {
-        //     # code...
-        // }
-
         if (empty($application_reason_err) ) {
-           
+            $sql = "SELECT application_id FROM mentor_application WHERE student_id = $student_id";
+            $result = mysqli_query($link, $sql);
+            $resultCheck = mysqli_num_rows($result);
+            if ($resultCheck < 1) {
+                #sql
+                $sql = "INSERT IGNORE INTO mentor_application(motif, date, student_id, status) VALUES ('$application_reason','$created_on','$student_id', 'processing') LIMIT 1";
+                $result = mysqli_query($link, $sql);
+                if($result){
+                    $_SESSION['insert_msg'] = "Your resquest has been succesfull been sent.";
+                    $_SESSION['alert_notification_resources'] = 'success';
+                    header("location: ./application.php");
+                    
+                }else{
+                    header("location: ./applymentor.php");
+                    $insert_msg = "Failed to send request.";
+                    mysqli_error($link);
+                }
+            }else {
+                $_SESSION['insert_msg'] = "Duplicated .. Failed to send request.";
+                $_SESSION['alert_notification_resources'] = 'delete';
+                // header("location: ./applymentor.php");
+                header("location: ./application.php");
+            }    
+        }
         # =========================================END================================================
-            #status = approve, processing, denied
-            #sql
-            $sql = "INSERT INTO mentor_application(motif, date, Student_id) VALUES ('$application_reason','$created_on','$student_id')";
+    }
+    # ===================================================UPDATE=====================================
+    if(isset($_POST["update_apply"])){
+        $update_id = $_POST["update_apply"];
+        //validate name
+        if (empty($_POST['application_reason'])) {
+            $application_reason_err = "Please this can not be empty.";
+        }else {
+            $application_reason = $_POST['application_reason'];
+        }
+        #date of creation
+        $created_on = date("Y-m-d");
+        
+        if (empty($application_reason_err) ){
+            $sql = "UPDATE mentor_application SET motif='$application_reason',date='$created_on',student_id='$student_id',status='processing' WHERE application_id='$update_id'";
             $result = mysqli_query($link, $sql);
             if($result){
-                $_SESSION['insert_msg'] = "Your resquest has been succesfull been sent.";
-                $_SESSION['alert_notification_resources'] = 'success';
+                $_SESSION['insert_msg'] = "Updated successfully.";
+                $_SESSION['alert_notification'] = "update";
                 header("location: ./application.php");
-                
             }else{
-                header("location: ./applymentor.php");
-                $insert_msg = "Failed request.";
-                mysqli_error($link);
+                echo "Oops! Something went wrong. Please try later";
+                die(mysqli_error($link));
             }
+            
         }
     }
 ?>
@@ -85,8 +119,7 @@
                 class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
                     <div
                         class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-                        <h5 class="text-2xl font-medium text-center leading-normal text-gray-600">Application</h5>
-                        
+                        <h5 class="text-2xl font-medium text-center leading-normal text-gray-600">Application</h5>   
                     </div>
                     <div class="modal-body relative p-4 text-gray-600">
                         <div class="row grid gap-4 ">
@@ -94,7 +127,8 @@
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Reason</label>
                                 <span class="text-sm italic text-teal-700 text-center">In 800 words, tell us why do you wish to become a mentor and your goals in doing so.</span>
                                 <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                    <textarea maxlength="800" minlength="500" name="application_reason" id="" cols="30" rows="10"  placeholder="Here ..." class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded "></textarea>
+                                    <input type="text" value="<?php echo $motif_update;?>" maxlength="800" minlength="300" name="application_reason" cols="30" rows="10"  placeholder="Here ..." class="text-gray-600 w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded resize-none">
+                                    </input>
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $application_reason_err; ?></span>
                             </div>
@@ -118,26 +152,56 @@
                         transition
                         duration-150
                         ease-in-out">Cancel</a>
+                        <?php
+                        if (isset($_GET["editID"])) {
+                            echo
+                            "
+                            <button type='submit' name='update_apply' class='px-6
+                            py-2.5
+                            border
+                            border-teal-600
+                            bg-teal-600
+                            text-white
+                            font-medium
+                            text-xs
+                            leading-tight
+                            uppercase
+                            rounded
+                            shadow-md
+                            hover:bg-teal-700 hover:shadow-lg
+                            focus:bg-teal-700 focus:shadow-lg focus:outline-none focus:ring-0
+                            active:bg-teal-800 active:shadow-lg
+                            transition
+                            duration-150
+                            ease-in-out
+                            ml-1'>Update</button>
+                            ";
 
-                        <button type="submit" name="apply" class="px-6
-                        py-2.5
-                        border
-                        border-teal-600
-                        bg-teal-600
-                        text-white
-                        font-medium
-                        text-xs
-                        leading-tight
-                        uppercase
-                        rounded
-                        shadow-md
-                        hover:bg-teal-700 hover:shadow-lg
-                        focus:bg-teal-700 focus:shadow-lg focus:outline-none focus:ring-0
-                        active:bg-teal-800 active:shadow-lg
-                        transition
-                        duration-150
-                        ease-in-out
-                        ml-1">Apply</button>
+                        }else{
+                            echo
+                            "
+                            <button type='submit' name='apply' class='px-6
+                            py-2.5
+                            border
+                            border-teal-600
+                            bg-teal-600
+                            text-white
+                            font-medium
+                            text-xs
+                            leading-tight
+                            uppercase
+                            rounded
+                            shadow-md
+                            hover:bg-teal-700 hover:shadow-lg
+                            focus:bg-teal-700 focus:shadow-lg focus:outline-none focus:ring-0
+                            active:bg-teal-800 active:shadow-lg
+                            transition
+                            duration-150
+                            ease-in-out
+                            ml-1'>Apply</button>
+                            ";
+                        }
+                        ?>
                     </div>
                 </div>
             </form>
