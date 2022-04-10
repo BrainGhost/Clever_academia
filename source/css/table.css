@@ -9,3 +9,13 @@ td {
 tr.display_image td {
   padding: 5px 1.5rem !important;
 }
+
+/* .hide__scroll {
+  width: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: scroll;
+}
+.hide__scroll::-webkit-scrollbar {
+  display: none;
+} */

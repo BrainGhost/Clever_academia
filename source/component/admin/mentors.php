@@ -15,23 +15,23 @@
             Mentors management
         </h2>
         <span class="openModalBtn">
-            <i class="fa fa-comments text-teal-600 hover:text-teal-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-comments text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
         <div class="search flex justify-end">
             <div class=" w-96 my-2">
                 <div class="flex items-center">
-                    <label for="" class="block text-teal-700 text-sm px-2"> Search </label>
-                    <input type="text" placeholder="Search mentors" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " >
+                    <label for="" class="block text-<?php echo $primary_color; ?>-700 text-sm px-2"> Search </label>
+                    <input type="text" placeholder="Search mentors" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded " >
                 </div>
             </div> 
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
         <div id='recipients' class=" max-w-full rounded shadow bg-white">
             <table id="example" class="w-full">
-				<thead class="bg-teal-600 border-b">
-					<tr class="text-sm font-medium text-teal-50 text-left">
+				<thead class="bg-<?php echo $primary_color; ?>-600 border-b">
+					<tr class="text-sm font-medium text-white text-left">
 						<th data-priority="1">Mentor ID</th>
                         <th data-priority="2">Mentor name</th>
 						<th data-priority="3">Email address</th>
@@ -45,7 +45,7 @@
 				<tbody>
                     <?php
                         //Display data into the table 
-                        $sql  = "SELECT * FROM mentors;";
+                        $sql  = "SELECT mentors.mentor_id, mentor_application.application_id  FROM mentors;";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
                         #continue in the table itself
@@ -55,13 +55,13 @@
                                 //schedule_status
                                 $status = $row['student_status'];
                                 if ($row['doctor_status'] == 1 ) {
-                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Active</a>";
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>Active</a>";
                                 }else{
                                     $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
                                 }
                                 echo 
                                 "
-                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
+                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-<?php echo $primary_color; ?>-50 text-sm text-gray-900 font-light'>
                                     <td>".$row['mentor_id']."</td>
                                     <td>".$row['fullname']."</td>
                                     <td>".$row['email']."</td>
@@ -91,7 +91,7 @@
                         }else{
                             echo
                             "
-                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
+                            <tr class='bg-<?php echo $primary_color; ?>-50 border border-<?php echo $primary_color; ?>-100 border-t-0 text-sm text-<?php echo $primary_color; ?>-900 font-semibold text-center'>
                                 <td colspan='8'>
                                     No Mentors records were found.
                                 </td>

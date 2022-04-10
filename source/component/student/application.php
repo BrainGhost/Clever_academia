@@ -8,13 +8,6 @@ $student_id = $_SESSION['student_id'];
 
 if ($_SESSION['insert_msg'] !== "") {
         $action = "";
-        // if ($_SESSION['alert_notification_resources'] = 'delete') {
-        //     $action = "delete";
-        // } elseif ($_SESSION['alert_notification_resources'] = 'update') {
-        //     $action = "update";
-        // } elseif ($_SESSION['alert_notification_resources'] = 'success') {
-        //     $action = $_SESSION['alert_notification_resources'];
-        // }
 
         $action = $_SESSION['alert_notification_resources'];
         switch ($action) {
@@ -65,7 +58,7 @@ if ($_SESSION['insert_msg'] !== "") {
             Mentorship Application
         </h2>
         <span class="openModalBtn">
-            <i class="fa fa-book text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-users text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
@@ -77,7 +70,7 @@ if ($_SESSION['insert_msg'] !== "") {
         <div class="search flex justify-center">
             <div class=" w-96 my-2">
                 <div class="flex items-center">
-                    <label for="" class="block text-teal-700 text-sm px-2"> View you application progress here </label>
+                    <label for="" class="block text-teal-700 text-sm px-2"> View your application progress here </label>
                 </div>
             </div> 
         </div>
@@ -88,6 +81,7 @@ if ($_SESSION['insert_msg'] !== "") {
 					<tr class="text-sm font-medium text-white text-left">
 						<th data-priority="1"> ID</th>
                         <th data-priority="2">Reason</th>
+                        <th data-priority="2">Topics</th>
                         <th data-priority="3">created On.</th>
 						<th data-priority="4">Status</th>
 						<th data-priority="5">Action</th>
@@ -112,7 +106,8 @@ if ($_SESSION['insert_msg'] !== "") {
                                     $status_insert = ""; 
                                 }
                                 $application_id = $row['application_id'];
-                                $motif = $row['motif'];
+                                $application_reason = $row['application_reason'];
+                                $topics = $row['topics'];
                                 $date = $row['date'];
 
                                 if($row['status'] !== "approved"){
@@ -121,7 +116,8 @@ if ($_SESSION['insert_msg'] !== "") {
                                 ?>
                                     <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
                                         <td><?php echo $application_id; ?></td>
-                                        <td><?php echo $motif; ?></td>
+                                        <td><?php echo $application_reason; ?></td>
+                                        <td><?php echo $topics; ?></td>
                                         <td><?php echo $date; ?></td>
                                         <td><?php echo $status_insert; ?></td>
                                         <td>
@@ -143,7 +139,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                     <tr class='bg-white text-teal-900 font-semibold text-center'>
                                         <td colspan='8'>
                                             <div class='flex justify-center'>
-                                                <h1 class='bg-teal-50 shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You already a mentor, you can now user you priviliges to create study groups to help other student to react their potential by teaching each other.</h1>
+                                                <h1 class='bg-teal-50 cursor-pointer shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You are a mentor, you can now use your priviliges to help other by creating study groups , so that other student who wish to join can learn from you and other member. This will contribute to your school activity award. The more life you can impact the better</h1>
                                             </div>
                                         </td>
                                     </tr>

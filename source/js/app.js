@@ -174,3 +174,5 @@ toggleSideMenu.addEventListener("click", (e) => {
   closeSideMenu.classList.toggle("-translate-x-[16rem]");
   backdrop.classList.toggle("hidden");
 });
+
+// ##################################### PIE CHART ###########################################

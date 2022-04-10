@@ -34,7 +34,7 @@
         <div id='recipients' class=" max-w-full rounded shadow bg-white">
             <table id="example" class="w-full">
 				<thead class="bg-<?php echo $primary_color; ?>-600 border-b">
-					<tr class="text-sm font-medium text-<?php echo $primary_color; ?>-50 text-left">
+					<tr class="text-sm font-medium text-white text-left">
 						<th data-priority="1">ID</th>
 						<th data-priority="1">profile</th>
                         <th data-priority="2">student name</th>
