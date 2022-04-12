@@ -79,20 +79,25 @@ if ($_SESSION['insert_msg'] !== "") {
         <div class="w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide">
             <?php
             //PIE CHARTS
-            $sql = "SELECT * FROM students";
+            $sql = "SELECT mentor.mentor_id, mentor_application.topics,students.student_id, students.firstname, students.lastname, students.profile
+                    FROM mentor
+                    INNER JOIN mentor_application ON mentor.application_id=mentor_application.application_id
+                    INNER JOIN students ON mentor_application.student_id=students.student_id
+                    WHERE mentor_application.student_id != $student_id
+                    ";
 
             $result = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
                 $name = $row['firstname'].' '.$row['lastname'];
-                $topic = $row['major'];
+                $topic = $row['topics'];
                 $profile = $row['profile'];
             ?>
                 <div class="w-40 p-2">
-                    <a href="view_mentor.php?<?php echo $row['student_id']; ?>" class=" relative w-30 text-center cursor-pointer">
+                    <a href="view_mentor.php?<?php echo $row['mentor_id']; ?>" class=" relative w-30 text-center cursor-pointer">
                         <div class="bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 rounded-full mb-2 mx-auto">
                             <img
                                 src="../../images/<?php echo $profile; ?>"
-                                class="rounded-full shadow-lg p-1 bg-white opacity-100 hover:opacity-50 transition duration-300 ease-in-out"
+                                class="rounded-full shadow-lg p-1 bg-white opacity-100 hover:opacity-90 transition duration-300 ease-in-out"
                                 alt="Avatar"
                             /> 
                         </div>
@@ -112,8 +117,8 @@ if ($_SESSION['insert_msg'] !== "") {
     <div class="table mt-4">
         <div class="search flex justify-center">
             <div class=" w-96 my-2">
-                <div class="flex items-center">
-                    <label for="" class="block text-teal-700 text-sm px-2"> View all the latest update Here. </label>
+                <div class="flex items-center justify-center">
+                    <label for="" class="block text-teal-700 text-sm px-2"> View all the latest update Here (courses). </label>
                 </div>
             </div> 
         </div>
@@ -139,9 +144,9 @@ if ($_SESSION['insert_msg'] !== "") {
                         if ($resultCheck > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 //schedule_status
-                                if ($row['status'] == "approved" ) {
+                                if ($row['application_status'] == "approved" ) {
                                     $status_insert = "<button type='button' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Already joined</button>";
-                                }elseif($row['status'] == "processing" ) {
+                                }elseif($row['application_status'] == "processing" ) {
                                     $status_insert = "<a href='javascript:displayModal_inactive(".$row['application_id'].");' class='px-8 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Join</a>";
                                 }else{
                                     $status_insert = ""; 
@@ -150,7 +155,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                 $application_reason = $row['application_reason'];
                                 $date = $row['date'];
 
-                                if($row['status'] !== "approved"){
+                                if($row['application_status'] !== "approved"){
                                 ?>
                                     <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
                                         <td><?php echo $application_id; ?></td>

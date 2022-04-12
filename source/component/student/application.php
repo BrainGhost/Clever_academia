@@ -8,7 +8,7 @@ $student_id = $_SESSION['student_id'];
 
 if ($_SESSION['insert_msg'] !== "") {
         $action = "";
-
+        $_SESSION['alert_notification_resources']="";
         $action = $_SESSION['alert_notification_resources'];
         switch ($action) {
             case 'success':
@@ -69,102 +69,128 @@ if ($_SESSION['insert_msg'] !== "") {
     <div class="table mt-4">
         <div class="search flex justify-center">
             <div class=" w-96 my-2">
-                <div class="flex items-center">
-                    <label for="" class="block text-teal-700 text-sm px-2"> View your application progress here </label>
+                <div class="flex items-center justify-center">
+                    <label class="block text-teal-700 text-sm px-2 "> View your application progress here </label>
                 </div>
             </div> 
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
         <div id='recipients' class=" max-w-full rounded shadow bg-white">
-            <table id="example" class="w-full">
-				<thead class="bg-teal-600 border-b">
-					<tr class="text-sm font-medium text-white text-left">
-						<th data-priority="1"> ID</th>
-                        <th data-priority="2">Reason</th>
-                        <th data-priority="2">Topics</th>
-                        <th data-priority="3">created On.</th>
-						<th data-priority="4">Status</th>
-						<th data-priority="5">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-                    <?php
-                        //Display data into the table 
-                        $sql  = "SELECT * FROM mentor_application WHERE student_id = $student_id";
-                        $result = mysqli_query($link, $sql);
-                        $resultCheck = mysqli_num_rows($result);
-                        #continue in the table itself
-                        
-                        if ($resultCheck > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                //schedule_status
-                                if ($row['status'] == "approved" ) {
-                                    $status_insert = "<span class='text-sky-400 font-medium'>Approved</span>";
-                                }elseif($row['status'] == "processing" ) {
-                                    $status_insert = "<span class='text-red-400 font-medium'>Processing...</span>";
-                                }else{
-                                    $status_insert = ""; 
-                                }
-                                $application_id = $row['application_id'];
-                                $application_reason = $row['application_reason'];
-                                $topics = $row['topics'];
-                                $date = $row['date'];
-
-                                if($row['status'] !== "approved"){
-
-                                
-                                ?>
-                                    <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
-                                        <td><?php echo $application_id; ?></td>
-                                        <td><?php echo $application_reason; ?></td>
-                                        <td><?php echo $topics; ?></td>
-                                        <td><?php echo $date; ?></td>
-                                        <td><?php echo $status_insert; ?></td>
-                                        <td>
-                                            <div class='flex items-center space-x-4'>
-                                                <a title='edit' href='applymentor.php?editID=<?php echo $application_id; ?>'  class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
-                                                    <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
-                                                </a>
-                                                <a title='delete' href='./student_action.php?deletedID=<?php echo $application_id; ?>' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>
-                                                    <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                <?php
-                                }else{
-                                    echo 
-                                    "
-                                    <tr class='bg-white text-teal-900 font-semibold text-center'>
-                                        <td colspan='8'>
-                                            <div class='flex justify-center'>
-                                                <h1 class='bg-teal-50 cursor-pointer shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You are a mentor, you can now use your priviliges to help other by creating study groups , so that other student who wish to join can learn from you and other member. This will contribute to your school activity award. The more life you can impact the better</h1>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    ";
-                                    
-                                }
-                            }
-                            mysqli_free_result($result);
-                        }else { ?>
-                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
-                                <td colspan='8'>
-                                    No request found.
-                                </td>
+            <?php
+                $sql = "SELECT mentor.mentor_id,students.student_id
+                FROM mentor
+                INNER JOIN mentor_application ON mentor.application_id=mentor_application.application_id
+                INNER JOIN students ON mentor_application.student_id=students.student_id
+                WHERE students.student_id = $student_id";
+                $result = mysqli_query($link, $sql);
+                $resultCheck = mysqli_num_rows($result);
+                #continue in the table itself
+                
+                if ($resultCheck > 0) {
+                    echo 
+                    "
+                    <tr class='bg-white text-teal-900 font-semibold text-center'>
+                        <td colspan='8'>
+                            <div class='flex justify-center p-4'>
+                                <h1 class='bg-teal-50 text-gray-600 cursor-pointer shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You are a mentor, you can now use your priviliges to help other by creating study groups , so that other student who wish to join can learn from you and other member. This will contribute to your school activity award. The more life you can impact the better</h1>
+                            </div>
+                        </td>
+                    </tr>
+                    ";
+                }else{
+                    ?>
+                    <table id="example" class="w-full">
+                        <thead class="bg-teal-600 border-b">
+                            <tr class="text-sm font-medium text-white text-left">
+                                <th data-priority="1"> ID</th>
+                                <th data-priority="2">Reason</th>
+                                <th data-priority="2">Topics</th>
+                                <th data-priority="3">created On.</th>
+                                <th data-priority="4">Status</th>
+                                <th data-priority="5">Action</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             <?php
-                        }
+                                //Display data into the table 
+                                $sql  = "SELECT * FROM mentor_application WHERE student_id = $student_id";
+                                $result = mysqli_query($link, $sql);
+                                $resultCheck = mysqli_num_rows($result);
+                                #continue in the table itself
+                                
+                                if ($resultCheck > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        //schedule_status
+                                        if ($row['application_status'] == "approved" ) {
+                                            $status_insert = "<span class='text-sky-400 font-medium'>Approved</span>";
+                                        }elseif($row['application_status'] == "processing" ) {
+                                            $status_insert = "<span class='text-yellow-600 font-medium'>Processing...</span>";
+                                        }else{
+                                            $status_insert = "<span class='text-red-700 font-medium'>Denied</span>"; 
+                                        }
+                                        $application_id = $row['application_id'];
+                                        $application_reason = $row['application_reason'];
+                                        $topics = $row['topics'];
+                                        $date = $row['date'];
 
-                        #close connection
-                        mysqli_close($link);
-                     ?>
+                                        if($row['application_status'] !== "approved"){
 
-				</tbody>
-                <!--    -->
+                                        
+                                        ?>
+                                            <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
+                                                <td><?php echo $application_id; ?></td>
+                                                <td><?php echo $application_reason; ?></td>
+                                                <td><?php echo $topics; ?></td>
+                                                <td><?php echo $date; ?></td>
+                                                <td><?php echo $status_insert; ?></td>
+                                                <td>
+                                                    <div class='flex items-center space-x-4'>
+                                                        <a title='edit' href='applymentor.php?editID=<?php echo $application_id; ?>'  class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                                            <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
+                                                        </a>
+                                                        <a title='delete' href='./student_action.php?deletedID=<?php echo $application_id; ?>' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>
+                                                            <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-			</table>
+                                        <?php
+                                        }else{
+                                            echo 
+                                            "
+                                            <tr class='bg-white text-teal-900 font-semibold text-center'>
+                                                <td colspan='8'>
+                                                    <div class='flex justify-center'>
+                                                        <h1 class='bg-teal-50 cursor-pointer shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You were once a mentor, Contact the admin to enable you for another application</h1>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            ";
+                                            
+                                        }
+                                    }
+                                    mysqli_free_result($result);
+                                }else { ?>
+                                    <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
+                                        <td colspan='8'>
+                                            No request found.
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+
+                                #close connection
+                                mysqli_close($link);
+                            ?>
+
+                        </tbody>
+                        <!--    -->
+
+                    </table>
+                    <?php
+                }
+            ?>
 		</div>
     </div>
 </div>

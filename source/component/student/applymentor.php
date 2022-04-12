@@ -36,16 +36,12 @@
             $application_reason = trim($_POST['application_reason']);
         }
         //topics
-        if (empty($_POST['topics'])) {
+        if (empty($_POST['picked_topic'])) {
             $application_topic_err = "Please select a topic.";
         }else {
-            $topics = $_POST['topics'];
-            foreach ($topics as $item) {
-                $application_topic = $item;
-                echo $item;
-            }
+            $application_topic = trim($_POST['picked_topic']);
+            
         }
-
         
         // #date of creation
         $created_on = date("Y-m-d");
@@ -56,9 +52,10 @@
             $resultCheck = mysqli_num_rows($result);
             if ($resultCheck < 1) {
                 #sql
-                $sql = "INSERT INTO mentor_application(application_reason, topics, date, student_id, status) VALUES ('$application_reason','$application_topic', '$created_on','$student_id', 'processing') LIMIT 1";
+                $sql = "INSERT INTO mentor_application(application_reason, topics, date, student_id, application_status) VALUES ('$application_reason','$application_topic', '$created_on','$student_id', 'processing') LIMIT 1";
                 $result = mysqli_query($link, $sql);
                 if($result){
+
                     $_SESSION['insert_msg'] = "Your resquest has been succesfull been sent.";
                     $_SESSION['alert_notification_resources'] = 'success';
                     header("location: ./application.php");
@@ -144,19 +141,24 @@
                             </div>
                             <div class="form-group w-full">
                                 <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium">Topics</label>
-                                <span class="text-sm italic text-teal-700 text-center">Select topics you wish to be mentoring.</span>
-                                <div class="input-group grid gap-2 text-gray-600 w-full py-2">
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="network">IT network</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="javascript">Javascript</br></div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="react">ReactJS</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="express">ExpresJS</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="webdev">Web devopment</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="backend">Backend</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="css">CSS</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="mobiledev">Mobile development</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="english">English</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="french">French</div>
-                                    <div><input type="checkbox" class="mx-2" name="topics[]" value="math">Math</div>
+                                <span class="text-sm italic text-teal-700 text-center">Select one topic you wish to be mentoring.</span>
+                                <div class="input-group grid gap-2 text-gray-600 w-full py-3">
+                                    <?php
+                                        $sql = "SELECT * FROM topics";
+                                        $result = mysqli_query($link, $sql);
+                                        if ($result) {
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                $topicDisplay = $row['name'];
+                                                echo 
+                                                "
+                                                    <div><input type='radio' class='mx-2' name='picked_topic' value='$topicDisplay'>$topicDisplay</div>
+                                                ";
+                                                
+                                            }
+                                            mysqli_free_result($result);
+                                        }
+
+                                    ?>
                                 </div>
                                 <span class="text-xs text-red-500"><?php echo $application_topic_err; ?></span>
                             </div>

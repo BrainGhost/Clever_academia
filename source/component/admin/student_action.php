@@ -24,7 +24,7 @@
             $sql =  "DELETE FROM credentials WHERE email = $deleteEmail";
             if(mysqli_query($link, $sql)){
                 $_SESSION['insert_msg'] = "Deleted successfully.";
-                $_SESSION['alert_notification'] = "delete";
+                $_SESSION['alert_notification_resources'] = "delete";
                 header("location: ./doctors.php");
             }
         }else {

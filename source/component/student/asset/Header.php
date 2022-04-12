@@ -7,6 +7,8 @@ ob_start();
   if (!isset($_SESSION["loggedin_student"]) || $_SESSION["loggedin_student"] !== true)   {
       header("location: ../../pages/index.php");
   }
+  $student_id = $_SESSION['student_id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,6 +83,23 @@ ob_start();
               Clever academia </a
             >|
             <span class="italic text-sm text-teal-600">Student</span>
+            <span class="flex justify-center">
+              <?php
+              $sql  = "SELECT level FROM students WHERE student_id = $student_id;";
+              $result = mysqli_query($link, $sql);
+              $resultCheck = mysqli_num_rows($result);
+                            
+              if ($resultCheck > 0) {
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    if ($row['level'] === "mentor") {
+                      echo '<img src="../../images/badge-2.jpg" class="h-6 w-6" alt="">';
+                    }
+                    echo '';
+                  }
+                  mysqli_free_result($result);
+                }
+              ?>
+            </span>
           </div>
           <ul class="mt-6">
             <li class="relative px-6 py-3">
@@ -637,7 +656,6 @@ ob_start();
                   <img
                     class="object-cover w-8 h-8 rounded-full"
                     src="<?php echo "../../images/".$_SESSION['profile']; ?>"
-                    src="../../images/placeholder.png"
                     alt=""
                     aria-hidden="true"
                   />

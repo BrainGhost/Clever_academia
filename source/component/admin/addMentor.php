@@ -25,8 +25,19 @@
             if($result){
                 $sql = "INSERT INTO mentor(application_id, since_date) VALUES ('$updateSTATUS_id',' $approved_date')";
                 if (mysqli_query($link, $sql)) {
-                    $_SESSION['insert_msg'] = "Application approved successfully.";
-                    header("location: ./mentors.php");
+                    $sql = "SELECT student_id FROM mentor_application WHERE application_id = $updateSTATUS_id";
+                    $result = mysqli_query($link, $sql);
+                    if ($row = mysqli_fetch_assoc($result)) {
+                        $student_mentor_id = $row["student_id"];
+                        $next_status = "mentor";
+                        $sql = "UPDATE students SET level ='$next_status' WHERE student_id= $student_mentor_id";
+                        $result = mysqli_query($link, $sql);
+                            if($result){
+                                $_SESSION['insert_msg'] = "Application approved successfully.";
+                                header("location: ./mentors.php");
+                            }
+                    } 
+                    
                 }
             }else{
                 echo "Oops! Something went wrong. Please try later";
