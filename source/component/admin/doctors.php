@@ -158,9 +158,6 @@
 
         
     }
-
-    
-
 ?>
 <!--Overlay Effect-->
 <div
@@ -169,21 +166,15 @@
 ></div>
 <!-- Remove everything INSIDE this div to a really blank page -->
 <!-- CONFIRMATION ACTIVATE ACCOUNT-->
-
-
 <!-- NOTIFICATION ALERTS -->
-<?php
-    
-    if ($_SESSION['insert_msg'] !== "") {
-        $action = "";
-        if (isset($_POST['delete'])) {
-            $action = "delete";
-        } elseif (isset($_POST['update_doctor'])) {
-            $action = "update";
-        } elseif (isset($_POST['save_doctor'])) {
-            $action = "success";
-        }
+<?php  
+// <!-- NOTIFICATION ALERTS -->
+$insert_msg = "";
 
+if ($_SESSION['insert_msg'] !== "") {
+        $action = "";
+
+        $action = $_SESSION['alert_notification_resources'];
         switch ($action) {
             case 'success':
                 $alert_msg = "Success";
@@ -209,31 +200,31 @@
                 $alert_btn_color = 'bg-orange-200 text-orange-700';
                 break;
         }
-      
-?>
 
-    <div class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color;?> " role="alert">
+?>
+    <div class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color;?> " role="alert">
         <strong class="font-bold"><?php echo $alert_msg; ?>! &nbsp;</strong>
         <span class="block sm:inline mr-12"><?php echo  $insert_msg ? $insert_msg : $_SESSION['insert_msg'] ; ?></span>
         <span onclick="closeNFT(this); <?php $_SESSION['insert_msg'] = null; ?>" class="absolute top-0 bottom-0 right-0 px-3 py-3 <?php echo $alert_btn_color;?> cursor-pointer">
             <i class="fa fa-times text-xl pointer-events-none" aria-hidden="true"></i>
         </span>
     </div>
-
 <?php     
     }
 ?>
-
 <div class="student-container container px-6 mx-auto grid relative">
     <div class="flex items-center border-b">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 flex-1">
             Counselor management
         </h2>
-        <span class="openModalBtn">
+        <span onclick="openModalBtn(this);">
             <i class="fa fa-user-plus text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
+        <button name="new_resources">
+            <a href='./addCounselor.php' name='' class='flex items-center px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>Add consellor</a>
+        </button>
         <div class="search flex justify-end">
             <div class=" w-96 my-2">
                 <div class="flex items-center">
@@ -269,9 +260,9 @@
                             while ($row = mysqli_fetch_assoc($result)) {         
                                 $status = $row['doctor_status'];    
                                 if ($row['doctor_status'] == 1 ) {
-                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-sky-500 bg-sky-50 rounded  hover:bg-sky-100 text-sky-500 font-medium'>Active</a>";
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");'name='change_status' value='Active' class='px-4 py-1 border border-sky-500 bg-sky-50 rounded  hover:bg-sky-100 text-sky-500 font-medium'>Active</a>";
                                 }else{
-                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
+                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");'name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
                                 }
                                 ?>
 

@@ -1,6 +1,49 @@
 <?php
     include("../../php/config.php");
-    include './asset/Header.php';
+    include ('./asset/Header.php');
+    // <!-- NOTIFICATION ALERTS -->
+    $insert_msg = "";
+
+    if ($_SESSION['insert_msg'] !== "") {
+            $action = "";
+
+            $action = $_SESSION['alert_notification_resources'];
+            switch ($action) {
+                case 'success':
+                    $alert_msg = "Success";
+                    $alert_div_color = 'bg-emerald-100 border-emerald-500 text-emerald-700';
+                    $alert_btn_color = 'bg-emerald-200 text-emerald-700';
+                    break;
+                    
+                case 'update':
+                    $alert_msg = "Update";
+                    $alert_div_color = 'bg-sky-100 border-sky-500 text-sky-700';
+                    $alert_btn_color = 'bg-sky-200 text-sky-700';
+                    break;
+
+                case 'delete':
+                    $alert_msg = "Delete";
+                    $alert_div_color = 'bg-red-100 border-red-500 text-red-700';
+                    $alert_btn_color = 'bg-red-200 text-red-700';
+                    break;
+                    
+                default:
+                    $alert_msg = "Be Warned";
+                    $alert_div_color = 'bg-orange-100 border-orange-500 text-orange-700';
+                    $alert_btn_color = 'bg-orange-200 text-orange-700';
+                    break;
+            }
+
+    ?>
+        <div class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color;?> " role="alert">
+            <strong class="font-bold"><?php echo $alert_msg; ?>! &nbsp;</strong>
+            <span class="block sm:inline mr-12"><?php echo  $insert_msg ? $insert_msg : $_SESSION['insert_msg'] ; ?></span>
+            <span onclick="closeNFT(this); <?php $_SESSION['insert_msg'] = null; ?>" class="absolute top-0 bottom-0 right-0 px-3 py-3 <?php echo $alert_btn_color;?> cursor-pointer">
+                <i class="fa fa-times text-xl pointer-events-none" aria-hidden="true"></i>
+            </span>
+        </div>
+    <?php     
+        }
 ?>
 <!--Overlay Effect-->
 <div
@@ -20,7 +63,7 @@
     </div>
     <div class="mt-2 w-full">
         <button name="new_resources">
-            <a href='./editStudent.php' type='button' name='' class='flex items-center px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>New Student</a>
+            <a href='./editStudent.php' name='' class='flex items-center px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>New Student</a>
         </button>
         <div class="search flex justify-end">
             <div class=" w-96 my-2">

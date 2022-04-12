@@ -37,7 +37,8 @@
         $result = mysqli_query($link, $sql);
             if($result){
                 $_SESSION['insert_msg'] = "Status change successfully.";
-                $_SESSION['alert_notification'] = "success";
+                $_SESSION['alert_notification_resources'] = "Success";
+                
                 header("location: ../doctors.php");
             }else{
                 echo "Oops! Something went wrong. Please try later";

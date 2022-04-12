@@ -29,24 +29,27 @@ button.forEach((btn) => {
   });
 });
 //openModal
-const openModalBtn = document.querySelector(".openModalBtn");
-const openModalBtn_update = document.querySelectorAll("[data-userid]");
-
-const modalOpen = document.querySelector(".modalOpen");
-const modalOpen_update = document.querySelector(".modalOpen_update");
+// const openModalBtn = document.querySelector(".openModalBtn");
 const myModal = document.querySelector("#my-modal");
+function openModalBtn(e) {
+  const modalOpen = document.querySelector(".modalOpen");
+
+  modalOpen.classList.toggle("hidden");
+  myModal.classList.toggle("hidden");
+  console.log(e);
+}
+
+const modalOpen_update = document.querySelector(".modalOpen_update");
+
 const btnClose = document.querySelectorAll(".btn-close");
 const btnClose_update = document.querySelectorAll(".btn-close-update");
 const closeNotification = document.querySelector("#close-nft");
 
-openModalBtn.addEventListener("click", () => {
-  modalOpen.classList.toggle("hidden");
-  myModal.classList.toggle("hidden");
-});
 //lemme create a hidden input and pass that e.ID
 let inputField = document.createElement("input");
 const formModal = document.querySelector("#modalIMP");
 const updateID = document.querySelector("#updateID");
+const openModalBtn_update = document.querySelectorAll("[data-userid]");
 
 openModalBtn_update.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -109,22 +112,24 @@ btnClose_update.forEach((item) => {
 //Close notification
 function closeNFT(e) {
   e.parentNode.classList.toggle("hidden");
-  // const closeNotification = document.querySelector("#close-nft");
-  // closeNotification.addEventListener("click", (e) => {
-  //   closeNotification.parentNode.classList.toggle("hidden");
-  // });
 }
 
 //user dropdown
-const dropdown_button = document.querySelector(".dropdown_button");
-const dropdown_subMenu = document.querySelector(".dropdown_menu");
-const user_icon = document.querySelector(".user_icon");
+function dropdown_menu(e) {
+  const dropdown_subMenu = document.querySelector(".dropdown_menu");
+  const user_icon = document.querySelector(".user_icon");
 
-dropdown_button.addEventListener("click", () => {
   dropdown_subMenu.classList.toggle("hidden");
   user_icon.classList.toggle("outline");
-  console.log(toggleSideMenu);
-});
+}
+// const dropdown_button = document.querySelector(".dropdown_button");
+// const dropdown_subMenu = document.querySelector(".dropdown_menu");
+// const user_icon = document.querySelector(".user_icon");
+
+// dropdown_button.addEventListener("click", () => {
+//   dropdown_subMenu.classList.toggle("hidden");
+//   user_icon.classList.toggle("outline");
+// });
 
 //Disply image admin -> doctor profile
 

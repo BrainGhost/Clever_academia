@@ -76,53 +76,36 @@ if ($_SESSION['insert_msg'] !== "") {
         </span>
     </div>
     <div class="bg-white shadow-lg">
-        <div class="mt-2 w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide">
-            <div class=" mentor w-40 px-2 py-4">
-                <div class=" relative w-40 text-center cursor-pointer">
-                    <div class="bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 rounded-full mb-2 mx-auto">
-                        <img
-                            src="../../images/-_1648899727.png"
-                            class="rounded-full w-40 shadow-lg p-1 bg-white opacity-100 hover:opacity-90 transition duration-300 ease-in-out"
-                            alt="Avatar"
-                        /> 
-                    </div>
-                    <div>
-                        <h5 class="text-xl text-teal-800 font-medium leading-tight mb-2">John Doe</h5>
-                        <p class="text-gray-500">Web designer</p>
-                    </div>
+        <div class="w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide">
+            <?php
+            //PIE CHARTS
+            $sql = "SELECT * FROM students";
+
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_assoc($result)) {
+                $name = $row['firstname'].' '.$row['lastname'];
+                $topic = $row['major'];
+                $profile = $row['profile'];
+            ?>
+                <div class="w-40 p-2">
+                    <a href="view_mentor.php?<?php echo $row['student_id']; ?>" class=" relative w-30 text-center cursor-pointer">
+                        <div class="bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 rounded-full mb-2 mx-auto">
+                            <img
+                                src="../../images/<?php echo $profile; ?>"
+                                class="rounded-full shadow-lg p-1 bg-white opacity-100 hover:opacity-50 transition duration-300 ease-in-out"
+                                alt="Avatar"
+                            /> 
+                        </div>
+                        <div>
+                            <h5 class="text-xl text-teal-800 font-medium leading-tight mb-2"><?php echo $name; ?></h5>
+                            <p class="text-gray-500"><?php echo $topic; ?></p>
+                        </div>
+                    </a>
                 </div>
-            </div>
-            
-            <div class="w-40 px-2 py-4">
-                <div class=" relative w-40 mentor h-52  mentor text-center cursor-pointer">
-                    <div class="bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 rounded-full mb-2 mx-auto">
-                        <img
-                            src="../../images/-_1648899727.png"
-                            class="rounded-full w-40 shadow-lg p-1 bg-white opacity-100 hover:opacity-90 transition duration-300 ease-in-out"
-                            alt="Avatar"
-                        /> 
-                    </div>
-                    <div>
-                        <h5 class="text-xl text-teal-800 font-medium leading-tight mb-2">John Doe</h5>
-                        <p class="text-gray-500">Web designer</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-40 px-2 py-4">
-                <div class=" relative w-40 mentor h-52  mentor text-center cursor-pointer">
-                    <div class="bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 rounded-full mb-2 mx-auto">
-                        <img
-                            src="../../images/-_1648899727.png"
-                            class="rounded-full w-40 shadow-lg p-1 bg-white opacity-100 hover:opacity-90 transition duration-300 ease-in-out"
-                            alt="Avatar"
-                        /> 
-                    </div>
-                    <div>
-                        <h5 class="text-xl text-teal-800 font-medium leading-tight mb-2">John Doe</h5>
-                        <p class="text-gray-500">Web designer</p>
-                    </div>
-                </div>
-            </div>  
+            <?php
+            }
+            ?>       
+              
         </div>
     </div>
     

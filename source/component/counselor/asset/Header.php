@@ -327,7 +327,7 @@
               <!-- Profile menu -->
               <!-- Profile menu -->
               <li class="relative dropdown">
-                <div class="dropdown_button cursor-pointer text-sm font-medium text-gray-600 select-none">
+                <div onclick="dropdown_menu(this);" class="cursor-pointer text-sm font-medium text-gray-600 select-none">
                   <span class="pr-2">
                     <?php echo htmlspecialchars($_SESSION["username"]);?>
                     

@@ -100,4 +100,18 @@ if (isset($_GET["resourceid"])) {
         die(mysqli_error($link));
     }
 }
+#===========================Deleting mentor=============================
+if (isset($_GET["mentordeletedid"])) {
+    $mentorId  = $_GET["mentordeletedid"];
+    #prepare a delete statment
+    $sql = "DELETE FROM mentor WHERE mentor_id=$mentorId";
+
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        header("location: ./mentors.php");
+    }else {
+        echo "Oops! Something went wrong. Please try later";
+        die(mysqli_error($link));
+    }
+}
 ?>

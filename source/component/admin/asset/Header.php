@@ -15,7 +15,6 @@ ob_start();
   } 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -75,52 +74,6 @@ ob_start();
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
-      }
-    </script>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['line']});
-        google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-        var data = new google.visualization.DataTable();
-        data.addColumn('number', 'Day');
-        data.addColumn('number', 'Guardians of the Galaxy');
-        data.addColumn('number', 'The Avengers');
-        data.addColumn('number', 'Transformers: Age of Extinction');
-
-        data.addRows([
-          [1,  37.8, 80.8, 41.8],
-          [2,  30.9, 69.5, 32.4],
-          [3,  25.4,   57, 25.7],
-          [4,  11.7, 18.8, 10.5],
-          [5,  11.9, 17.6, 10.4],
-          [6,   8.8, 13.6,  7.7],
-          [7,   7.6, 12.3,  9.6],
-          [8,  12.3, 29.2, 10.6],
-          [9,  16.9, 42.9, 14.8],
-          [10, 12.8, 30.9, 11.6],
-          [11,  5.3,  7.9,  4.7],
-          [12,  6.6,  8.4,  5.2],
-          [13,  4.8,  6.3,  3.6],
-          [14,  4.2,  6.2,  3.4]
-        ]);
-
-        var options = {
-          chart: {
-            title: 'Counselor performance',
-            subtitle: 'Number of students have booked with each'
-          },
-          axes: {
-            x: {
-              0: {side: 'bottom'}
-            }
-          }
-        };
-
-        var chart = new google.charts.Line(document.getElementById('line_top_x'));
-
-        chart.draw(data, google.charts.Line.convertOptions(options));
       }
     </script>
     <style>
@@ -485,24 +438,14 @@ ob_start();
           >
             <!-- Mobile hamburger -->
             <button
+              onclick="toggleSideMenu(this);"
               class="p-1 -ml-1 mr-5 rounded-md md:hidden focus:outline-none flex items-center"
               id="toggleSideMenu"
               aria-label="Menu"
             >
             <i class="text-2xl fa fa-bars pointer-events-none" aria-hidden="true"></i>
             <i class="text-2xl fa fa-times pointer-events-none hidden" aria-hidden="true"></i>
-              <!-- <svg
-                class="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg> -->
+              
             </button>
             <!-- Search input -->
             <div class="flex justify-center flex-1 lg:mr-32 ">
@@ -607,7 +550,7 @@ ob_start();
               </li>
               <!-- Profile menu -->
               <li class="relative dropdown">
-                <div class="dropdown_button cursor-pointer text-sm font-medium text-gray-600">
+                <div onclick="dropdown_menu(this);" class="cursor-pointer text-sm font-medium text-gray-600">
                   <span class="pr-2"><?php echo htmlspecialchars($_SESSION["username"]);?></span>
                   <button
                   class="user_icon align-middle rounded-full border-2 border-white outline-1 outline-<?php echo $primary_color; ?>-600 focus:outline-none"

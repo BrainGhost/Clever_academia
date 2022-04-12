@@ -629,7 +629,7 @@ ob_start();
               </li>
               <!-- Profile menu -->
               <li class="relative dropdown">
-                <div class="dropdown_button cursor-pointer text-sm font-medium text-gray-600">
+                <div onclick="dropdown_menu(this);" class="dropdown_button cursor-pointer text-sm font-medium text-gray-600">
                   <span class="pr-2"><?php echo htmlspecialchars($_SESSION["username"]);?></span>
                   <button
                   class="user_icon align-middle rounded-full border-2 border-white outline-1 outline-teal-600 focus:outline-none"

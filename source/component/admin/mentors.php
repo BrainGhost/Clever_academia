@@ -1,6 +1,21 @@
 <?php
     include("../../php/config.php");
-    include './asset/Header.php'
+    include './asset/Header.php';
+    // <!-- NOTIFICATION ALERTS -->
+    $insert_msg = "";
+
+    if ($_SESSION['insert_msg'] !== "") {
+
+    ?>
+        <div class="p-4 rounded px-4 py-3 absolute <?php echo $_SESSION['insert_msg'] ? "top-7 flex" : "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 bg-emerald-100 border-emerald-500 text-emerald-700 " role="alert">
+            <strong class="font-bold">Warning! &nbsp;</strong>
+            <span class="block sm:inline mr-12"><?php echo $_SESSION['insert_msg'] ; ?></span>
+            <span onclick="closeNFT(this); <?php $_SESSION['insert_msg'] = null; ?>" class="absolute top-0 bottom-0 right-0 px-3 py-3 bg-emerald-200 text-emerald-700 cursor-pointer">
+                <i class="fa fa-times text-xl pointer-events-none" aria-hidden="true"></i>
+            </span>
+        </div>
+    <?php     
+        }
 ?>
 <!--Overlay Effect-->
 <div
@@ -14,11 +29,14 @@
         <h2 class="my-6 text-2xl font-semibold text-gray-700 flex-1">
             Mentors management
         </h2>
-        <span class="openModalBtn">
-            <i class="fa fa-comments text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 cursor-pointer text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+        <span onclick="" class="">
+            <i class="fa fa-comments text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
+        <button name="new_resources">
+            <a href='./addMentor.php' name='' class='flex items-center px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>View application</a>
+        </button>
         <div class="search flex justify-end">
             <div class=" w-96 my-2">
                 <div class="flex items-center">
@@ -33,53 +51,53 @@
 				<thead class="bg-<?php echo $primary_color; ?>-600 border-b">
 					<tr class="text-sm font-medium text-white text-left">
 						<th data-priority="1">Mentor ID</th>
-                        <th data-priority="2">Mentor name</th>
-						<th data-priority="3">Email address</th>
-                        <th data-priority="4">Mentor phone No.</th>
-                        <th data-priority="5">Mentor speciality</th>
-						<th data-priority="6">Speciality</th>
-						<th data-priority="7">Status</th>
-						<th data-priority="8">Action</th>
+                        <th data-priority="2">Profile</th>
+                        <th data-priority="3">Full name</th>
+                        <th data-priority="4">Gender</th>
+                        <th data-priority="5">speciality</th>
+                        <th data-priority="6">Mentor</th>
+						<th data-priority="7">Email address</th>
+                        <th data-priority="8">phone No.</th>
+                        <th data-priority="9">Graduation date</th>
+						<th data-priority="10">Action</th>
 					</tr>
 				</thead>
 				<tbody>
                     <?php
                         //Display data into the table 
-                        $sql  = "SELECT mentors.mentor_id, mentor_application.application_id  FROM mentors;";
+                        $sql = "SELECT mentor.mentor_id,mentor.since_date, mentor_application.topics, students.firstname, students.lastname,students.email,students.gender, students.phone_number,students.graduation_year, students.profile
+                            FROM mentor
+                            INNER JOIN mentor_application ON mentor.application_id=mentor_application.application_id
+                            INNER JOIN students ON mentor_application.student_id=students.student_id
+                            ";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
                         #continue in the table itself
                         
                         if ($resultCheck > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
-                                //schedule_status
-                                $status = $row['student_status'];
-                                if ($row['doctor_status'] == 1 ) {
-                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>Active</a>";
-                                }else{
-                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['doctor_id'].",".$status.");' type='button' name='change_status' value='Inactive' class='px-4 py-1 border border-red-500 bg-red-50 rounded  hover:bg-red-100 text-red-500 font-medium'>Inactive</a>"; 
+                                #check if profile exist
+                                if ($row['profile'] !== "") {
+                                    $profile = "../../images/".$row['profile'];
+                                }else {
+                                   $profile = "../../images/placeholder.png";
                                 }
                                 echo 
                                 "
                                 <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-<?php echo $primary_color; ?>-50 text-sm text-gray-900 font-light'>
                                     <td>".$row['mentor_id']."</td>
-                                    <td>".$row['fullname']."</td>
+                                    <td><img src='$profile' class='w-16 h-16'></td>
+                                    <td>".$row['firstname'].' '.$row['lastname']."</td>
+                                    <td>".$row['gender']."</td>
+                                    <td>".$row['topics']."</td>
+                                    <td>".'Since '.$row['since_date']."</td>
                                     <td>".$row['email']."</td>
                                     <td>".$row['phone_number']."</td>
-                                    <td>".$row['address']."</td>
-                                    <td>".$row['speciality']."</td>
-                                    <td>$status_insert</td>
+                                    <td>".$row['graduation_year']."</td>
             
                                     <td>
                                         <div class='flex items-center space-x-4'>
-                                            <a title='View record' href='./action/read.php?viewid=".$row['student_id']."' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
-                                            </a>
-                                            <a title='Update record' href='javascript:displayModal(".$row['student_id'].");'   class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
-                                            </a>
-                                            
-                                            <a title='Delete record' href='./doctor_action.php?deletedid=".$row['student_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
+                                            <a title='Delete record' href='./doctor_action.php?mentordeletedid=".$row['mentor_id']."'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>
@@ -109,220 +127,6 @@
 			</table>
 		</div>
     </div>
-             <!-- Start Modal -->
-        <!-- ===========================================INSERT DATA INTO THE DB==================================================== -->   
-        <div class="modalOpen fade hidden absolute left-1/2 top-4 -translate-x-1/2 w-[700px] mx-auto h-[440px] outline-none overflow-x-hidden overflow-y-auto scrollbar-hi20 hover:bg-opacity-50 z-50 shadow-2xl"
-        id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog relative w-auto pointer-events-none  ">
-                    <div
-                    class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
-                        <div
-                            class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-                            <h5 class="text-2xl font-medium leading-normal text-gray-600">Mentor requests</h5>
-                            <button type="button"
-                            class="btn-close box-content w-6 h-6 p-1  text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-                            data-bs-dismiss="modal" aria-label="Close">
-                                <i class="fa fa-times text-xl"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body relative p-4 text-gray-600 bg-white">
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            <div class="rounded flex bg-gray-50 bg-opacity-20 hover:bg-opacity-50 mb-3 shadow hover:shadow-lg cursor-pointer">
-                                <div class=" flex flex-1 p-2">
-                                    <div class="avatar w-14 h-14 bg-white rounded-full overflow-hidden">
-                                        <img src="../../images/looking-at-phone.png" class="w-full h-full object-contain">
-                                    </div>
-                                    <div class="details flex-1 ml-3 overflow-hidden">
-                                        <a class="font-medium text-gray-800">Junior balibonera</a>
-                                        <div class="text-opacity-80 w-4/5 truncate mt-0.5 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit....</div>
-                                    </div>   
-                                    <div class="times text-gray-800 uppercase">
-                                        <span>11:30 am</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-2 ml-4 bg-slate-100 shadow-[-5px_0_18px_-12px_rgba(0,0,0,0.3)]">
-                                    <div class="rounded-full px-3 py-2 bg-sky-300 hover:bg-sky-400"><span><i class="text-sky-700 fa fa-check text-xl"></i></span></div>
-                                    <div class="rounded-full px-3 py-2 bg-red-300 hover:bg-red-400 ml-2"><span><i class="text-red-700 fa fa-times text-xl"></i></span></div>
-                                </div>   
-                            </div>
-                            
-                            
-                        </div>
-                        
-                    </div>
-            </div>
-        </div>
 </div>
 
 <!-- End Modal -->
