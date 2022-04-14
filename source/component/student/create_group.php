@@ -52,6 +52,15 @@ if ($_SESSION['insert_msg'] !== "") {
     </div>
 <?php     
     }
+    $sql = "SELECT mentor.mentor_id,students.student_id
+    FROM mentor
+    INNER JOIN mentor_application ON mentor.application_id=mentor_application.application_id
+    INNER JOIN students ON mentor_application.student_id=students.student_id
+    WHERE students.student_id = $student_id";
+    $result = mysqli_query($link, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $mentor_id = $row['mentor_id'];
+    }
 ?>
 <div
 	class="absolute hidden inset-0 bg-gray-600 bg-opacity-60 overflow-y-auto h-full w-full z-20"
@@ -68,9 +77,28 @@ if ($_SESSION['insert_msg'] !== "") {
         </span>
     </div>
     <div class="mt-2 w-full">
-        <button name="new_resources">
-            <a href='./add_group.php' name='addgroup' value='upload' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Create a group</a>
-        </button>
+        <?php
+            $sql = "SELECT * FROM study_group WHERE mentor_id = $mentor_id";
+            $result = mysqli_query($link, $sql);
+            $resultCheck = mysqli_num_rows($result);
+            if ($resultCheck > 5) {
+                echo
+                "
+                <div class='bg-white text-teal-900 font-semibold text-center'>
+                    <div class='flex justify-center'>
+                        <h1 class='bg-teal-50 cursor-pointer shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You have reached you maximamun limits of groups you are allowed to create {5}</h1>
+                    </div>
+                </div>
+                ";
+            }else{
+                echo
+                "
+                <button name='new_resources'>
+                    <a href='./add_group.php' name='addgroup' value='upload' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Create a group</a>
+                </button>
+                ";
+            }
+        ?>
     </div>
     <div class="table mt-4">
         <div class="search flex justify-end">
@@ -87,10 +115,9 @@ if ($_SESSION['insert_msg'] !== "") {
 				<thead class="bg-teal-600 border-b">
 					<tr class="text-sm font-medium text-white text-left">
 						<th data-priority="1"> ID</th>
-                        <th data-priority="2">Name</th>
-						<th data-priority="3">ofYear</th>
-                        <th data-priority="4">created By.</th>
-                        <th data-priority="5">date of upload</th>
+                        <th data-priority="2">Group Name</th>
+						<th data-priority="3">Description</th>
+                        <th data-priority="4">created On.</th>
 						<th data-priority="6">Status</th>
 						<th data-priority="7">Action</th>
 					</tr>
@@ -98,53 +125,37 @@ if ($_SESSION['insert_msg'] !== "") {
 				<tbody>
                     <?php
                         //Display data into the table 
-                        $sql  = "SELECT * FROM resources WHERE resource_status = 'approved' OR resource_status = 'processing';";
+                        $sql  = "SELECT * FROM study_group WHERE mentor_id = '$mentor_id'";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
                         #continue in the table itself
                         
                         if ($resultCheck > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
-                                //schedule_status
-                                // $status = $row['resource_status'];
-                                if ($row['resource_status'] == "approved" ) {
-                                    $status_insert = "<span class='text-sky-400 italic font-medium'>Approved</span>";
-                                    $viewClear = "flex";
-                                }elseif($row['resource_status'] == "processing" ) {
-                                    $status_insert = "<span class='text-orange-400 italic font-medium'>Processing ...</span>";
-                                    $viewClear = "hidden";
-                                }else{
-                                    $status_insert = ""; 
-                                }
-                                #has an account TRUE or FALSE
+                                $group_id = $row['study_group_id'];
+                                $group_name = $row['group_name'];
+                                $group_description = $row['group_description'];
+                                $group_creation = $row['created_on'];
                                 
-
-                                $author_display = $row['author'];
-                                if ($author_display !== $_SESSION["username"]) {
-                                    $author_name = $row['author'];
-                                }else {
+                                if ($row['mentor_id'] === $mentor_id) {
                                     $author_name = "Me";
                                 }
                                 ?>
                                 <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
-                                    <td><?php echo $row['resource_id']; ?></td>
-                                    <td><?php echo $row['resource_name']; ?></td>
-                                    <td><?php echo $row['ofyear']; ?></td>
-                                    <td><?php echo $author_name; ?></td>
-                                    <td><?php echo $row['created_on']; ?></td>
-                                    <td><?php echo $status_insert; ?></td>
+                                    <td><?php echo $group_id; ?></td>
+                                    <td><?php echo $group_name; ?></td>
+                                    <td><?php echo $group_description; ?></td>
+                                    <td><?php echo $group_creation; ?></td>
+                                    <td>
+                                        <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
+                                            <a href="join_group.php?<?php echo $group_id; ?>" class="my-2 px-4 py-1 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">open</a>
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class='flex items-center space-x-4'>
-                                            <a title='Download resource' href=''   class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-download  cursor-pointer text-lg' aria-hidden='true'></i>
+                                            <a title='View resource' href='./view_resource.php?viewId=<?php echo $group_id; ?>' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>
+                                                <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
-                                            <?php if ($row['resource_status'] == "approved") {
-                                                ?>
-                                                <a title='View resource' href='./view_resource.php?viewId=<?php echo $row['resource_id']; ?> && viewName=<?php echo $row['resource_name']; ?>' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
-                                                    <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
-                                                </a>
-                                                <?php
-                                            } ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -154,7 +165,7 @@ if ($_SESSION['insert_msg'] !== "") {
                         }else { ?>
                             <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
                                 <td colspan='8'>
-                                    No resources records were found.
+                                    You have not created any group yet.
                                 </td>
                             </tr>
                             <?php

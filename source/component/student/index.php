@@ -123,92 +123,56 @@ if ($_SESSION['insert_msg'] !== "") {
             </div> 
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
-        <div id='recipients' class=" max-w-full rounded shadow bg-white ">
-            <div class="display_card p-2 grid grid-cols-4 auto-rows-auto">
-                <div class="card w-80 border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
-                    <div class="banner relative h-40 shadow-lg">
-                        <img src="../../images/banner.png" class="background h-full w-full object-container">
-                        <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-                            <img src="../../images/1648479559_0 (8).png" class="profile w-24 h-24 rounded-full outline outline-white">
+        <div id='recipients' class=" max-w-full rounded shadow bg-white px-10">
+            <div class="display_card p-2 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-auto">
+                <?php
+                    $sql = "SELECT study_group.study_group_id, study_group.group_name, study_group.group_description, study_group.created_on, study_group.banner_image,study_group.mentor_id, students.firstname, students.lastname, students.profile
+                    FROM study_group
+                    INNER JOIN mentor ON study_group.mentor_id=mentor.mentor_id
+                    INNER JOIN mentor_application ON mentor.application_id=mentor_application.application_id
+                    INNER JOIN students ON mentor_application.student_id=students.student_id
+                    WHERE mentor_application.student_id != $student_id
+                    
+                    ";
+
+                    $result = mysqli_query($link, $sql);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $group_id = $row['study_group_id'];
+                        $group_name = $row['group_name'];
+                        $group_description = $row['group_description'];
+                        $group_creation = $row['created_on'];
+                        $group_author = $row['firstname'].' '.$row['lastname'];
+                        $group_banner = $row['banner_image'];
+                        $group_author_profile = $row['profile'];
+                        
+                ?>
+                    <div class="card max-w-7xl border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
+                        <div class="banner relative h-40 shadow-lg">
+                            <img src="../../resources/<?php echo $group_banner; ?>" class="background h-full w-full object-container">
+                            <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+                                <img src="../../images/<?php echo $group_author_profile; ?>" class="profile w-24 h-24 rounded-full outline outline-white">
+                            </div>
                         </div>
-                    </div>
-                    <div class="down p-2 mt-10">
-                        <div class="down_content">
-                            <p class="uppercase text-center text-gray-500 text-xs mb-2">Balibonera . React js</p>
-                            <p class="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Officiis, consequuntur repellat quos autem voluptas corporis 
-                                inventore dolores deleniti in temporibus saepe sapiente iste a
-                                liquid reiciendis quisquam obcaecati? Aliquam, unde odio.
-                            </p>
-                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
-                                <button class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</button>
+                        <div class="down p-2 mt-10">
+                            <div class="down_content">
+                                <p class="uppercase text-center text-gray-500 text-xs mb-2">
+                                    <span><?php echo $group_author; ?> .</span>
+                                    <span><?php echo $group_name; ?></span><br/>
+                                    <span><?php echo $group_creation; ?></span>
+                                </p>
+                                
+                                <p class="text-center text-gray-700">
+                                    <?php echo $group_description; ?>
+                                </p>
+                                <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
+                                    <a href="join_group.php?<?php echo $group_id; ?>" class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card w-80 border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
-                    <div class="banner relative h-40 shadow-lg">
-                        <img src="../../images/banner.png" class="background h-full w-full object-container">
-                        <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-                            <img src="../../images/1648479559_0 (8).png" class="profile w-24 h-24 rounded-full outline outline-white">
-                        </div>
-                    </div>
-                    <div class="down p-2 mt-10">
-                        <div class="down_content">
-                            <p class="uppercase text-center text-gray-500 text-xs mb-2">Balibonera . React js</p>
-                            <p class="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Officiis, consequuntur repellat quos autem voluptas corporis 
-                                inventore dolores deleniti in temporibus saepe sapiente iste a
-                                liquid reiciendis quisquam obcaecati? Aliquam, unde odio.
-                            </p>
-                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
-                                <button class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card w-80 border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
-                    <div class="banner relative h-40 shadow-lg">
-                        <img src="../../images/banner.png" class="background h-full w-full object-container">
-                        <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-                            <img src="../../images/1648479559_0 (8).png" class="profile w-24 h-24 rounded-full outline outline-white">
-                        </div>
-                    </div>
-                    <div class="down p-2 mt-10">
-                        <div class="down_content">
-                            <p class="uppercase text-center text-gray-500 text-xs mb-2">Balibonera . React js</p>
-                            <p class="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Officiis, consequuntur repellat quos autem voluptas corporis 
-                                inventore dolores deleniti in temporibus saepe sapiente iste a
-                                liquid reiciendis quisquam obcaecati? Aliquam, unde odio.
-                            </p>
-                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
-                                <button class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card w-80 border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
-                    <div class="banner relative h-40 shadow-lg">
-                        <img src="../../images/banner.png" class="background h-full w-full object-container">
-                        <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-                            <img src="../../images/1648479559_0 (8).png" class="profile w-24 h-24 rounded-full outline outline-white">
-                        </div>
-                    </div>
-                    <div class="down p-2 mt-10">
-                        <div class="down_content">
-                            <p class="uppercase text-center text-gray-500 text-xs mb-2">Balibonera . React js</p>
-                            <p class="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Officiis, consequuntur repellat quos autem voluptas corporis 
-                                inventore dolores deleniti in temporibus saepe sapiente iste a
-                                liquid reiciendis quisquam obcaecati? Aliquam, unde odio.
-                            </p>
-                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
-                                <button class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                    }
+                ?>
             </div>
 		</div>
     </div>
