@@ -174,7 +174,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                 }else { ?>
                                     <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
                                         <td colspan='8'>
-                                            No request found.
+                                            You have no application.
                                         </td>
                                     </tr>
                                     <?php

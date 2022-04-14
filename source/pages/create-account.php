@@ -135,7 +135,7 @@
         //Atempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
           // update the student details hasAcount to TRUE
-          $sql = "UPDATE students SET has_account = ? student_status = ? WHERE student_id = $gotStudentID";
+          $sql = "UPDATE students SET has_account = ?, student_status = ? WHERE student_id = $gotStudentID";
           if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ii", $param_hasAccount, $param_student_status);           

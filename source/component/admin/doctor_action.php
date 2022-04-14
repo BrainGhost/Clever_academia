@@ -11,12 +11,12 @@
     
         $result = mysqli_query($link, $sql);
         if ($result) {
-            $sql =  "DELETE FROM credentials WHERE email = $deleteEmail";
-            if(mysqli_query($link, $sql)){
+            // $sql =  "DELETE FROM credentials WHERE email = $deleteEmail";
+            // if(mysqli_query($link, $sql)){
                 $_SESSION['insert_msg'] = "Deleted successfully.";
                 $_SESSION['alert_notification'] = "delete";
                 header("location: ./doctors.php");
-            }
+            // }
         }else {
             echo "Oops! Something went wrong. Please try later";
             die(mysqli_error($link));
@@ -68,7 +68,7 @@ if(isset($_POST["update_doctor"]))
     echo print_r($photo);
     $photoImageName = time() .'_'. $_FILES["photoImager"]["name"];
     $photo_tmp_name = $_FILES["photoImager"]["tmp_name"];
-    $target_location = '../../images/' . $photoImageName;
+    $target_location = '../../images/'.$photoImageName;
 
     //statement
     $sql = "UPDATE doctors SET fullname='$fullname',email='$email',password='$password',address='$address',phone_number='$phonenumber',date_of_birth='$dateofbirth',speciality='$speciality',degree='$degree',image=' $photoImageName' WHERE doctor_id= $update_id ";

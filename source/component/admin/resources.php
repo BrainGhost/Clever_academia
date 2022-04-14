@@ -124,7 +124,7 @@
 				<tbody>
                     <?php
                         //Display data into the table 
-                        $sql  = "SELECT * FROM resources;";
+                        $sql  = "SELECT * FROM resources ORDER BY resource_id DESC ;";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
                         #continue in the table itself

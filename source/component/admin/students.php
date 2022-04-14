@@ -147,7 +147,7 @@
                                                 <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                             
-                                            <a title='Delete record' href='./doctor_action.php?deletedid="<?php echo $row['student_id'];?>" && deletedstatus ="<?php echo $row['has_account'];?>"'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
+                                            <a title='Delete record' href='./student_action.php?deletedid="<?php echo $row['student_id'];?>"'  class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>  
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>

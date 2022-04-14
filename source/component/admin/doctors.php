@@ -104,14 +104,21 @@
             #image upload
             
             $photoImageName = time() .'_'. $_FILES["photoImage"]["name"];
-            $photo_tmp_name = $_FILES["photoImage"]["tmp_name"];
-            $target_location = '../../images/' . $photoImageName;
+            $photo_tmp_name = $_FILES['photoImage']['tmp_name'];
+            $target_location = '../../images/'.$photoImageName;
             
             
             // # prepare insert data in the database
             $sql = "INSERT INTO doctors(fullname, email, password, level, address, phone_number, date_of_birth, speciality, degree, image, doctor_status) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
             if ($stmt = mysqli_prepare($link, $sql)) {
+                #check if the profile were saved
+                    $fileStored = move_uploaded_file($photo_tmp_name, $target_location);
+                    if ($fileStored === true ) {
+                        $file = $photoImageName;
+                    }else{
+                        echo "The file was not uploaded to the DB";
+                    }
                 # Bind variable to the prepared statement as parameters
                 mysqli_stmt_bind_param($stmt, "sssssssssss", $param_fullname , $param_email , $param_password, $param_level, $param_address , $param_phonenumber , $param_dateofbirth , $param_speciality , $param_degree , $param_image, $param_status );
 
@@ -125,22 +132,21 @@
                 $param_dateofbirth = $dateofbirth; 
                 $param_speciality =$speciality; 
                 $param_degree = $degree;
-                $param_image = $photoImageName;
+                $param_image = $file;
                 $param_status = 0;
 
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
-                    #insert the username and password to the credential talle 
-                    $sql = "INSERT INTO credentials(username, email, password, profile, level) VALUES ('$param_fullname ','$param_email','$param_password', '$param_image','counselor')";
-                    $result = mysqli_query($link, $sql);
-                    if ($result) {
-                        move_uploaded_file($photo_tmp_name, $target_location);
+                    // #insert the username and password to the credential talle 
+                    // $sql = "INSERT INTO credentials(username, email, password, profile, level) VALUES ('$param_fullname ','$param_email','$param_password', '$param_image','counselor')";
+                    // $result = mysqli_query($link, $sql);
+                    // if ($result) {
                         $insert_msg = "Record inserted successfully.";
                         $alert_notification = "success";
-                    }else{
-                        echo '<script type="text/javascript"> alert("FAILED!! Not inserted")</script>';
-                    }
+                    // }else{
+                    //     echo '<script type="text/javascript"> alert("FAILED!! Not inserted")</script>';
+                    // }
                     
                 } else{
                     $insert_msg = "Records not saved.";

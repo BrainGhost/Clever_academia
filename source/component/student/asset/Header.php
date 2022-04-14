@@ -292,7 +292,7 @@ ob_start();
               <li class='relative list-none'>
                   <a
                     class='inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 text-white'
-                    href='application.php'
+                    href='create_group.php'
                   >
                   <button
                     class='flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-teal-600 border border-transparent rounded-lg active:bg-teal-600 hover:bg-teal-700 focus:outline-none focus:shadow-outline-teal'

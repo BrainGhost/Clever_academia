@@ -123,78 +123,93 @@ if ($_SESSION['insert_msg'] !== "") {
             </div> 
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
-        <div id='recipients' class=" max-w-full rounded shadow bg-white">
-            <table id="example" class="w-full">
-				<thead class="bg-teal-600 border-b">
-					<tr class="text-sm font-medium text-white text-left">
-						<th data-priority="1">Course ID</th>
-                        <th data-priority="2">Name</th>
-                        <th data-priority="3">Topics.</th>
-						<th data-priority="4">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-                    <?php
-                        //Display data into the table 
-                        $sql  = "SELECT * FROM mentor_application WHERE student_id = $student_id";
-                        $result = mysqli_query($link, $sql);
-                        $resultCheck = mysqli_num_rows($result);
-                        #continue in the table itself
-                        
-                        if ($resultCheck > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                //schedule_status
-                                if ($row['application_status'] == "approved" ) {
-                                    $status_insert = "<button type='button' class='px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Already joined</button>";
-                                }elseif($row['application_status'] == "processing" ) {
-                                    $status_insert = "<a href='javascript:displayModal_inactive(".$row['application_id'].");' class='px-8 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Join</a>";
-                                }else{
-                                    $status_insert = ""; 
-                                }
-                                $application_id = $row['application_id'];
-                                $application_reason = $row['application_reason'];
-                                $date = $row['date'];
-
-                                if($row['application_status'] !== "approved"){
-                                ?>
-                                    <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
-                                        <td><?php echo $application_id; ?></td>
-                                        <td><?php echo $application_reason; ?></td>
-                                        <td><?php echo $date; ?></td>
-                                        <td><?php echo $status_insert; ?></td>
-                                    </tr>
-                                <?php
-                                }else{
-                                    echo 
-                                    "
-                                    <tr class='bg-white text-teal-900 font-semibold text-center'>
-                                        <td colspan='8'>
-                                            <div class='flex justify-center'>
-                                                <h1 class='bg-teal-50 cursor-pointer shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You are a mentor, you can now use your priviliges to help other by creating study groups , so that other student who wish to join can learn from you and other member. This will contribute to your school activity award. The more life you can impact the better</h1>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    ";
-                                }
-                            }
-                            mysqli_free_result($result);
-                        }else { ?>
-                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
-                                <td colspan='8'>
-                                    No request found.
-                                </td>
-                            </tr>
-                            <?php
-                        }
-
-                        #close connection
-                        mysqli_close($link);
-                     ?>
-
-				</tbody>
-                <!--    -->
-
-			</table>
+        <div id='recipients' class=" max-w-full rounded shadow bg-white ">
+            <div class="display_card p-2 grid grid-cols-4 auto-rows-auto">
+                <div class="card w-80 border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
+                    <div class="banner relative h-40 shadow-lg">
+                        <img src="../../images/banner.png" class="background h-full w-full object-container">
+                        <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+                            <img src="../../images/1648479559_0 (8).png" class="profile w-24 h-24 rounded-full outline outline-white">
+                        </div>
+                    </div>
+                    <div class="down p-2 mt-10">
+                        <div class="down_content">
+                            <p class="uppercase text-center text-gray-500 text-xs mb-2">Balibonera . React js</p>
+                            <p class="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Officiis, consequuntur repellat quos autem voluptas corporis 
+                                inventore dolores deleniti in temporibus saepe sapiente iste a
+                                liquid reiciendis quisquam obcaecati? Aliquam, unde odio.
+                            </p>
+                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
+                                <button class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-80 border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
+                    <div class="banner relative h-40 shadow-lg">
+                        <img src="../../images/banner.png" class="background h-full w-full object-container">
+                        <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+                            <img src="../../images/1648479559_0 (8).png" class="profile w-24 h-24 rounded-full outline outline-white">
+                        </div>
+                    </div>
+                    <div class="down p-2 mt-10">
+                        <div class="down_content">
+                            <p class="uppercase text-center text-gray-500 text-xs mb-2">Balibonera . React js</p>
+                            <p class="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Officiis, consequuntur repellat quos autem voluptas corporis 
+                                inventore dolores deleniti in temporibus saepe sapiente iste a
+                                liquid reiciendis quisquam obcaecati? Aliquam, unde odio.
+                            </p>
+                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
+                                <button class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-80 border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
+                    <div class="banner relative h-40 shadow-lg">
+                        <img src="../../images/banner.png" class="background h-full w-full object-container">
+                        <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+                            <img src="../../images/1648479559_0 (8).png" class="profile w-24 h-24 rounded-full outline outline-white">
+                        </div>
+                    </div>
+                    <div class="down p-2 mt-10">
+                        <div class="down_content">
+                            <p class="uppercase text-center text-gray-500 text-xs mb-2">Balibonera . React js</p>
+                            <p class="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Officiis, consequuntur repellat quos autem voluptas corporis 
+                                inventore dolores deleniti in temporibus saepe sapiente iste a
+                                liquid reiciendis quisquam obcaecati? Aliquam, unde odio.
+                            </p>
+                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
+                                <button class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-80 border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
+                    <div class="banner relative h-40 shadow-lg">
+                        <img src="../../images/banner.png" class="background h-full w-full object-container">
+                        <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+                            <img src="../../images/1648479559_0 (8).png" class="profile w-24 h-24 rounded-full outline outline-white">
+                        </div>
+                    </div>
+                    <div class="down p-2 mt-10">
+                        <div class="down_content">
+                            <p class="uppercase text-center text-gray-500 text-xs mb-2">Balibonera . React js</p>
+                            <p class="text-center text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Officiis, consequuntur repellat quos autem voluptas corporis 
+                                inventore dolores deleniti in temporibus saepe sapiente iste a
+                                liquid reiciendis quisquam obcaecati? Aliquam, unde odio.
+                            </p>
+                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
+                                <button class="my-2 px-6 py-2 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">Join group</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
     </div>
 </div>

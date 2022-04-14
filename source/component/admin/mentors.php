@@ -33,11 +33,11 @@
             <i class="fa fa-comments text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
             <div class="absolute top-0 -right-2 grid place-items-center bg-red-50 shadow-md h-5 w-5 rounded-full font-bold text-xs">
                 <?php
-                $sql = "SELECT COUNT(*) AS tot_number FROM mentor_application";
+                $sql = "SELECT COUNT(*) AS tot_number FROM mentor_application WHERE application_status = 'processing'";
                 $result = mysqli_query($link, $sql);
             
                 if ($row = mysqli_fetch_assoc($result)) {
-                    echo "<span>'".$row['tot_number']."'</span>";
+                    echo "<span>".$row['tot_number']."</span>";
                 }
                 mysqli_free_result($result);
                 ?>

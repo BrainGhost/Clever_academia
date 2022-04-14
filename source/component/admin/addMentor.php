@@ -82,9 +82,21 @@
         <h2 class="my-6 text-2xl font-semibold text-gray-700 flex-1">
             Mentors management
         </h2>
-        <span class="">
-            <i class="fa fa-comments text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
-        </span>
+        <a href="./addMentor.php" class="relative text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700">
+            <i class="fa fa-comments text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <div class="absolute top-0 -right-2 grid place-items-center bg-red-50 shadow-md h-5 w-5 rounded-full font-bold text-xs">
+                <?php
+                $sql = "SELECT COUNT(*) AS tot_number FROM mentor_application WHERE application_status = 'processing'";
+                $result = mysqli_query($link, $sql);
+            
+                if ($row = mysqli_fetch_assoc($result)) {
+                    echo "<span>".$row['tot_number']."</span>";
+                }
+                mysqli_free_result($result);
+                ?>
+                
+            </div>
+        </a>
     </div>
     <div class="mt-2 w-full">
         <button class="new-resources">

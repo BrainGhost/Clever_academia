@@ -156,7 +156,7 @@
             if($result){
                 $_SESSION['insert_msg'] = "Student inserted successfully.";
                 $_SESSION['alert_notification_resources'] = 'success';
-                // header("location: ./students.php");
+                header("location: ./students.php");
                 
             }else{
                 header("location: ./editStudent.php");
