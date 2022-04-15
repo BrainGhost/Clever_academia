@@ -148,7 +148,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                     <td><?php echo $group_creation; ?></td>
                                     <td>
                                         <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
-                                            <a href="join_group.php?<?php echo $group_id; ?>" class="my-2 px-4 py-1 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">open</a>
+                                            <a href="single_group.php?joinedGroup=<?php echo $group_id; ?>" class="my-2 px-4 py-1 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">open</a>
                                         </div>
                                     </td>
                                     <td>

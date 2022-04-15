@@ -55,41 +55,40 @@ if ($_SESSION['insert_msg'] !== "") {
 <div class="student-container container px-6 mx-auto grid relative">
     <div class="flex items-center border-b">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 flex-1">
-            Dashboard
+            Study Groups
         </h2>
         <span class="openModalBtn">
-            <i class="fa fa-home text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-object-group text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="bg-white shadow-lg">
         <div class="w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide">
             <?php
             //PIE CHARTS
-            $sql = "SELECT mentor.mentor_id, mentor_application.topics,students.student_id, students.firstname, students.lastname, students.profile
-                    FROM mentor
-                    INNER JOIN mentor_application ON mentor.application_id=mentor_application.application_id
-                    INNER JOIN students ON mentor_application.student_id=students.student_id
-                    WHERE mentor_application.student_id != $student_id
+            $sql = "SELECT join_study_group.join_study_group_id,join_study_group.study_group_id,study_group.group_name, study_group.banner_image, students.student_id
+                    FROM join_study_group
+                    INNER JOIN study_group ON join_study_group.study_group_id=study_group.study_group_id
+                    INNER JOIN students ON join_study_group.student_id=students.student_id
+                    WHERE students.student_id = $student_id
                     ";
 
             $result = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
-                $name = $row['firstname'].' '.$row['lastname'];
-                $topic = $row['topics'];
-                $profile = $row['profile'];
+                $name = $row['group_name'];
+                // $topic = $row['topics'];
+                $profile = $row['banner_image'];
             ?>
                 <div class="w-32 p-2">
-                    <a href="view_mentor.php?<?php echo $row['mentor_id']; ?>" class=" relative w-24 text-center cursor-pointer">
-                        <div class="bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 rounded-full mb-2 mx-auto">
+                    <a href="single_group.php?joinedGroup=<?php echo $row['study_group_id']; ?>" class=" relative w-28 h-28 text-center cursor-pointer">
+                        <div class="bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 w-24 h-24  rounded-full mb-2 mx-auto">
                             <img
-                                src="../../images/<?php echo $profile; ?>"
-                                class="rounded-full shadow-lg p-1 bg-white opacity-100 hover:opacity-90 transition duration-300 ease-in-out"
+                                src="../../resources/<?php echo $profile; ?>"
+                                class="rounded-full shadow-lg p-1 bg-white opacity-100 hover:opacity-90 w-full h-full object-contain transition duration-300 ease-in-out"
                                 alt="Avatar"
                             /> 
                         </div>
                         <div>
-                            <h5 class="text-xl text-teal-800 font-medium leading-tight mb-2"><?php echo $name; ?></h5>
-                            <p class="text-gray-500"><?php echo $topic; ?></p>
+                            <h5 class="text-xs text-gray-500 font-medium leading-tight mb-2"><?php echo $name; ?></h5>
                         </div>
                     </a>
                 </div>
@@ -104,7 +103,7 @@ if ($_SESSION['insert_msg'] !== "") {
         <div class="search flex justify-center">
             <div class=" w-96 my-2">
                 <div class="flex items-center justify-center">
-                    <label for="" class="block text-teal-700 text-sm px-2"> View all the latest update Here (courses TOP 4). </label>
+                    <label for="" class="block text-teal-700 text-sm px-2"> All groups Here. </label>
                 </div>
             </div> 
         </div>
@@ -117,7 +116,7 @@ if ($_SESSION['insert_msg'] !== "") {
                     INNER JOIN mentor ON study_group.mentor_id=mentor.mentor_id
                     INNER JOIN mentor_application ON mentor.application_id=mentor_application.application_id
                     INNER JOIN students ON mentor_application.student_id=students.student_id
-                    WHERE mentor_application.student_id != $student_id ORDER BY study_group_id DESC LIMIT 4";
+                    WHERE mentor_application.student_id != $student_id ORDER BY study_group_id DESC";
 
                     $result = mysqli_query($link, $sql);
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -130,7 +129,7 @@ if ($_SESSION['insert_msg'] !== "") {
                         $group_author_profile = $row['profile'];
                         
                 ?>
-                    <div class="card max-w-7xl border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300">
+                    <div class="card max-w-7xl border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-default transition-all duration-300">
                         <div class="banner relative h-40 shadow-lg">
                             <img src="../../resources/<?php echo $group_banner; ?>" class="background h-full w-full object-contain">
                             <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
@@ -149,7 +148,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                     <?php echo $group_description; ?>
                                 </p>
                                 <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
-                                    <a href='student_action.php?joinedGroup=<?php echo $group_id; ?> && joinedStudent=<?php echo $student_id; ?>' class='my-2 px-5 py-1 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium'>Join group</a>
+                                    <a href='student_action.php?joinedGroup_all=<?php echo $group_id; ?> && joinedStudent_all=<?php echo $student_id; ?>' class='my-2 px-5 py-1 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium'>Join group</a>
                                 </div>
                             </div>
                         </div>

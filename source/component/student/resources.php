@@ -98,7 +98,7 @@ if ($_SESSION['insert_msg'] !== "") {
 				<tbody>
                     <?php
                         //Display data into the table 
-                        $sql  = "SELECT * FROM resources WHERE resource_status = 'approved' OR resource_status = 'processing';";
+                        $sql  = "SELECT * FROM resources WHERE resource_status = 'approved' OR resource_status = 'processing' ORDER BY resource_id DESC;";
                         $result = mysqli_query($link, $sql);
                         $resultCheck = mysqli_num_rows($result);
                         #continue in the table itself

@@ -568,7 +568,7 @@ ob_start();
                 <div class="dropdown_menu text-gray-700 text-sm  bg-white absolute right-0 top-9 pt-2 rounded shadow-lg drop-shadow-xl hidden">
                   <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Profile</div>
                   <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Settings</div>
-                  <div class="flex border-t-[1px] font-medium hover:cursor-pointer text-<?php echo $primary_color; ?>-500 hover:bg-<?php echo $primary_color; ?>-500 hover:text-white">
+                  <div class="flex border-t-[1px] font-medium hover:cursor-pointer text-<?php echo $primary_color; ?>-500 hover:bg-red-500 hover:text-white">
                     <a class="py-2 px-6" href="../../php/logout_other.php">Logout</a>
                   </div>
                 </div>

@@ -19,3 +19,54 @@ if (isset($_GET["deletedID"])) {
         die(mysqli_error($link));
     }
 }
+if (isset($_GET["joinedGroup"]) && isset($_GET["joinedStudent"])) {
+    $study_group_id = $_GET["joinedGroup"];
+    $student_id = $_GET["joinedStudent"];
+    $sql  = "SELECT * FROM join_study_group WHERE student_id = '$student_id' && study_group_id = $study_group_id";
+            $result = mysqli_query($link, $sql);
+            $resultCheck = mysqli_num_rows($result);
+    if ($resultCheck > 0) {
+        $_SESSION['insert_msg'] = "Already, a member of this group.";
+        $_SESSION['alert_notification_resources'] = 'warning';
+        header("location: ./index.php");
+    }else{
+        $sql = "INSERT INTO join_study_group(student_id, study_group_id) VALUES ('$student_id', '$study_group_id')";
+        $result = mysqli_query($link, $sql);
+        if($result){
+            $_SESSION['insert_msg'] = "You have joined successfully.";
+            $_SESSION['alert_notification_resources'] = 'success';
+            header("location: ./index.php");
+            
+        }else{
+            header("location: ./index.php");
+            $insert_msg = "Failed to insert Student.";
+            mysqli_error($link);
+        }
+    }
+}
+#from the all group page
+if (isset($_GET["joinedGroup_all"]) && isset($_GET["joinedStudent_all"])) {
+    $study_group_id = $_GET["joinedGroup_all"];
+    $student_id = $_GET["joinedStudent_all"];
+    $sql  = "SELECT * FROM join_study_group WHERE student_id = '$student_id' && study_group_id = $study_group_id";
+            $result = mysqli_query($link, $sql);
+            $resultCheck = mysqli_num_rows($result);
+    if ($resultCheck > 0) {
+        $_SESSION['insert_msg'] = "Already, a member of this group.";
+        $_SESSION['alert_notification_resources'] = 'warning';
+        header("location: ./groups.php");
+    }else{
+        $sql = "INSERT INTO join_study_group(student_id, study_group_id) VALUES ('$student_id', '$study_group_id')";
+        $result = mysqli_query($link, $sql);
+        if($result){
+            $_SESSION['insert_msg'] = "You have joined successfully.";
+            $_SESSION['alert_notification_resources'] = 'success';
+            header("location: ./groups.php");
+            
+        }else{
+            header("location: ./groups.php");
+            $insert_msg = "Failed to insert Student.";
+            mysqli_error($link);
+        }
+    }
+}    
