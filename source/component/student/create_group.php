@@ -14,7 +14,7 @@ if ($_SESSION['insert_msg'] !== "") {
         // } elseif ($_SESSION['alert_notification_resources'] = 'success') {
         //     $action = $_SESSION['alert_notification_resources'];
         // }
-
+        $_SESSION['alert_notification_resources'] = '';
         $action = $_SESSION['alert_notification_resources'];
         switch ($action) {
             case 'success':
@@ -153,7 +153,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                     </td>
                                     <td>
                                         <div class='flex items-center space-x-4'>
-                                            <a title='View resource' href='./view_resource.php?viewId=<?php echo $group_id; ?>' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>
+                                            <a title='View resource' href='./student_action.php?group_deletedID=<?php echo $group_id; ?>' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>
                                                 <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
                                         </div>

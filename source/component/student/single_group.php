@@ -96,7 +96,27 @@ if ($_SESSION['insert_msg'] !== "") {
         <div class="w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide justify-center">
             <div class="w-full md:w-1/2 shadow-md p-4 rounded text-gray-700">
                     <p><?php echo $group_description;?></p>
-            </div>          
+            </div>
+            <?php
+                $sql = "SELECT * FROM students WHERE student_id = $student_id";
+                $result = mysqli_query($link, $sql);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $levell = $row['level'];
+                }
+                if ($levell === "standard") {
+                    echo 
+                    "
+                    <div class='flex items-center'>
+                        <a href='student_action.php?leaveGroup=$group_id && leaveStudent=$student_id' class='my-2 px-4 py-1 border border-red-500 bg-red-50 rounded-md  hover:bg-red-100 text-red-500 font-medium'>Leave this group</a>
+                    </div>
+                    ";
+                }else {
+                    echo 
+                    " ";
+                }
+            ?>
+            
+                     
         </div>
     </div>
     

@@ -8,7 +8,7 @@ $student_id = $_SESSION['student_id'];
 
 if ($_SESSION['insert_msg'] !== "") {
         $action = "";
-
+        $_SESSION['alert_notification_resources'] = "";
         $action = $_SESSION['alert_notification_resources'];
         switch ($action) {
             case 'success':

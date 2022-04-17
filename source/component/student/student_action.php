@@ -69,4 +69,37 @@ if (isset($_GET["joinedGroup_all"]) && isset($_GET["joinedStudent_all"])) {
             mysqli_error($link);
         }
     }
-}    
+}
+#delete group by mentor
+if (isset($_GET["group_deletedID"])) {
+    $delete_id  = $_GET["group_deletedID"];
+    # prepare statement
+    $sql = "DELETE FROM study_group WHERE study_group_id=$delete_id";
+
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        $_SESSION['insert_msg'] = "Deleted successfully.";
+        $_SESSION['alert_notification'] = "delete";
+        header("location: ./create_group.php");
+    }else {
+        echo "Oops! Something went wrong. Please try later";
+        die(mysqli_error($link));
+    }
+}
+#delete group by mentor
+if (isset($_GET["leaveGroup"]) && isset($_GET["leaveStudent"])) {
+    $leaveGroup_id  = $_GET["leaveGroup"];
+    $LeaveStudent_id  = $_GET["leaveStudent"];
+    # prepare statement
+    $sql = "DELETE FROM join_study_group WHERE study_group_id=$leaveGroup_id && student_id=$LeaveStudent_id";
+
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        $_SESSION['insert_msg'] = "You have successfully left the group.";
+        $_SESSION['alert_notification'] = "delete";
+        header("location: ./groups.php");
+    }else {
+        echo "Oops! Something went wrong. Please try later";
+        die(mysqli_error($link));
+    }
+}
