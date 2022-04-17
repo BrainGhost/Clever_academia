@@ -40,7 +40,7 @@ if ($_SESSION['insert_msg'] !== "") {
         }
 
 ?>
-    <div class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color;?> " role="alert">
+    <div id="notification" class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color;?> " role="alert">
         <strong class="font-bold"><?php echo $alert_msg; ?>! &nbsp;</strong>
         <span class="block sm:inline mr-12"><?php echo  $insert_msg ? $insert_msg : $_SESSION['insert_msg'] ; ?></span>
         <span onclick="closeNFT(this); <?php $_SESSION['insert_msg'] = null; ?>" class="absolute top-0 bottom-0 right-0 px-3 py-3 <?php echo $alert_btn_color;?> cursor-pointer">
@@ -92,7 +92,7 @@ if ($_SESSION['insert_msg'] !== "") {
         </div>
         
     </div>
-    <div class="bg-white shadow-lg">
+    <div class="bg-white shadow">
         <div class="w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide justify-center">
             <div class="w-full md:w-1/2 shadow-md p-4 rounded text-gray-700">
                     <p><?php echo $group_description;?></p>
@@ -121,6 +121,7 @@ if ($_SESSION['insert_msg'] !== "") {
     </div>
     
     <div class="mt-4 flex flex-row-reverse">
+        
         <div class="w-[20rem] shadow-lg bg-white  ml-4">
             <div class="py-4 bg-teal-700 text-white text-center rounded-t font-bold uppercase text-sm">
                 <h1>All the students</h1>
@@ -150,26 +151,65 @@ if ($_SESSION['insert_msg'] !== "") {
             </div>
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
-        <div id='recipients' class="w-full rounded shadow-lg bg-white px-10">
-            <div class="display_card p-2 ">
+        <div id='recipients' class="w-full rounded shadow-lg bg-white px-10 py-2">
+            <span class="flex justify-center text-xs font-bold py-1 text-teal-700 uppercase">All Chat</span>
+            <div class="banner h-96 overflow-y-scroll scrollbar-hide">
+            <?php
+                //Display data into the table 
+                $sql  = "SELECT chat_room.chat_room_id,chat_room.message, students.student_id, students.lastname, students.firstname  
+                FROM chat_room 
+                INNER JOIN students ON students.student_id=chat_room.student_id
+                WHERE chat_room.join_study_group_id = '$study_group_id'";
+                $result = mysqli_query($link, $sql);
+                $resultCheck = mysqli_num_rows($result);
+                #continue in the table itself
                 
-                    <div class="card max-w-7xl border-2 border-gray-50 rounded-xl overflow-hidden ">
-                        <div class="banner relative h-96">
-                            
+                if ($resultCheck > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $name = $row['lastname'].' '.$row['firstname'];
+                        $message = $row['message'];
+                        $message_student_id = $row['student_id'];
 
-                        </div>
-                        <div class="down mt-10">
-                            
-                            <div class="mt-2 border-t-2 border-gray-100 flex justify-center py-2">
-                                <input type="text" class="p-2 border rounded-lg w-full text-gray-600 text-sm outline-none active:shadow">
-                                <a href='#' class='ml-2 px-5 py-2 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>
-                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                </a>
+                        if($message_student_id == $student_id){
+                            $css_side = "bg-teal-50 pl-10 pr-4 rounded-l-2xl";
+                            $css_side_flex = "justify-end";
+                        }else{
+                            $css_side = "bg-teal-100 pr-10 pl-4 rounded-r-2xl";
+                            $css_side_flex = "justify-start";
+                        }
+                        echo
+                        "
+                        <div class='send mt-2 flex $css_side_flex'>
+                            <div class='$css_side py-1 border border-teal-300 rounded-t-2xl'>
+                                <span class='text-teal-800 text-sm font-bold '>$name</span>
+                                <div>
+                                    <p class='text-teal-600 text-sm float-right'>$message</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        ";
+                    }
+                    mysqli_free_result($result);
+                }else{
+                    echo
+                    "
+                    <div class='flex justify-center border border-teal-400 mt-10 rounded-xl bg-teal-50 font-bold p-5 text-teal-700 '>You have staterd a chat here.</div>
+                    ";
+                }
+            ?>    
             </div>
-		</div>
+            <div class="down mt-10"> 
+                <form action="sendMessage.php" method="POST" class="mt-2 border-t-2 border-gray-100 flex justify-center py-2">
+                    <input type="hidden" name="sendMessage_id" value="<?php echo $student_id ?>" />
+                    <input type="hidden" name="groupMessage_id" value="<?php echo $study_group_id ?>" />
+                    <input type="text" name="message_write" class="p-2 border border-teal-400 rounded-lg w-full px-5 text-gray-500 text-base font-bold outline-none active:shadow" required autocomplete="off">
+                    
+                    <button type="submit" name='sendMessage_btn' class='ml-2 px-5 py-2 flex items-center border border-teal-500 bg-teal-50 rounded-lg  hover:bg-teal-100 text-teal-500 font-medium'>
+                        Send<i class="fa fa-paper-plane px-2" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

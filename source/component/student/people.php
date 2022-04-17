@@ -7,14 +7,7 @@ $insert_msg = "";
 
 if ($_SESSION['insert_msg'] !== "") {
         $action = "";
-        // if ($_SESSION['alert_notification_resources'] = 'delete') {
-        //     $action = "delete";
-        // } elseif ($_SESSION['alert_notification_resources'] = 'update') {
-        //     $action = "update";
-        // } elseif ($_SESSION['alert_notification_resources'] = 'success') {
-        //     $action = $_SESSION['alert_notification_resources'];
-        // }
-        $_SESSION['alert_notification_resources'] = '';
+
         $action = $_SESSION['alert_notification_resources'];
         switch ($action) {
             case 'success':
@@ -52,15 +45,6 @@ if ($_SESSION['insert_msg'] !== "") {
     </div>
 <?php     
     }
-    $sql = "SELECT mentor.mentor_id,students.student_id
-    FROM mentor
-    INNER JOIN mentor_application ON mentor.application_id=mentor_application.application_id
-    INNER JOIN students ON mentor_application.student_id=students.student_id
-    WHERE students.student_id = $student_id";
-    $result = mysqli_query($link, $sql);
-    while ($row = mysqli_fetch_assoc($result)) {
-        $mentor_id = $row['mentor_id'];
-    }
 ?>
 <div
 	class="absolute hidden inset-0 bg-gray-600 bg-opacity-60 overflow-y-auto h-full w-full z-20"
@@ -70,102 +54,115 @@ if ($_SESSION['insert_msg'] !== "") {
 <div class="student-container container px-6 mx-auto grid relative">
     <div class="flex items-center border-b">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 flex-1">
-            Your Groups
+            People
         </h2>
         <span class="openModalBtn">
-            <i class="fa fa-pencil text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
+            <i class="fa fa-users text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
     <div class="mt-2 w-full">
-        <?php
-            $sql = "SELECT * FROM study_group WHERE mentor_id = $mentor_id";
-            $result = mysqli_query($link, $sql);
-            $resultCheck = mysqli_num_rows($result);
-            if ($resultCheck > 5) {
-                echo
-                "
-                <div class='bg-white text-teal-900 font-semibold text-center'>
-                    <div class='flex justify-center'>
-                        <h1 class='bg-teal-50 cursor-pointer shadow-md border border-emerald-200 rounded-md w-96 py-3 px-4'>You have reached you maximamun limits of groups you are allowed to create {5}</h1>
-                    </div>
-                </div>
-                ";
-            }else{
-                echo
-                "
-                <button name='new_resources'>
-                    <a href='./add_group.php' name='addgroup' value='upload' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Create a group</a>
-                </button>
-                ";
-            }
-        ?>
+        <div name="new_resources">
+            <button type='button' onclick="window.print()" name='print' value='upload' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Print report</button>
+        </div>
     </div>
     <div class="table mt-4">
         <div class="search flex justify-end">
-            <div class=" w-96 my-2">
+            <form action="" method="GET" class="w-96 my-2 ">
                 <div class="flex items-center">
                     <label for="" class="block text-teal-700 text-sm px-2"> Search </label>
-                    <input type="text" placeholder="Search resources" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " >
+                    <input type="text" name="search" 
+                    value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>"
+                    placeholder="Search people's interests" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required>
+                    
+                    <button class="submit" style="display: none;" class=" px-2 bg-teal-50 text-teal-800 border-teal-400">Search</button>
                 </div>
-            </div> 
+            </form> 
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
-        <div id='recipients' class=" max-w-full rounded shadow bg-white">
+        <div id='recipients' class="print_container max-w-full rounded shadow bg-white">
             <table id="example" class="w-full">
 				<thead class="bg-teal-600 border-b">
 					<tr class="text-sm font-medium text-white text-left">
 						<th data-priority="1"> ID</th>
-                        <th data-priority="2">Group Name</th>
-						<th data-priority="3">Description</th>
-                        <th data-priority="4">created On.</th>
-						<th data-priority="6">Status</th>
-						<th data-priority="7">Action</th>
+                        <th data-priority="2">Firstname</th>
+                        <th data-priority="3">Lastname</th>
+                        <th data-priority="4">Gender</th>
+                        <th data-priority="5">Phone</th>
+                        <th data-priority="6">Interest</th>
+						<th data-priority="7">ofYear</th>
+						<th data-priority="8">Status level</th>
 					</tr>
 				</thead>
 				<tbody>
                     <?php
-                        //Display data into the table 
-                        $sql  = "SELECT * FROM study_group WHERE mentor_id = '$mentor_id'";
-                        $result = mysqli_query($link, $sql);
-                        $resultCheck = mysqli_num_rows($result);
-                        #continue in the table itself
+                    #search
+                    if (isset($_GET['search'])) {
+                        $filtervalues = $_GET['search'];
+                        $sql = "SELECT * FROM resources WHERE CONCAT(resource_name, ofYear, author, resource_status) LIKE '%$filtervalues%' ";
+                        $search_result = filterTable($link, $sql);
                         
-                        if ($resultCheck > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $group_id = $row['study_group_id'];
-                                $group_name = $row['group_name'];
-                                $group_description = $row['group_description'];
-                                $group_creation = $row['created_on'];
+                    }else {
+                        //Display data into the table 
+                        $sql  = "SELECT * FROM resources WHERE resource_status = 'approved' OR resource_status = 'processing' ORDER BY resource_id DESC;";
+                        $search_result = filterTable($link, $sql);
+                    }
+                    function filterTable($link, $sql){
+                        $result = mysqli_query($link, $sql);
+                        return $result ;
+                    }
+                        
+                        if (mysqli_num_rows($search_result) > 0) {
+                            while ($row = mysqli_fetch_assoc($search_result)) {
+                                //schedule_status
+                                // $status = $row['resource_status'];
+                                if ($row['resource_status'] == "approved" ) {
+                                    $status_insert = "<span class='text-sky-400 italic font-medium'>Approved</span>";
+                                    $viewClear = "flex";
+                                }elseif($row['resource_status'] == "processing" ) {
+                                    $status_insert = "<span class='text-orange-400 italic font-medium'>Processing ...</span>";
+                                    $viewClear = "hidden";
+                                }else{
+                                    $status_insert = ""; 
+                                }
+                                #has an account TRUE or FALSE
                                 
-                                if ($row['mentor_id'] === $mentor_id) {
+
+                                $author_display = $row['author'];
+                                if ($author_display !== $_SESSION["username"]) {
+                                    $author_name = $row['author'];
+                                }else {
                                     $author_name = "Me";
                                 }
                                 ?>
                                 <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
-                                    <td><?php echo $group_id; ?></td>
-                                    <td><?php echo $group_name; ?></td>
-                                    <td><?php echo $group_description; ?></td>
-                                    <td><?php echo $group_creation; ?></td>
-                                    <td>
-                                        <div class="mt-2 border-t-2 border-gray-100 flex justify-center">
-                                            <a href="single_group.php?joinedGroup=<?php echo $group_id; ?>" class="my-2 px-4 py-1 border border-teal-500 bg-teal-50 rounded-full  hover:bg-teal-100 text-teal-500 font-medium">open</a>
-                                        </div>
-                                    </td>
+                                    <td><?php echo $row['resource_id']; ?></td>
+                                    <td><?php echo $row['resource_name']; ?></td>
+                                    <td><?php echo $row['ofyear']; ?></td>
+                                    <td><?php echo $author_name; ?></td>
+                                    <td><?php echo $row['created_on']; ?></td>
+                                    <td><?php echo $status_insert; ?></td>
                                     <td>
                                         <div class='flex items-center space-x-4'>
-                                            <a title='View resource' href='./student_action.php?group_deletedID=<?php echo $group_id; ?>' class='text-red-400 grid place-items-center rounded-full hover:text-red-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-trash  cursor-pointer text-lg' aria-hidden='true'></i>
+                                            <a title='Download resource' href=''   class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
+                                                <i class='fa fa-download  cursor-pointer text-lg' aria-hidden='true'></i>
                                             </a>
+                                            <?php if ($row['resource_status'] == "approved") {
+                                                ?>
+                                                <a title='View resource' href='./view_resource.php?viewId=<?php echo $row['resource_id']; ?> && viewName=<?php echo $row['resource_name']; ?>' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
+                                                    <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
+                                                </a>
+                                                <?php
+                                            } ?>
                                         </div>
                                     </td>
+                                    
                                 </tr>
                                 <?php 
                             }
-                            mysqli_free_result($result);
                         }else { ?>
                             <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
                                 <td colspan='8'>
-                                    You have not created any group yet.
+                                    No resources records were found.
                                 </td>
                             </tr>
                             <?php

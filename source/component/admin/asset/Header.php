@@ -77,22 +77,22 @@ ob_start();
       }
     </script>
     <style>
-    @media print {
-      /* Hide every other element */
-        body *:not(.print_container):not(.print_container *) {
-          visibility: hidden;
-        }
-        /* The display print conatiner element */
-        .print_container{
-          visibility: visible;
-          position: absolute;
-          top: 0;
-        }
-        .print_container *{
-          box-shadow: none !important;
-        }
-    }
-  </style>
+      @media print {
+        /* Hide every other element */
+          body *:not(.print_container):not(.print_container *) {
+            visibility: hidden;
+          }
+          /* The display print conatiner element */
+          .print_container{
+            visibility: visible;
+            position: absolute;
+            top: 0;
+          }
+          .print_container *{
+            box-shadow: none !important;
+          }
+      }
+    </style>
     <title>Clever academia | Learning platform</title>
   </head>
   <body>
