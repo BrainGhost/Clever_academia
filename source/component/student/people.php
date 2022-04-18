@@ -79,103 +79,98 @@ if ($_SESSION['insert_msg'] !== "") {
             </form> 
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
-        <div id='recipients' class="print_container max-w-full rounded shadow bg-white">
-            <table id="example" class="w-full">
-				<thead class="bg-teal-600 border-b">
-					<tr class="text-sm font-medium text-white text-left">
-						<th data-priority="1"> ID</th>
-                        <th data-priority="2">Firstname</th>
-                        <th data-priority="3">Lastname</th>
-                        <th data-priority="4">Gender</th>
-                        <th data-priority="5">Phone</th>
-                        <th data-priority="6">Interest</th>
-						<th data-priority="7">ofYear</th>
-						<th data-priority="8">Status level</th>
-					</tr>
-				</thead>
-				<tbody>
-                    <?php
-                    #search
+        <div id='recipients' class="print_container max-w-full rounded shadow pb-10">
+            <div class="text-teal-600 text-sm font-bold uppercase flex justify-center hover:underline">
+                <a href="./people.php">Display all</a> 
+            </div>
+            <div class="pt-5 grid grid-cols-3 gap-2">
+                <?php
                     if (isset($_GET['search'])) {
                         $filtervalues = $_GET['search'];
-                        $sql = "SELECT * FROM resources WHERE CONCAT(resource_name, ofYear, author, resource_status) LIKE '%$filtervalues%' ";
+                        $sql = "SELECT interest.interest_id,interest.interest_details, interest.interest_topics,students.profile,students.lastname,students.firstname,students.email,students.registration_year,students.phone_number,students.level
+                        FROM interest
+                        INNER JOIN students ON interest.student_id=students.student_id 
+                        WHERE CONCAT(interest_details, level, interest_topics, firstname, lastname) LIKE '%$filtervalues%' ";
                         $search_result = filterTable($link, $sql);
                         
                     }else {
                         //Display data into the table 
-                        $sql  = "SELECT * FROM resources WHERE resource_status = 'approved' OR resource_status = 'processing' ORDER BY resource_id DESC;";
+                        $sql  = "SELECT interest.interest_id,interest.interest_details, interest.interest_topics,students.profile,students.lastname,students.firstname,students.email,students.registration_year,students.phone_number,students.level
+                        FROM interest
+                        INNER JOIN students ON interest.student_id=students.student_id";
                         $search_result = filterTable($link, $sql);
                     }
                     function filterTable($link, $sql){
                         $result = mysqli_query($link, $sql);
                         return $result ;
                     }
-                        
-                        if (mysqli_num_rows($search_result) > 0) {
-                            while ($row = mysqli_fetch_assoc($search_result)) {
-                                //schedule_status
-                                // $status = $row['resource_status'];
-                                if ($row['resource_status'] == "approved" ) {
-                                    $status_insert = "<span class='text-sky-400 italic font-medium'>Approved</span>";
-                                    $viewClear = "flex";
-                                }elseif($row['resource_status'] == "processing" ) {
-                                    $status_insert = "<span class='text-orange-400 italic font-medium'>Processing ...</span>";
-                                    $viewClear = "hidden";
-                                }else{
-                                    $status_insert = ""; 
-                                }
-                                #has an account TRUE or FALSE
-                                
+                    #Check if the profile is already there
 
-                                $author_display = $row['author'];
-                                if ($author_display !== $_SESSION["username"]) {
-                                    $author_name = $row['author'];
-                                }else {
-                                    $author_name = "Me";
-                                }
-                                ?>
-                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-teal-50 text-sm text-gray-900 font-light'>
-                                    <td><?php echo $row['resource_id']; ?></td>
-                                    <td><?php echo $row['resource_name']; ?></td>
-                                    <td><?php echo $row['ofyear']; ?></td>
-                                    <td><?php echo $author_name; ?></td>
-                                    <td><?php echo $row['created_on']; ?></td>
-                                    <td><?php echo $status_insert; ?></td>
-                                    <td>
-                                        <div class='flex items-center space-x-4'>
-                                            <a title='Download resource' href=''   class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-download  cursor-pointer text-lg' aria-hidden='true'></i>
-                                            </a>
-                                            <?php if ($row['resource_status'] == "approved") {
-                                                ?>
-                                                <a title='View resource' href='./view_resource.php?viewId=<?php echo $row['resource_id']; ?> && viewName=<?php echo $row['resource_name']; ?>' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
-                                                    <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
-                                                </a>
-                                                <?php
-                                            } ?>
+                    if (mysqli_num_rows($search_result) > 0) {
+                        while ($row = mysqli_fetch_assoc($search_result)) {
+                            $interest_id = $row['interest_id'];
+                            $profile = $row['profile'];
+                            $name = $row['lastname'].' '.$row['firstname'];
+                            $email = $row['email'];
+                            $phone = $row['phone_number'];
+                            $details = $row['interest_details'];
+                            $topics = $row['interest_topics'];
+                            $topics_1 = explode(",",$topics);
+                            $level = $row['level'];
+                            $date = date("Y") - $row['registration_year'];
+                            ?> 
+                                <div class="bg-white card border-2 border-gray-100 rounded-xl  shadow-lg cursor-default transition-all duration-300">
+                                    <div class="banner relative h-24 shadow-lg border-b">
+                                        <div class="absolute bottom-4 pl-[8rem] px-4 py-2 text-gray-600 uppercase  w-full flex justify-evenly font-bold">
+                                            <h1><?php echo $name; ?></h1>
+                                            <span class="text-teal-400"> - </span>
+                                            <h1><?php echo $date; ?> year</h1>
                                         </div>
-                                    </td>
-                                    
-                                </tr>
-                                <?php 
-                            }
-                        }else { ?>
-                            <tr class='bg-teal-50 border border-teal-100 border-t-0 text-sm text-teal-900 font-semibold text-center'>
-                                <td colspan='8'>
-                                    No resources records were found.
-                                </td>
-                            </tr>
+                                        <div class="profile absolute -bottom-10 left-6 transform ">
+                                            <img src="../../images/<?php echo $profile; ?>" class="bg-white profile w-24 h-24 rounded-full outline outline-gray-200 border-2 border-white">
+                                        </div>
+                                    </div>
+                                    <div class="down p-2 mt-2 px-10">
+                                        <div class="down_content ">
+                                            <p class="uppercase  text-center text-gray-500 text-sm mb-2 pl-[7rem]">
+                                                <span><?php echo $level; ?> .</span>
+                                                <span class="lowercase italic text-base"><?php echo $email; ?></span><br/>
+                                                <span class="tracking-widest"><?php echo $phone; ?></span>
+                                            </p>
+
+                                            <p class="text-center text-gray-700 text-base">
+                                                <?php echo $details; ?>
+                                            </p>
+                                            <div class="pl-10 ">
+                                                <ul class="list-disc list-inside grid grid-cols-3 gap-2 pt-3">
+                                                    <?php
+                                                    foreach ($topics_1 as $item) {
+                                                        echo
+                                                        "
+                                                        <li class='text-teal-500'>
+                                                            <span class='text-gray-700'>$item</span>
+                                                        </li>
+                                                        ";
+                                                    } 
+                                                    ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php
                         }
 
-                        #close connection
-                        mysqli_close($link);
-                     ?>
-
-				</tbody>
-                <!--    -->
-
-			</table>
+                    }else{
+                        echo
+                        "
+                        <div class='flex items-center cursor-default justify-center px-4 py-2 border border-teal-500 bg-teal-50 rounded text-teal-500 font-medium'>
+                            No profile Yet
+                        </div>
+                        "; 
+                    }
+                ?>
+            </div>
 		</div>
     </div>
 </div>
