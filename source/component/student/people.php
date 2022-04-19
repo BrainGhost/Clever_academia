@@ -81,7 +81,7 @@ if ($_SESSION['insert_msg'] !== "") {
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
         <div id='recipients' class="print_container max-w-full rounded shadow pb-10">
             <div class="text-teal-600 text-sm font-bold uppercase flex justify-center hover:underline">
-                <a href="./people.php">Display all</a> 
+                <a href="./people.php">Display all students</a> 
             </div>
             <div class="pt-5 grid grid-cols-3 gap-2">
                 <?php
