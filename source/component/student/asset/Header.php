@@ -40,6 +40,7 @@ ob_start();
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/table.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       @media print {
         /* Hide every other element */

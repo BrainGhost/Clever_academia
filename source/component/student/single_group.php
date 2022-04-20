@@ -70,7 +70,7 @@ if ($_SESSION['insert_msg'] !== "") {
         $group_description = $row['group_description'];
         $group_creation = $row['created_on'];
         $group_banner = $row['banner_image'];
-        $mentor_name = $row['firstname'].' '.$row['lastname'];
+        $mentor_name = $row['lastname'].' '.$row['firstname'];
     }                    
 ?>
 <!-- Remove everything INSIDE this div to a really blank page -->
@@ -159,7 +159,7 @@ if ($_SESSION['insert_msg'] !== "") {
                 $sql  = "SELECT chat_room.chat_room_id,chat_room.message, students.student_id, students.lastname, students.firstname  
                 FROM chat_room 
                 INNER JOIN students ON students.student_id=chat_room.student_id
-                WHERE chat_room.join_study_group_id = '$study_group_id'";
+                WHERE chat_room.study_group_id = '$study_group_id'";
                 $result = mysqli_query($link, $sql);
                 $resultCheck = mysqli_num_rows($result);
                 #continue in the table itself
@@ -177,11 +177,16 @@ if ($_SESSION['insert_msg'] !== "") {
                             $css_side = "bg-teal-100 pr-10 pl-4 rounded-r-2xl";
                             $css_side_flex = "justify-start";
                         }
+                        if ($mentor_name == $name) {
+                            $fullname = $name.'. '.'<span class="text-[8px] text-red-500">Mentor</span>';
+                        }else {
+                            $fullname = $name;
+                        }
                         echo
                         "
                         <div class='send mt-2 flex $css_side_flex'>
                             <div class='$css_side py-1 border border-teal-300 rounded-t-2xl'>
-                                <span class='text-teal-800 text-sm font-bold '>$name</span>
+                                <span class='text-teal-800 text-sm font-bold '>$fullname</span>
                                 <div>
                                     <p class='text-teal-600 text-sm float-right'>$message</p>
                                 </div>
@@ -200,8 +205,8 @@ if ($_SESSION['insert_msg'] !== "") {
             </div>
             <div class="down mt-10"> 
                 <form action="sendMessage.php" method="POST" class="mt-2 border-t-2 border-gray-100 flex justify-center py-2">
-                    <input type="hidden" name="sendMessage_id" value="<?php echo $student_id ?>" />
-                    <input type="hidden" name="groupMessage_id" value="<?php echo $study_group_id ?>" />
+                    <input type="hidden" name="student_sendMessage_id" value="<?php echo $student_id ?>" />
+                    <input type="hidden" name="group_sendMessage_id" value="<?php echo $study_group_id ?>" />
                     <input type="text" name="message_write" class="p-2 border border-teal-400 rounded-lg w-full px-5 text-gray-500 text-base font-bold outline-none active:shadow" required autocomplete="off">
                     
                     <button type="submit" name='sendMessage_btn' class='ml-2 px-5 py-2 flex items-center border border-teal-500 bg-teal-50 rounded-lg  hover:bg-teal-100 text-teal-500 font-medium'>
@@ -212,7 +217,11 @@ if ($_SESSION['insert_msg'] !== "") {
         </div>
     </div>
 </div>
-
+<script>
+    $(document).ready(function () {
+        alert('Jquery ready');
+    })
+</script>
 <?php
     include './asset/Footer.php'
 ?>
