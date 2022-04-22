@@ -96,9 +96,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
 
     </div>
-    <div class="bg-white shadow">
+    <div class="bg-white border-b">
         <div class="w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide justify-center">
-            <div class="w-full md:w-1/2 shadow-md p-4 rounded text-gray-700">
+            <div class="w-full md:w-1/2 p-4 rounded text-gray-700">
                 <p><?php echo $group_description; ?></p>
             </div>
             <?php
@@ -126,11 +126,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <div class="mt-4 flex flex-row-reverse">
 
-        <div class="w-[20rem] shadow-lg bg-white  ml-4">
+        <div class="w-[20rem] bg-white  ml-4">
             <div class="py-4 bg-teal-700 text-white text-center rounded-t font-bold uppercase text-sm">
                 <h1>All the students</h1>
             </div>
-            <div>
+            <div class="px-2">
                 <div class="uppercase text-center text-teal-800 text-xs my-2">all</div>
                 <?php
                 $sql = "SELECT join_study_group.join_study_group_id, students.firstname, students.lastname
@@ -144,7 +144,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     $student_name = $row['firstname'] . ' ' . $row['lastname'];
                     echo
                     "
-                            <div class='p-2 rounded my-2 flex items-center justify-between hover:shadow transition-all duration-300 border hover:cursor-pointer'>
+                            <div class='p-4 rounded my-2 flex items-center justify-between hover:shadow transition-all duration-300 border hover:cursor-pointer'>
                                 <div class='text-gray-600 text-sm'>$student_name</div>
                                 <div class='bg-sky-400 rounded-full w-2 h-2'></div>
                             </div>

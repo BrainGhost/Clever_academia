@@ -2,6 +2,7 @@
 include("../../php/config.php");
 include('./asset/Header.php');
 
+$student_id = $_SESSION['student_id'];
 // <!-- NOTIFICATION ALERTS -->
 $insert_msg = "";
 
@@ -72,14 +73,14 @@ if ($_SESSION['insert_msg'] !== "") {
                     <label for="" class="block text-teal-700 text-sm px-2"> Search </label>
                     <input type="text" name="search" value="<?php if (isset($_GET['search'])) {
                                                                 echo $_GET['search'];
-                                                            } ?>" placeholder="Search people's interests" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded " required>
+                                                            } ?>" placeholder="Search people's interests" class="text-gray-600 block w-full px-4 py-2 text-sm focus:border-teal-400 focus:outline-none border border-gray-200 rounded ">
 
                     <button class="submit" style="display: none;" class=" px-2 bg-teal-50 text-teal-800 border-teal-400">Search</button>
                 </div>
             </form>
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
-        <div id='recipients' class="print_container max-w-full rounded shadow pb-10">
+        <div id='recipients' class="print_container max-w-full rounded pb-10">
             <div class="text-teal-600 text-sm font-bold uppercase flex justify-center hover:underline">
                 <a href="./people.php">Display all students</a>
             </div>
@@ -87,15 +88,13 @@ if ($_SESSION['insert_msg'] !== "") {
                 <?php
                 if (isset($_GET['search'])) {
                     $filtervalues = $_GET['search'];
-                    $sql = "SELECT interest.interest_id,interest.interest_details, interest.interest_topics,students.profile,students.lastname,students.firstname,students.email,students.registration_year,students.phone_number,students.level
-                        FROM interest
+                    $sql = "SELECT * FROM interest
                         INNER JOIN students ON interest.student_id=students.student_id
-                        WHERE CONCAT(interest_details, level, interest_topics, firstname, lastname) LIKE '%$filtervalues%' ";
+                        WHERE CONCAT(interest_details, level, interest_topics, firstname, lastname) LIKE '%$filtervalues%' AND students.student_id != $student_id";
                     $search_result = filterTable($link, $sql);
                 } else {
                     //Display data into the table
-                    $sql  = "SELECT interest.interest_id,interest.interest_details, interest.interest_topics,students.student_id,students.profile,students.lastname,students.firstname,students.email,students.registration_year,students.phone_number,students.level
-                        FROM interest
+                    $sql  = "SELECT * FROM interest
                         INNER JOIN students ON interest.student_id=students.student_id
                         WHERE students.student_id != $student_id
                         ";
@@ -122,8 +121,8 @@ if ($_SESSION['insert_msg'] !== "") {
                         $level = $row['level'];
                         $date = date("Y") - $row['registration_year'];
                 ?>
-                        <div id="box-container" class=" relative bg-white card border-2 border-gray-100 rounded-xl  shadow-lg cursor-default transition-all duration-300">
-                            <div class="banner relative h-24 shadow-lg border-b">
+                        <div id="box-container" class=" relative bg-white card border-2 border-gray-100 rounded-xl  hover:shadow-lg cursor-default transition-all duration-300">
+                            <div class="banner relative h-24 border-b">
                                 <div class="absolute bottom-4 pl-[8rem] px-4 py-2 text-gray-600 uppercase  w-full flex justify-evenly font-bold">
                                     <h1><?php echo $name; ?></h1>
                                     <span class="text-teal-400"> - </span>

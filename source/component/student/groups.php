@@ -58,7 +58,7 @@ if ($_SESSION['insert_msg'] !== "") {
             <i class="fa fa-object-group text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
-    <div class="bg-white shadow-lg">
+    <div class="bg-white border-b">
         <div class="w-full md:w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide">
             <?php
             //PIE CHARTS
@@ -113,7 +113,7 @@ if ($_SESSION['insert_msg'] !== "") {
             </div>
         </div>
         <!-- style="width:100%; padding-top: 1em;  padding-bottom: 1em; -->
-        <div id='recipients' class=" max-w-full rounded shadow bg-white px-10">
+        <div id='recipients' class=" max-w-full rounded bg-white px-10">
             <div class="display_card p-2 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-auto">
                 <?php
                 $sql = "SELECT study_group.study_group_id, study_group.group_name, study_group.group_description, study_group.created_on, study_group.banner_image,study_group.mentor_id, students.firstname, students.lastname, students.profile
@@ -135,7 +135,7 @@ if ($_SESSION['insert_msg'] !== "") {
 
                 ?>
                     <div class="card max-w-7xl border-2 border-gray-100 rounded-xl overflow-hidden hover:shadow-lg cursor-default transition-all duration-300">
-                        <div class="banner relative h-40 shadow-lg">
+                        <div class="banner relative h-40 border-b">
                             <img src="../../resources/<?php echo $group_banner; ?>" class="background h-full w-full object-contain">
                             <div class="profile absolute -bottom-10 left-1/2 transform -translate-x-1/2">
                                 <img src="../../images/<?php echo $group_author_profile; ?>" class="profile w-24 h-24 rounded-full bg-white outline outline-white">

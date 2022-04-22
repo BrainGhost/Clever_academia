@@ -58,18 +58,18 @@ $student_id = $_SESSION['student_id'];
 </head>
 
 <body>
-  <div class="flex h-screen bg-gray-50" :class="{'overflow-hidden': isSideMenuOpen}">
+  <div class="flex h-screen bg-white" :class="{'overflow-hidden': isSideMenuOpen}">
     <!-- feedback hot toast -->
     <!-- top-7 -->
 
     <div class="absolute -top-10  left-1/2 -translate-x-1/2 text-gray-600 flex items-center justify-center w-80 bg-red-100 transition duration-150 ease-in-out p-1 z-50 shadow-md border  border-red-200 rounded ">
-      <span class="bg-red-400 grid place-items-center rounded-full mx-2 w-6 h-6">
+      <span class=" shadow grid place-items-center rounded-full mx-2 w-6 h-6">
         <i class="fa fa-times  cursor-pointer text-white text-xs" aria-hidden="true"></i>
       </span>
       Deleted successfully !!
     </div>
     <!-- Desktop sidebar -->
-    <aside class="z-20 hidden w-64 overflow-y-auto bg-white md:block flex-shrink-0">
+    <aside class="shadow-lg z-20 hidden w-64 overflow-y-auto md:block flex-shrink-0">
       <div class="py-4 text-gray-500">
         <div class="">
           <a class="ml-3 text-lg font-bold text-gray-800 " href="#">
@@ -197,7 +197,7 @@ $student_id = $_SESSION['student_id'];
     <!-- Mobile sidebar -->
     <!-- Backdrop -->
     <div id="isSideMenuOpen" class="hidden fixed inset-0 z-10 bg-black bg-opacity-30"></div>
-    <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden transition-all ease-in-out duration-500 delay-100 transform -translate-x-[16rem]" id="closeSideMenu">
+    <aside class="shadow-lg fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden transition-all ease-in-out duration-500 delay-100 transform -translate-x-[16rem]" id="closeSideMenu">
       <div class="py-4 text-gray-500">
         <div class="">
           <a class="ml-3 text-lg font-bold text-gray-800" href="#">

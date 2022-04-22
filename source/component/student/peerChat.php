@@ -62,7 +62,7 @@ if ($_SESSION['insert_msg'] !== "") {
 <!-- Remove everything INSIDE this div to a really blank page -->
 <div class="student-container container px-6 mx-auto grid relative">
     <div class="text-lg  border-b h-6 relative bg-teal-600"></div>
-    <div class="bg-white shadow relative h-32 flex justify-between items-center px-10">
+    <div class="bg-white relative h-32 flex justify-between items-center px-10 border-b">
         <?php
         //PIE CHARTS
         $sql = "SELECT * FROM students WHERE student_id = $sender_id";
@@ -98,11 +98,11 @@ if ($_SESSION['insert_msg'] !== "") {
 
     <div class="mt-4 flex flex-row-reverse">
 
-        <div class="w-[26rem] shadow-lg bg-white  ml-4">
+        <div class="w-[26rem] bg-white  ml-4">
             <div class="py-4 bg-teal-700 text-white text-center rounded-t font-bold uppercase text-sm">
                 <h1>My contact list</h1>
             </div>
-            <div>
+            <div class="px-2">
                 <div class="uppercase text-center text-teal-800 text-xs my-2">all</div>
                 <?php
                 $sql = "SELECT * FROM peer_chat
@@ -119,7 +119,7 @@ if ($_SESSION['insert_msg'] !== "") {
                     echo
                     "
                     <a href='./peerChat.php?sender_id=$incomig_id'>
-                        <div class='p-2 rounded my-2 flex items-center justify-between hover:shadow transition-all duration-300 border hover:cursor-pointer'>
+                        <div class='p-4 rounded my-2 flex items-center justify-between hover:shadow transition-all duration-300 border-y hover:cursor-pointer'>
                             <div class='text-gray-600 text-sm'>$student_name</div>
                             <div class='bg-sky-400 rounded-full w-2 h-2'></div>
                         </div>
@@ -133,54 +133,7 @@ if ($_SESSION['insert_msg'] !== "") {
         <div id='recipients' class="w-full rounded shadow-lg bg-white px-10 py-2">
             <span class="flex justify-center text-xs font-bold py-1 text-teal-700 uppercase">All Chat</span>
             <div id="mainSection" class="banner h-[30rem] overflow-y-scroll scrollbar-hide p-16">
-                <?php
-                // //Display data into the table 
-                // $sql  = "SELECT chat_room.chat_room_id,chat_room.message, students.student_id, students.lastname, students.firstname  
-                // FROM chat_room 
-                // INNER JOIN students ON students.student_id=chat_room.student_id
-                // WHERE chat_room.study_group_id = '$study_group_id'";
-                // $result = mysqli_query($link, $sql);
-                // $resultCheck = mysqli_num_rows($result);
-                // #continue in the table itself
-
-                // if ($resultCheck > 0) {
-                //     while ($row = mysqli_fetch_assoc($result)) {
-                //         $name = $row['lastname'] . ' ' . $row['firstname'];
-                //         $message = $row['message'];
-                //         $message_student_id = $row['student_id'];
-
-                //         if ($message_student_id == $student_id) {
-                //             $css_side = "bg-teal-50 pl-10 pr-4 rounded-l-2xl";
-                //             $css_side_flex = "justify-end";
-                //         } else {
-                //             $css_side = "bg-teal-100 pr-10 pl-4 rounded-r-2xl";
-                //             $css_side_flex = "justify-start";
-                //         }
-                //         if ($mentor_name == $name) {
-                //             $fullname = $name . '. ' . '<span class="text-[8px] text-red-500">Mentor</span>';
-                //         } else {
-                //             $fullname = $name;
-                //         }
-                //         echo
-                //         "
-                //         <div class='send mt-2 flex $css_side_flex'>
-                //             <div class='$css_side py-1 border border-teal-300 rounded-t-2xl'>
-                //                 <span class='text-teal-800 text-sm font-bold '>$fullname</span>
-                //                 <div>
-                //                     <p class='text-teal-600 text-sm float-right'>$message</p>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //         ";
-                //     }
-                //     mysqli_free_result($result);
-                // } else {
-                //     echo
-                //     "
-                //     <div class='flex justify-center border border-teal-400 mt-10 rounded-xl bg-teal-50 font-bold p-5 text-teal-700 '>You have staterd a chat here.</div>
-                //     ";
-                // }
-                ?>
+                <!-- Display message here -->
             </div>
             <div class="down">
                 <form action="" id="typingArea" class="mt-2 border-t-2 border-gray-100 flex justify-center py-2">
