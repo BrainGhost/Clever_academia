@@ -59,7 +59,7 @@ if ($_SESSION['insert_msg'] !== "") {
         </span>
     </div>
     <div class="bg-white shadow-lg">
-        <div class="w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide">
+        <div class="w-full md:w-[calc(100vw-20rem)] xl:w-[1000px] p-2 flex gap-4 mx-auto overflow-x-scroll scrollbar-hide">
             <?php
             //PIE CHARTS
             $sql = "SELECT join_study_group.join_study_group_id,join_study_group.study_group_id,study_group.group_name, study_group.banner_image, students.student_id
@@ -76,9 +76,21 @@ if ($_SESSION['insert_msg'] !== "") {
                 $profile = $row['banner_image'];
             ?>
                 <div class="w-32 p-2">
-                    <a href="single_group.php?joinedGroup=<?php echo $row['study_group_id']; ?>" class=" relative w-28 h-28 text-center cursor-pointer">
-                        <div class="bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 w-24 h-24  rounded-full mb-2 mx-auto">
+                    <a id='count_notification' href="single_group.php?joinedGroup=<?php echo $row['study_group_id']; ?>" class="relative w-28 h-28 text-center cursor-pointer">
+                        <div class="relative bg-gradient-to-r from-teal-500 via-gray-500 to-red-500 p-1 w-24 h-24  rounded-full mb-2 mx-auto">
                             <img src="../../resources/<?php echo $profile; ?>" class="rounded-full shadow-lg p-1 bg-white opacity-100 hover:opacity-90 w-full h-full object-contain transition duration-300 ease-in-out" alt="Avatar" />
+                            <div id="badge_notification" class="bg-red-500 p-2 text-white  absolute bottom-0 right-0 rounded-full h-8 w-8 border-2 border-white flex items-center justify-center">
+                                <!-- <span>11</span> -->
+                                <input id="groupID" name="groupID" class="hidden bg-teal-600" value="<?php echo $row['study_group_id'] ?>" hidden>
+                            </div>
+                            <!-- <?php
+                                    // $sql = "SELECT COUNT(*) AS tot_number FROM chat_room WHERE student_id != $student_id && chat_status = 0";
+                                    // $result = mysqli_query($link, $sql);
+
+                                    // if ($row = mysqli_fetch_assoc($result)) {
+                                    //     echo "<span class='bg-red-500 p-2 text-white  absolute bottom-0 right-0 rounded-full h-10 w-10 border-2 border-white'>" . $row['tot_number'] . "</span>";
+                                    // }
+                                    ?> -->
                         </div>
                         <div>
                             <h5 class="text-xs text-gray-500 font-medium leading-tight mb-2"><?php echo $name; ?></h5>
@@ -153,7 +165,54 @@ if ($_SESSION['insert_msg'] !== "") {
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        setInterval(function() {
+            let groupID = $("#groupID").val();
+            $.post('./viewNotifcation.php', {
+                data: 'get',
+                groupID: groupID
+            }, function(data) {
+                $("#badge_notification").html(data);
+            })
+            // $.ajax({
+            // type: "post",
+            // url: "./viewNotification.php",
+            // data: { incomingid: incomingid },
+            // success: function (response) {
+            //     $("#badge_notification").html(response);
+            // },
+            // });
+        }, 1000);
+        $('#count_notification').on('click', function() {
+            $.post('./viewNotifcation.php', {
+                update: 'update'
+            }, function(data) {
 
+            })
+        });
+        // $('#count_notification').on('click', function name(params) {
+        //     console.log('sucsess clicked');
+        //     $.ajax({
+        //         url: 'updateNotification.php',
+        //         success: function(response) {}
+        //     })
+        // });
+        // // setInterval(function() {
+        // //     let incomingid = $("#incoming").val();
+        // //     $.ajax({
+        // //     type: "post",
+        // //     url: "./viewNotification.php",
+        // //     data: { incomingid: incomingid },
+        // //     success: function (response) {
+        // //         $("#badge_notification").html(response);
+        // //     },
+        // //     });
+        // // }, 500);
+
+    });
+</script>
 <?php
 include './asset/Footer.php'
 ?>

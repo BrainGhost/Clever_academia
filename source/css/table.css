@@ -19,3 +19,11 @@ tr.display_image td {
 .hide__scroll::-webkit-scrollbar {
   display: none;
 } */
+
+#clip_path {
+  -webkit-clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+  clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+}
+#box-container:hover + #clip_path {
+  background-color: red;
+}

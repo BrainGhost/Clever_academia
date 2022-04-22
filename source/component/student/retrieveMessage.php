@@ -30,11 +30,16 @@ if ($resultCheck > 0) {
         // } else {
         //     $fullname = $name;
         // }
+        if ($outgoingid == $row['student_id']) {
+            $yourname =  'You';
+        } else {
+            $yourname = $name;
+        }
         echo
         "
             <div class='send mt-2 flex $css_side_flex'>
                 <div class='$css_side py-1 max-w-[25rem] border border-teal-300 rounded-t-2xl'>
-                    <span class='text-teal-800 text-sm font-bold '>$name</span>
+                    <span class='text-teal-800 text-sm font-bold '>$yourname</span>
                     <div>
                         <p class='text-teal-600 text-sm float-right'>$message</p>
                     </div>

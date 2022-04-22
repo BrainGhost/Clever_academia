@@ -15,6 +15,7 @@ $(document).ready(function () {
     $("#mainSection").scrollTop($("#mainSection")[0].scrollHeight);
     $("#typingField").val("");
   });
+
   setInterval(function () {
     let incomingid = $("#incoming").val();
     $.ajax({
@@ -26,5 +27,4 @@ $(document).ready(function () {
       },
     });
   }, 500);
-  $("#mainSection").scrollTop($("#mainSection")[0].scrollHeight);
 });

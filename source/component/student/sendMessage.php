@@ -8,16 +8,9 @@ if (isset($_POST['send'])) {
     $senderMessage = $_POST["message_write"];
 
 
-    $sql = "INSERT INTO chat_room(message, study_group_id, student_id ) VALUES ('$senderMessage','$senderGroup_id','$sender_id')";
+    $sql = "INSERT INTO chat_room(message, study_group_id, student_id, chat_status ) VALUES ('$senderMessage','$senderGroup_id','$sender_id', '0')";
     $result = mysqli_query($link, $sql);
-    // if($result){
-    //     header("location: ./single_group.php?joinedGroup=$senderGroup_id");
 
-    // }else{
-    //     header("location: ./single_group.php?joinedGroup=$senderGroup_id");
-    //     $insert_msg = "Failed to insert resources.";
-    //     mysqli_error($link);
-    // } 
     if (!$result) {
         echo "Failed to insert resources.";
         mysqli_error($link);
