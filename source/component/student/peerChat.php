@@ -91,7 +91,7 @@ if ($_SESSION['insert_msg'] !== "") {
         ?>
         <div class="relative">
             <i class="fa fa-comments text-teal-600 text-3xl transition duration-150 ease-in-out" aria-hidden="true"></i>
-            <span class='bg-red-500 p-1 text-white  absolute -top-2 -right-2 text-xs rounded-full h-7 w-7 border-2 border-white'>12</span>
+            <span class='bg-red-500 p-1 text-white  absolute -top-2 -right-5 text-xs rounded-full h-7 w-auto px-2 border-2 border-white'>New</span>
         </div>
 
     </div>
@@ -184,11 +184,11 @@ if ($_SESSION['insert_msg'] !== "") {
             </div>
             <div class="down">
                 <form action="" id="typingArea" class="mt-2 border-t-2 border-gray-100 flex justify-center py-2">
-                    <input type="text" name="student_sendMessage_id" id="outgoing" autocomplete="off" value="<?php echo $student_id; ?>" />
-                    <input type="text" name="group_sendMessage_id" id="incoming" autocomplete="off" value="<?php echo $sender_id ?>" />
+                    <input type="text" name="student_sendMessage_id" id="outgoing" autocomplete="off" value="<?php echo $student_id; ?>" hidden />
+                    <input type="text" name="group_sendMessage_id" id="incoming" autocomplete="off" value="<?php echo $sender_id ?>" hidden />
                     <!-- <input type="text" name="message_write" id="typingField" class="p-2 cursor-default border border-teal-400 rounded-lg w-full px-5 text-gray-500 text-base font-bold outline-none active:shadow" required autocomplete="off"> -->
                     <textarea name="message_write" id="typingField" class="h-20 max-h-40 p-2 cursor-default border border-teal-400 rounded-lg w-full px-5 text-gray-500 text-base font-bold outline-none active:shadow resize-none" required autocomplete="off"></textarea>
-                    <button type="submit" id="sendMessage" name='send' value="send" class='ml-2 px-5 py-2 cursor-pointer flex items-center border border-teal-500 bg-teal-50 rounded-lg  hover:bg-teal-100 text-teal-500 font-medium'>
+                    <button type="submit" id="sendMessage" name='send' value="send" class='h-10 ml-2 px-5 py-2 cursor-pointer flex items-center bg-teal-600 rounded-lg  hover:bg-teal-700 text-white font-medium'>
                         Send<i class="fa fa-paper-plane px-2" aria-hidden="true"></i>
                     </button>
                 </form>

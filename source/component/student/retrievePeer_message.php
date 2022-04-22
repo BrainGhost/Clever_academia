@@ -9,7 +9,9 @@ $incomingid = mysqli_real_escape_string($link, $_POST['incomingid']);
 //Display data into the table 
 $sql  = "SELECT *  FROM peer_chat
 LEFT JOIN students ON peer_chat.incoming_id=students.student_id
-WHERE incoming_id = '$incomingid' AND outgoing_id = '$outgoingid'";
+WHERE outgoing_id = '$outgoingid' AND incoming_id = '$incomingid' OR outgoing_id = '$incomingid' AND incoming_id = '$outgoingid'
+";
+// WHERE incoming_id = '$incomingid' OR outgoing_id = '$outgoingid'
 
 $result = mysqli_query($link, $sql);
 $resultCheck = mysqli_num_rows($result);
@@ -20,7 +22,7 @@ if ($resultCheck > 0) {
         $name = $row['lastname'] . ' ' . $row['firstname'];
         $message = $row['message'];
 
-        if ($outgoingid) {
+        if ($outgoingid == $row['outgoing_id']) {
             $css_side = "bg-teal-50 pl-10 pr-4 rounded-l-2xl";
             $css_side_flex = "justify-end";
         } else {
