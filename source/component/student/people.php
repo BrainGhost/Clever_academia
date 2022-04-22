@@ -57,9 +57,12 @@ if ($_SESSION['insert_msg'] !== "") {
             <i class="fa fa-users text-teal-600 hover:text-teal-700 text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
-    <div class="mt-2 w-full">
+    <div class="mt-2 w-full flex justify-between">
         <div name="new_resources">
             <button type='button' onclick="window.print()" name='print' value='upload' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Print report</button>
+        </div>
+        <div name="">
+            <a href="peerChat.php" name='print' value='upload' class='flex items-center px-4 py-1 border border-teal-500 bg-teal-50 rounded  hover:bg-teal-100 text-teal-500 font-medium'>Messages</a>
         </div>
     </div>
     <div class="table mt-4">
@@ -91,9 +94,11 @@ if ($_SESSION['insert_msg'] !== "") {
                     $search_result = filterTable($link, $sql);
                 } else {
                     //Display data into the table
-                    $sql  = "SELECT interest.interest_id,interest.interest_details, interest.interest_topics,students.profile,students.lastname,students.firstname,students.email,students.registration_year,students.phone_number,students.level
+                    $sql  = "SELECT interest.interest_id,interest.interest_details, interest.interest_topics,students.student_id,students.profile,students.lastname,students.firstname,students.email,students.registration_year,students.phone_number,students.level
                         FROM interest
-                        INNER JOIN students ON interest.student_id=students.student_id";
+                        INNER JOIN students ON interest.student_id=students.student_id
+                        WHERE students.student_id != $student_id
+                        ";
                     $search_result = filterTable($link, $sql);
                 }
                 function filterTable($link, $sql)
@@ -108,6 +113,7 @@ if ($_SESSION['insert_msg'] !== "") {
                         $interest_id = $row['interest_id'];
                         $profile = $row['profile'];
                         $name = $row['lastname'] . ' ' . $row['firstname'];
+                        $sender_id = $row['student_id'];
                         $email = $row['email'];
                         $phone = $row['phone_number'];
                         $details = $row['interest_details'];
@@ -169,7 +175,7 @@ if ($_SESSION['insert_msg'] !== "") {
                                     </div>
                                 </div>
                             </div>
-                            <a href="" id="clip_path" class="absolute bottom-0 right-0 bg-teal-500 text-white w-14 h-14 rounded-full border-4 border-white shadow-md cursor-pointer p-2 flex items-center justify-center">
+                            <a href="peerChat.php?sender_id=<?php echo $sender_id; ?>" id="clip_path" class="absolute bottom-0 right-0 bg-teal-500 text-white w-14 h-14 rounded-full border-4 border-white shadow-md cursor-pointer p-2 flex items-center justify-center">
                                 <i class="fa fa-comments text-xl transition duration-150 ease-in-out" aria-hidden="true"></i>
                             </a>
                         </div>
