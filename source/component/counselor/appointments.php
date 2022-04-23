@@ -2,6 +2,9 @@
 include '../../php/config.php';
 include './asset/Header.php';
 date_default_timezone_set("Africa/Nairobi");
+if ($_SESSION["level"] == "counselor") {
+    $doctor_id = $_SESSION["id"];
+}
 ?>
 <!--Overlay Effect-->
 <div class="absolute hidden inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20" id="my-modal"></div>
@@ -43,12 +46,12 @@ date_default_timezone_set("Africa/Nairobi");
                 <thead class="bg-<?php echo $primary_color; ?>-600 border-b">
                     <tr class="text-sm font-medium text-white text-left">
                         <th data-priority="1">Appointment No.</th>
+                        <th data-priority="1">Made on.</th>
                         <th data-priority="2">Patient Name</th>
                         <th data-priority="3">Appointment Date</th>
-                        <th data-priority="4">Appointment Time</th>
-                        <th data-priority="5">Appointment Day</th>
+                        <th data-priority="4">Appointment Day</th>
+                        <th data-priority="5">Appointment Time</th>
                         <th data-priority="6">Appointment Status</th>
-                        <th data-priority="7">View</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white transition duration-300 ease-in-out text-sm text-gray-700 ">
@@ -57,22 +60,36 @@ date_default_timezone_set("Africa/Nairobi");
                         $filtervalues = $_GET['search'];
                         //Display data into the table 
                         //Display data into the table
-                        $sql  = "SELECT * FROM appointment  
-                        INNER JOIN doctor_schedule 
-                        ON doctor_schedule.doctor_schedule_id = appointment.doctor_schedule_id 
-                        INNER JOIN students 
-                        ON students.student_id = appointment.student_id 
-                        WHERE CONCAT(doctor_schedule_date, doctor_schedule_day, doctor_schedule_start_time, doctor_schedule_end_time,average_consulting_time) LIKE '%$filtervalues%'  ORDER BY doctor_schedule_id ASC;";
+                        $sql  = "SELECT
+                        appointment.appointment_id, appointment.appointment_time, appointment.appointment_status,
+                        (SELECT DAYNAME(doctor_schedule.doctor_schedule_date)) AS doctor_schedule_day, 
+                        (SELECT TIME_FORMAT(doctor_schedule.doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, 
+                        (SELECT DATE_FORMAT(doctor_schedule.doctor_schedule_date, ' %Y-%m-%d ')) AS doctor_schedule_date,
+                        students.firstname, students.lastname
+                         FROM appointment  
+                            INNER JOIN doctor_schedule 
+                            ON doctor_schedule.doctor_schedule_id = appointment.doctor_schedule_id 
+                            INNER JOIN students 
+                            ON students.student_id = appointment.student_id
+                        WHERE doctor_schedule.doctor_id = $doctor_id
+                        AND CONCAT(doctor_schedule_day, doctor_schedule_start_time,doctor_schedule_date, appointment_status) LIKE '%$filtervalues%' ORDER BY appointment_id ASC;";
 
                         #continue in the table itself
                         $search_result = filterTable($link, $sql);
                     } else {
                         //Display data into the table
-                        $sql  = "SELECT * FROM appointment  
-                        INNER JOIN doctor_schedule 
-                        ON doctor_schedule.doctor_schedule_id = appointment.doctor_schedule_id 
-                        INNER JOIN students 
-                        ON students.student_id = appointment.student_id";
+                        $sql  = "SELECT
+                        appointment.appointment_id, appointment.appointment_time, appointment.appointment_status,
+                        (SELECT DAYNAME(doctor_schedule.doctor_schedule_date)) AS doctor_schedule_day, 
+                        (SELECT TIME_FORMAT(doctor_schedule.doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, 
+                        (SELECT DATE_FORMAT(doctor_schedule.doctor_schedule_date, ' %Y-%m-%d ')) AS doctor_schedule_date,
+                        students.firstname, students.lastname
+                         FROM appointment  
+                            INNER JOIN doctor_schedule 
+                            ON doctor_schedule.doctor_schedule_id = appointment.doctor_schedule_id 
+                            INNER JOIN students 
+                            ON students.student_id = appointment.student_id
+                        WHERE doctor_schedule.doctor_id = $doctor_id;";
 
                         #continue in the table itself
                         $search_result = filterTable($link, $sql);
@@ -87,33 +104,27 @@ date_default_timezone_set("Africa/Nairobi");
                             //schedule_status
                             $status = " ";
                             if ($row['appointment_status'] == "completed") {
-                                $status = "<button class='px-2 py-1 rounded bg-emerald-400 text-white'>Completed</button>";
+                                $status = "<button class='px-3 py-1 rounded-full bg-emerald-400 text-white'>Completed</button>";
                             }
-                            if ($row['appointment_status'] == "completed") {
-                                $status = "<button class='px-2 py-1 rounded bg-sky-400 text-white'>In progress</button>";
+                            if ($row['appointment_status'] == "progress") {
+                                $status = "<button class='px-3 py-1 rounded-full bg-orange-400 text-white'>In progress..</button>";
                             }
-                            if ($row['appointment_status'] == "completed") {
-                                $status = "<button class='px-2 py-1 rounded bg-yellow-400 text-white'>Booked</button>";
+                            if ($row['appointment_status'] == "booked") {
+                                $status = "<button class='px-3 py-1 rounded-full bg-sky-400 text-white'>Booked</button>";
                             }
-                            if ($row['appointment_status'] == "completed") {
-                                $status = "<button class='px-2 py-1 rounded bg-red-400 text-white'>Canceled</button>";
+                            if ($row['appointment_status'] == "cancel") {
+                                $status = "<button class='px-3 py-1 rounded-full bg-red-400 text-white'>Canceled</button>";
                             }
                             echo
                             "
-                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-<?php echo $primary_color; ?>-50 text-sm text-gray-900 font-light'>
+                                <tr class='bg-white border-b transition duration-300 ease-in-out hover:bg-sky-50 text-sm text-gray-900 font-light'>
                                     <td>" . $row['appointment_id'] . "</td>
-                                    <td>" . $row['doctor_schedule_id'] . "</td>
-                                    <td>" . $row[''] . "</td>
-                                    <td>" . $row[''] . "</td>
-                                    <td>" . $row[''] . "</td>
+                                    <td>" . $row['appointment_time'] . "</td>
+                                    <td>" . $row['lastname'] . " " . $row['firstname'] . "</td>
+                                    <td>" . $row['doctor_schedule_date'] . "</td>
+                                    <td>" . $row['doctor_schedule_day'] . "</td>
+                                    <td>" . $row['doctor_schedule_start_time'] . "</td>
                                     <td>$status</td>
-                                    <td>
-                                        <div class='flex items-center'>
-                                            <a href='javascript:displayModal(" . $row['appointment_id'] . ");'  class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
-                                                <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
-                                            </a>
-                                        </div>
-                                    </td>
                                 </tr>
                                 ";
                         }

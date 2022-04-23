@@ -57,7 +57,8 @@ if (isset($_POST["add"])) {
     #insert data into the database if all the errors are cleared
     if (empty($doctor_id_err) && empty($doctor_schedule_date_err) && empty($doctor_schedule_start_time_err) && empty($doctor_schedule_end_time_err) && empty($average_consulting_time_err)) {
         # insert the data if all errors are lifted
-        $sql = "INSERT INTO doctor_schedule(doctor_schedule_date, doctor_schedule_day, doctor_schedule_start_time, doctor_schedule_end_time, average_consulting_time, doctor_id) VALUES ('$doctor_schedule_date' , '$doctor_schedule_day', '$doctor_schedule_start_time' ,'$doctor_schedule_end_time' ,$average_consulting_time ,$doctor_id )";
+        $sql = "INSERT INTO doctor_schedule(doctor_schedule_date, doctor_schedule_day, doctor_schedule_start_time, doctor_schedule_end_time, average_consulting_time, schedule_status, booked_status, doctor_id) 
+                                    VALUES ('$doctor_schedule_date' , '$doctor_schedule_day', '$doctor_schedule_start_time' ,'$doctor_schedule_end_time' ,$average_consulting_time, '0', '1' ,$doctor_id )";
         $result = mysqli_query($link, $sql);
         if ($result) {
             $insert_msg = "Record inserted successfully.";
@@ -74,27 +75,6 @@ if (isset($_POST["add"])) {
 
 <!-- NOTIFICATION ALERTS -->
 <?php
-// if ( isset($_GET['success']) && $_GET['success'] == 1 )
-// {
-//     echo 
-//     "
-//     <div class='bg-sky-100 text-sky-700 border border-sky-900 my-3 rounded w-96 mx-auto flex items-center'>
-//         <h1 class='text-sky-700 text-sm py-4'>updated well</h1>
-//         <span id='close-nft' class='absolute top-0 bottom-0 right-0 px-3 py-3 bg-sky-200 text-sky-700 cursor-pointer'>
-//             <i class='fa fa-times text-xl pointer-events-none' ></i>
-//         </span>
-//     </div>
-//     ";
-// }
-/* <?php echo ($alert_notification == 'success' ) ? 'Success' : 'Update' ;?> -> alert_msg*/
-/* <?php echo ($alert_notification == 'success' ) ? 'Success' : 'Update' ;?> -> alert_div_color*/
-/* <?php echo ($alert_notification == 'success' ) ? 'Success' : 'Update' ;?> -> alert_btn_color */
-// $_SESSION["insert_msg"] = "junior";
-// if ($_SESSION["insert_msg"] = "junior") {
-//     $_SESSION["insert_msg"] = null;
-// } 
-
-
 if ($_SESSION['insert_msg'] !== "") {
     $action = "";
     if (isset($_POST['delete'])) {
@@ -130,28 +110,9 @@ if ($_SESSION['insert_msg'] !== "") {
             $alert_btn_color = 'bg-orange-200 text-orange-700';
             break;
     }
-
-
-    // if($alert_notification == 'success'){
-    //     $alert_msg = "Success";
-    //     $alert_div_color = 'bg-emerald-100 border-emerald-500 text-emerald-700';
-    //     $alert_btn_color = 'bg-emerald-200 text-emerald-700';
-
-    // }else{
-    //     if ($alert_notification == 'update') {
-    //         $alert_msg = "Update";
-    //         $alert_div_color = 'bg-sky-100 border-sky-500 text-sky-700';
-    //         $alert_btn_color = 'bg-sky-200 text-sky-700';
-    //     }else{
-    //         $alert_msg = "Delete";
-    //         $alert_div_color = 'bg-red-100 border-red-500 text-red-700';
-    //         $alert_btn_color = 'bg-red-200 text-red-700';
-    //     }
-    // }
-
 ?>
 
-    <div class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color; ?> " role="alert">
+    <div id="notification" class="p-4 rounded px-4 py-3 absolute <?php echo ($insert_msg || $_SESSION['insert_msg']) ? "top-7 flex" : "-top-16 "; ?> left-1/2 -translate-x-1/2 shadow-md max-w-lg z-50 border-l-4 <?php echo $alert_div_color; ?> " role="alert">
         <strong class="font-bold"><?php echo $alert_msg; ?>! &nbsp;</strong>
         <span class="block sm:inline mr-12"><?php echo  $insert_msg ? $insert_msg : $_SESSION['insert_msg']; ?></span>
         <span onclick="closeNFT(this); <?php $_SESSION['insert_msg'] = null; ?>" class="absolute top-0 bottom-0 right-0 px-3 py-3 <?php echo $alert_btn_color; ?> cursor-pointer">
@@ -169,7 +130,7 @@ if ($_SESSION['insert_msg'] !== "") {
         <h2 class="my-6 text-2xl font-semibold text-gray-700 flex-1">
             Schedule Management
         </h2>
-        <span class="openModalBtn">
+        <span class="openModalBtn" onclick="openModalBtn(this)">
             <i class="fa fa-plus-circle text-<?php echo $primary_color; ?>-600 hover:text-<?php echo $primary_color; ?>-700 cursor-pointer text-3xl transition duration-150 ease-in-out" aria-hidden="true"></i>
         </span>
     </div>
@@ -202,13 +163,21 @@ if ($_SESSION['insert_msg'] !== "") {
                     if (isset($_GET['search'])) {
                         $filtervalues = $_GET['search'];
                         //Display data into the table
-                        $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, average_consulting_time, schedule_status, doctor_id FROM doctor_schedule
+                        $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, 
+                        (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, 
+                        (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, 
+                        (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, 
+                        average_consulting_time, schedule_status, doctor_id FROM doctor_schedule
                         WHERE CONCAT(doctor_schedule_date, doctor_schedule_day, doctor_schedule_start_time, doctor_schedule_end_time,average_consulting_time) LIKE '%$filtervalues%'  ORDER BY doctor_schedule_id ASC;";
                         #continue in the table itself
                         $search_result = filterTable($link, $sql);
                     } else {
                         //Display data into the table
-                        $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, average_consulting_time, schedule_status, doctor_id FROM doctor_schedule;";
+                        $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, 
+                        (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, 
+                        (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, 
+                        (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, 
+                        average_consulting_time, schedule_status, doctor_id FROM doctor_schedule;";
                         #continue in the table itself
                         $search_result = filterTable($link, $sql);
                     }
@@ -274,7 +243,7 @@ if ($_SESSION['insert_msg'] !== "") {
             <div class="modal-dialog relative w-auto pointer-events-none  ">
                 <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none">
                     <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-                        <h5 class="text-2xl font-medium leading-normal text-gray-600">Add shedule data</h5>
+                        <h5 class="text-2xl font-medium leading-normal text-gray-600">Add schedule data</h5>
                         <button type="button" class="btn-close box-content w-6 h-6 p-1  text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline" data-bs-dismiss="modal" aria-label="Close">
                             <i class="fa fa-times text-xl"></i>
                         </button>
@@ -368,35 +337,6 @@ if ($_SESSION['insert_msg'] !== "") {
         </form>
     </div>
     <!-- =================================================UPDATE DATA INTO THE DB==================================================== -->
-    <?php
-    // # UPDATE FUNCTIONALITY
-
-    // if(isset($_POST["update"]))
-    // {
-    //     $update_id = trim($_POST['update_id']);
-    //     //variable
-    //     $doctor_schedule_date = date("Y-m-d", strtotime(trim($_POST['doctor_schedule_date'])));
-    //     $doctor_schedule_day = date("l", strtotime(trim($_POST['doctor_schedule_date'])));
-    //     $doctor_schedule_start_time = trim($_POST['doctor_schedule_start_time']);
-    //     $doctor_schedule_end_time = trim($_POST['doctor_schedule_end_time']);
-    //     $average_consulting_time = trim($_POST['average_consulting_time']);
-
-    //     //statement
-    //     $sql = "UPDATE doctor_schedule SET doctor_schedule_date='$doctor_schedule_date',doctor_schedule_day='$doctor_schedule_day',doctor_schedule_start_time='$doctor_schedule_start_time',doctor_schedule_end_time='$doctor_schedule_end_time',average_consulting_time='$average_consulting_time' WHERE doctor_schedule_id= $update_id ";
-    //     $result = mysqli_query($link, $sql);
-    //     if($result){
-    //         $insert_msg = "Updated successfully.";
-    //         $alert_notification = "warning";
-    //     }else{
-    //         echo "Oops! Something went wrong. Please try later";
-    //         die(mysqli_error($link));
-    //     }
-
-    // }
-    ?>
-
-
-
 
     <div class="modalOpen_update fade hidden absolute left-1/2 top-10 -translate-x-1/2 w-[700px] mx-auto h-auto outline-none overflow-x-hidden overflow-y-auto z-30" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form method="post" action="schedule_action.php">

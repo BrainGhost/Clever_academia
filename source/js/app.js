@@ -31,6 +31,7 @@ button.forEach((btn) => {
 //openModal
 // const openModalBtn = document.querySelector(".openModalBtn");
 const myModal = document.querySelector("#my-modal");
+const modalOpen = document.querySelector(".modalOpen");
 function openModalBtn(e) {
   const modalOpen = document.querySelector(".modalOpen");
 
