@@ -662,6 +662,30 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: -1.5rem;
 }
 
+.-left-4 {
+  left: -1rem;
+}
+
+.-left-40 {
+  left: -10rem;
+}
+
+.left-40 {
+  left: 10rem;
+}
+
+.-left-10 {
+  left: -2.5rem;
+}
+
+.-left-2 {
+  left: -0.5rem;
+}
+
+.-left-5 {
+  left: -1.25rem;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -837,6 +861,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ml-10 {
   margin-left: 2.5rem;
+}
+
+.-ml-10 {
+  margin-left: -2.5rem;
 }
 
 .box-content {
@@ -1133,6 +1161,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-20 {
   width: 5rem;
+}
+
+.w-1 {
+  width: 0.25rem;
 }
 
 .min-w-full {
@@ -1853,6 +1885,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-orange-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(255 247 237 / var(--tw-bg-opacity));
+}
+
+.bg-sky-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-20 {

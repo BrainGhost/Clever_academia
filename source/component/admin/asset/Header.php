@@ -106,7 +106,7 @@ if (!isset($_SESSION["loggedin_admin"]) || $_SESSION["loggedin_admin"] !== true)
       Deleted successfully !!
     </div>
     <!-- Desktop sidebar -->
-    <aside class="shadow-lg z-20 hidden w-64 overflow-y-auto bg-white md:block flex-shrink-0">
+    <aside class="shadow-md z-20 hidden w-64 overflow-y-auto bg-white md:block flex-shrink-0">
       <div class="py-4 text-gray-500">
         <div class="">
           <a class="ml-3 text-lg font-bold text-gray-800 " href="#">
@@ -177,7 +177,7 @@ if (!isset($_SESSION["loggedin_admin"]) || $_SESSION["loggedin_admin"] !== true)
     <!-- Mobile sidebar -->
     <!-- Backdrop -->
     <div id="isSideMenuOpen" class="hidden fixed inset-0 z-10 bg-black bg-opacity-30"></div>
-    <aside class="shadow-lg fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden transition-all ease-in-out duration-500 delay-100 transform -translate-x-[16rem]" id="closeSideMenu">
+    <aside class="shadow-md fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden transition-all ease-in-out duration-500 delay-100 transform -translate-x-[16rem]" id="closeSideMenu">
       <div class="py-4 text-gray-500">
         <div class="">
           <a class="ml-3 text-lg font-bold text-gray-800" href="#">
@@ -246,7 +246,8 @@ if (!isset($_SESSION["loggedin_admin"]) || $_SESSION["loggedin_admin"] !== true)
       </div>
     </aside>
     <div class="flex flex-col flex-1">
-      <header class="z-10 py-4 shadow-md bg-white">
+      <header class="z-10 py-4 shadow-md bg-white relative">
+        <div class="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
         <div class="container flex items-center justify-between h-full px-6 mx-auto text-<?php echo $primary_color; ?>-600">
           <!-- Mobile hamburger -->
           <button onclick="toggleSideMenu(this);" class="p-1 -ml-1 mr-5 rounded-md md:hidden focus:outline-none flex items-center" id="toggleSideMenu" aria-label="Menu">
