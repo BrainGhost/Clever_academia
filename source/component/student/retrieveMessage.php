@@ -51,6 +51,6 @@ if ($resultCheck > 0) {
 } else {
     echo
     "
-        <div class='flex justify-center border border-teal-400 mt-10 rounded-xl bg-teal-50 p-2 text-xs font-bold text-teal-700 '>You have staterd a chat here.</div>
-        ";
+    <div class='flex justify-center border border-teal-400 mt-10 rounded-xl bg-teal-50 p-2 text-xs font-bold text-teal-700 '>You have staterd a chat here.</div>
+    ";
 }

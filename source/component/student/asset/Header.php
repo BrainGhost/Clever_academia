@@ -305,40 +305,17 @@ $student_id = $_SESSION['student_id'];
           <ul class="flex items-center flex-shrink-0 space-x-6">
             <!-- Date display -->
             <!-- Notifications menu -->
-            <li class="relative">
-              <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-teal" @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications" aria-haspopup="true">
-                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
-                </svg>
-                <!-- Notification badge -->
-                <span aria-hidden="true" class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full"></span>
-              </button>
-              <template x-if="isNotificationsMenuOpen">
-                <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu" class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md" aria-label="submenu">
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800" href="#">
-                      <span>Messages</span>
-                      <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full">
-                        13
-                      </span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800" href="#">
-                      <span>Sales</span>
-                      <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full">
-                        2
-                      </span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800" href="#">
-                      <span>Alerts</span>
-                    </a>
-                  </li>
-                </ul>
-              </template>
-            </li>
+            <a href="./peerChat.php">
+              <li class="relative">
+                <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-teal" @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications" aria-haspopup="true">
+                  <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+                  </svg>
+                  <!-- Notification badge -->
+                  <span aria-hidden="true" class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full"></span>
+                </button>
+              </li>
+            </a>
             <!-- Profile menu -->
             <li class="relative dropdown">
               <div onclick="dropdown_menu(this);" class="dropdown_button cursor-pointer text-sm font-medium text-gray-600">
@@ -349,7 +326,11 @@ $student_id = $_SESSION['student_id'];
               </div>
 
               <div class="dropdown_menu text-gray-700 text-sm  bg-white absolute right-0 top-9 pt-2 rounded shadow-lg drop-shadow-xl hidden">
-                <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Profile</div>
+                <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">
+                  <a href="./profile.php">
+                    Profile
+                  </a>
+                </div>
                 <div class="py-1 px-6 hover:cursor-pointer hover:bg-gray-100">Settings</div>
                 <div class="flex border-t-[1px] font-medium hover:cursor-pointer text-teal-500 hover:bg-teal-500 hover:text-white">
                   <a class="py-2 px-6" href="../../php/logout.php">Logout</a>

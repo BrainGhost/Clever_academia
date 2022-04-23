@@ -15,7 +15,7 @@ if (isset($_GET["editID"])) {
 
     while ($row = mysqli_fetch_assoc($result)) {
         $application_reason_update = $row['application_reason'];
-        $application_topic_update = $row['application_topic'];
+        // $application_topic_update = $row['application_topic'];
     }
 }
 
