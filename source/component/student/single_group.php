@@ -105,9 +105,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             $sql = "SELECT * FROM students WHERE student_id = $student_id";
             $result = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
-                $levell = $row['level'];
+                $level = $row['level'];
             }
-            if ($levell === "standard") {
+            if ($level == "standard") {
                 echo
                 "
                     <div class='flex items-center'>

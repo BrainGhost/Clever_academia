@@ -108,10 +108,13 @@ if (isset($_GET["mentordeletedid"])) {
 
     $result = mysqli_query($link, $sql);
     if ($result) {
-        header("location: ./mentors.php");
+        $sql = "UPDATE students SET level ='standard'";
+        $result = mysqli_query($link, $sql);
+        if ($result) {
+            header("location: ./mentors.php");
+        }
     }else {
         echo "Oops! Something went wrong. Please try later";
         die(mysqli_error($link));
     }
 }
-?>

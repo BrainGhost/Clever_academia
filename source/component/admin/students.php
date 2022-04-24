@@ -104,7 +104,7 @@ if ($_SESSION['insert_msg'] !== "") {
                         $filtervalues = $_GET['search'];
                         //Display data into the table 
                         $sql  = "SELECT * FROM students
-                        WHERE CONCAT(firstname, lastname, gender, major,level, address) LIKE '%$filtervalues%'  ORDER BY student_id ASC;";
+                        WHERE CONCAT(firstname, lastname,registration_year, department, gender, major,level, address) LIKE '%$filtervalues%'  ORDER BY student_id ASC;";
 
                         #continue in the table itself
                         $search_result = filterTable($link, $sql);
@@ -159,10 +159,7 @@ if ($_SESSION['insert_msg'] !== "") {
 
                                 <td>
                                     <div class='flex items-center space-x-4'>
-                                        <a title='View record' href='./action/read.php?viewid="<?php echo $row['student_id']; ?>" && deletedstatus ="<?php echo $row['has_account']; ?>"' class='text-sky-400 grid place-items-center rounded-full hover:text-sky-500 transition duration-150 ease-in-out'>
-                                            <i class='fa fa-eye  cursor-pointer text-lg' aria-hidden='true'></i>
-                                        </a>
-                                        <a title='Update record' href='javascript:displayModal("<?php echo $row['student_id']; ?>");' class='text-yellow-400 grid place-items-center rounded-full hover:text-yellow-500 transition duration-150 ease-in-out'>
+                                        <a title='Update record' href='editStudent.php?update_student_id=<?php echo $row['student_id']; ?>' class='text-orange-400 grid place-items-center rounded-full hover:text-orange-500 transition duration-150 ease-in-out'>
                                             <i class='fa fa-pencil  cursor-pointer text-lg' aria-hidden='true'></i>
                                         </a>
 

@@ -85,7 +85,7 @@ if ($insert_msg !== "") {
             <i class="fa fa-comments text-2xl transition duration-150 ease-in-out" aria-hidden="true"></i>
             <div class="absolute top-0 -right-2 grid place-items-center bg-red-50 shadow-md h-5 w-5 rounded-full font-bold text-xs">
                 <?php
-                $sql = "SELECT COUNT(*) AS tot_number FROM mentor_application WHERE application_status = 'processing'";
+                $sql = "SELECT COUNT(*) AS tot_number FROM mentor_application WHERE application_status = 'processing' ";
                 $result = mysqli_query($link, $sql);
 
                 if ($row = mysqli_fetch_assoc($result)) {
@@ -116,7 +116,7 @@ if ($insert_msg !== "") {
                         $sql = "SELECT mentor_application.application_id, mentor_application.application_reason, mentor_application.topics, mentor_application.date, mentor_application.application_status, students.firstname, students.lastname, students.profile
                             FROM mentor_application 
                             INNER JOIN students ON mentor_application.student_id=students.student_id
-                            WHERE application_status = 'processing'
+                            WHERE application_status = 'processing' OR application_status = 'approved'
                             ";
                         $result = mysqli_query($link, $sql);
                         while ($row = mysqli_fetch_assoc($result)) {

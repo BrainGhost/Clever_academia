@@ -6,15 +6,15 @@ include('./asset/Header.php');
 
 
 //define variables and initialize with empty values
-$firstname = $lastname = $gender = $email = $dateofbirth = $department = $course = $address = $phonenumber = $registration = $graduation = "";
+$firstname = $lastname = $gender = $email = $dateofbirth = $department = $course = $address = $phonenumber = $registration = $graduation = $profile = "";
 $firstname_err = $lastname_err = $gender_err = $email_err = $dateofbirth_err = $department_err = $course_err = $address_err = $phonenumber_err = $registration_err = $graduation_err = "";
 
 #############################################
 // change the timezone from berlin to kenya/nairobi
 date_default_timezone_set("Africa/Nairobi");
+$update_student_id = $in_profile = "";;
 
-
-# Insert resources into the DB
+# Insert student into the DB
 
 if (isset($_POST["add_student"])) {
     //validate name
@@ -163,7 +163,125 @@ if (isset($_POST["add_student"])) {
         }
     }
 }
+
+#Update Student database
+if (isset($_GET['update_student_id'])) {
+    $update_student_id = $_GET['update_student_id'];
+    #Check if the profile is already there
+
+    $sql = "SELECT * FROM students WHERE student_id = $update_student_id";
+    $result = mysqli_query($link, $sql);
+    $resultCheck = mysqli_num_rows($result);
+    #continue in the table itself
+
+    if ($resultCheck > 0) {
+        $in_profile = true;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $firstname = $row['firstname'];
+            $lastname = $row['lastname'];
+            $address = $row['address'];
+            $email = $row['email'];
+            $course = $row['major'];
+            $registration = $row['registration_year'];
+            $department = $row['department'];
+            $phonenumber = $row['phone_number'];
+            $profile = $row['profile'];
+        }
+    } else {
+        $in_profile = false;
+    }
+}
+
+if (isset($_POST["update_student"])) {
+    echo "update";
+    //validate name
+    if (empty($_POST['firstname'])) {
+        $firstname_err = "Enter the first name.";
+    } else {
+        $firstname = trim($_POST['firstname']);
+    }
+    if (empty($_POST['lastname'])) {
+        $lastname_err = "Enter the last name.";
+    } else {
+        $lastname = trim($_POST['lastname']);
+    }
+
+    //Email validation
+    //validate email
+    if (empty($_POST['email'])) {
+        $email_err = "Please enter an email.";
+        // check if e-mail address is well-formed
+    } else {
+        $email = trim($_POST['email']);
+    }
+    // Gender
+    if (empty($_POST['gender'])) {
+        $gender_err = "Select gender.";
+    } else {
+        $gender = trim($_POST['gender']);
+    }
+    //phone number
+    if (empty($_POST['phonenumber'])) {
+        $phonenumber_err = "Select phone number.";
+    } else {
+        $phonenumber = trim($_POST['phonenumber']);
+    }
+    //validate date of birth
+    if (empty($_POST['dateofbirth'])) {
+        $dateofbirth_err = "Please enter a data of birth.";
+    } else {
+        $dateofbirth = date("Y-m-d", strtotime(trim($_POST['dateofbirth'])));
+    }
+    //registration date
+    if (empty($_POST['registration'])) {
+        $registration_err = "Please enter the date of registration.";
+    } elseif (trim($_POST['registration']) >= date("Y")) {
+        # check if the date inserted is > to the current data
+        $registration_err = "Invalid year.";
+    } else {
+        $registration = trim($_POST['registration']);
+        $graduation = trim($_POST['registration']); #+ add 4 years ;
+    }
+    //address location
+    if (empty($_POST['address'])) {
+        $address_err = "Enter your address location.";
+    } else {
+        $address = trim($_POST['address']);
+    }
+    //Department
+    if (empty($_POST['department'])) {
+        $department_err = "Enter your department.";
+    } else {
+        $department = trim($_POST['department']);
+    }
+    //Course
+    if (empty($_POST['course'])) {
+        $course_err = "Enter your course.";
+    } else {
+        $course = trim($_POST['course']);
+    }
+
+
+    ######
+
+    if (empty($firstname_err) && empty($lastname_err) && empty($email_err) && empty($gender_err) && empty($department_err) && empty($course_err) && empty($registration_err)) {
+        #sql
+        $sql = "UPDATE students SET firstname='$firstname', lastname='$lastname', gender='$gender', email='$email', phone_number='$phonenumber', date_of_birth='$dateofbirth', department='$department', major='$course', registration_year='$registration', graduation_year=' $graduation', address='$address' WHERE student_id = '$update_student_id'";
+        $result = mysqli_query($link, $sql);
+        if ($result) {
+            $_SESSION['insert_msg'] = "Updated successfully.";
+            $_SESSION['alert_notification_resources'] = 'success';
+            header("location: ./students.php");
+        } else {
+            header("location: ./editStudent.php");
+            $insert_msg = "Failed to insert Student.";
+            mysqli_error($link);
+        }
+    }
+}
 ?>
+
+
 <!-- Remove everything INSIDE this div to a really blank page -->
 <div class="student-container container px-6 mx-auto grid relative">
     <div class="flex items-center border-b">
@@ -251,7 +369,7 @@ if (isset($_POST["add_student"])) {
                                 <div class="w-full">
                                     <label class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium ">Registration</label>
                                     <div class="input-group flex text-gray-600 w-full rounded py-2">
-                                        <input type="number" min="2000" max="2050" maxlength="4" step="1" placeholder="<?php echo date("Y"); ?>" name="registration" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded" />
+                                        <input type="number" min="2000" max="2050" value="<?php echo $registration; ?>" maxlength="4" step="1" placeholder="<?php echo date("Y"); ?>" name="registration" class="text-gray-600 w-full px-4 py-2 text-sm focus:border-<?php echo $primary_color; ?>-400 focus:outline-none border border-gray-200 rounded" />
                                     </div>
                                     <span class="text-xs text-red-500"><?php echo $registration_err; ?></span>
                                 </div>
@@ -300,7 +418,13 @@ if (isset($_POST["add_student"])) {
                             <div class="form-group w-full">
                                 <div class="border-2 border-white cursor-pointer rounded-full outline outline-2 outline-gray-100 w-40 h-40 overflow-hidden bg-<?php echo $primary_color; ?>-50">
                                     <label for="file-select">
-                                        <img id="imageDisplay" src="../../images/placeholder.png" class="w-full h-full object-cover border-0">
+                                        <?php if ($in_profile == true) {
+                                            echo "<img id='imageDisplay' src='../../images/$profile' class='w-full h-full object-cover border-0'>";
+                                        } else {
+                                            echo "<img id='imageDisplay' src='../../images/placeholder.png' class='w-full h-full object-cover border-0'>";
+                                        }
+                                        ?>
+
                                     </label>
                                 </div>
                             </div>
@@ -325,23 +449,55 @@ if (isset($_POST["add_student"])) {
                         duration-150
                         ease-in-out">Cancel</a>
 
-                        <button type="submit" name="add_student" class="px-10
-                        py-3
-                        bg-<?php echo $primary_color; ?>-600
-                        text-white
-                        font-medium
-                        text-xs
-                        leading-tight
-                        uppercase
-                        rounded
-                        shadow-md
-                        hover:bg-<?php echo $primary_color; ?>-700 hover:shadow-lg
-                        focus:bg-<?php echo $primary_color; ?>-700 focus:shadow-lg focus:outline-none focus:ring-0
-                        active:bg-<?php echo $primary_color; ?>-800 active:shadow-lg
-                        transition
-                        duration-150
-                        ease-in-out
-                        ml-1">Save</button>
+                        <?php
+                        if ($in_profile === true) {
+                            echo
+                            "
+                            <button type='submit' name='update_student' class='px-6
+                            py-2.5
+                            border
+                            border-$primary_color-600
+                            bg-$primary_color-600
+                            text-white
+                            font-medium
+                            text-xs
+                            leading-tight
+                            uppercase
+                            rounded
+                            shadow-md
+                            hover:bg-$primary_color-700 hover:shadow-lg
+                            focus:bg-$primary_color-700 focus:shadow-lg focus:outline-none focus:ring-0
+                            active:bg-$primary_color-800 active:shadow-lg
+                            transition
+                            duration-150
+                            ease-in-out
+                            ml-1'>Update</button>
+                            ";
+                        } else {
+                            echo
+                            "
+                            <button type='submit' name='add_student' class='px-6
+                            py-2.5
+                            border
+                            border-$primary_color-600
+                            bg-$primary_color-600
+                            text-white
+                            font-medium
+                            text-xs
+                            leading-tight
+                            uppercase
+                            rounded
+                            shadow-md
+                            hover:bg-$primary_color-700 hover:shadow-lg
+                            focus:bg-$primary_color-700 focus:shadow-lg focus:outline-none focus:ring-0
+                            active:bg-$primary_color-800 active:shadow-lg
+                            transition
+                            duration-150
+                            ease-in-out
+                            ml-1'>Save</button>
+                            ";
+                        }
+                        ?>
                     </div>
                 </div>
             </form>

@@ -82,6 +82,7 @@
             myModal.classList.toggle("hidden");
             console.log(e);
           }
+          // Close modal
         </Script>
         </body>
 

@@ -217,7 +217,7 @@ if ($_SESSION['insert_msg'] !== "") {
         </span>
     </div>
     <div class="mt-2 w-full">
-        <button name="new_resources">
+        <button name="new_resources" class="hidden">
             <a href='./addCounselor.php' name='' class='flex items-center px-4 py-1 border border-<?php echo $primary_color; ?>-500 bg-<?php echo $primary_color; ?>-50 rounded  hover:bg-<?php echo $primary_color; ?>-100 text-<?php echo $primary_color; ?>-500 font-medium'>Add consellor</a>
         </button>
         <div class="search flex flex-row-reverse justify-start items-center ">
