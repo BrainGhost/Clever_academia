@@ -1,5 +1,4 @@
 <?php
-include '../../php/config.php';
 include './asset/Header.php';
 ?>
 
@@ -168,7 +167,7 @@ if ($_SESSION['insert_msg'] !== "") {
                         (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, 
                         (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, 
                         average_consulting_time, schedule_status, doctor_id FROM doctor_schedule
-                        WHERE CONCAT(doctor_schedule_date, doctor_schedule_day, doctor_schedule_start_time, doctor_schedule_end_time,average_consulting_time) LIKE '%$filtervalues%'  ORDER BY doctor_schedule_id ASC;";
+                        WHERE doctor_id = $doctor_id AND CONCAT(doctor_schedule_date, doctor_schedule_day, doctor_schedule_start_time, doctor_schedule_end_time,average_consulting_time) LIKE '%$filtervalues%'  ORDER BY doctor_schedule_id ASC;";
                         #continue in the table itself
                         $search_result = filterTable($link, $sql);
                     } else {
@@ -177,7 +176,7 @@ if ($_SESSION['insert_msg'] !== "") {
                         (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, 
                         (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, 
                         (SELECT TIME_FORMAT(doctor_schedule_end_time, ' %H:%i %p ')) AS doctor_schedule_end_time, 
-                        average_consulting_time, schedule_status, doctor_id FROM doctor_schedule;";
+                        average_consulting_time, schedule_status, doctor_id FROM doctor_schedule WHERE doctor_id = $doctor_id;";
                         #continue in the table itself
                         $search_result = filterTable($link, $sql);
                     }

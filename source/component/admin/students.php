@@ -3,7 +3,7 @@ include("../../php/config.php");
 include('./asset/Header.php');
 // <!-- NOTIFICATION ALERTS -->
 $insert_msg = "";
-
+$_SESSION['alert_notification_resources'] = "";
 if ($_SESSION['insert_msg'] !== "") {
     $action = "";
 

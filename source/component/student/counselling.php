@@ -196,7 +196,7 @@ if ($_SESSION['insert_msg'] !== "") {
                         $search_result = filterTable($link, $sql);
                     } else {
                         //Display data into the table
-                        $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, 
+                        $sql  = "SELECT doctor_schedule_id, doctor_schedule_date, doctor_schedule.doctor_id,
                         (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, 
                         (SELECT TIME_FORMAT(doctor_schedule_start_time, ' %H:%i %p ')) AS doctor_schedule_start_time, 
                         (SELECT DAYNAME(doctor_schedule_date)) AS doctor_schedule_day, 
@@ -225,7 +225,7 @@ if ($_SESSION['insert_msg'] !== "") {
                             }
                             if ($row['schedule_status'] == "1") {
                                 if ($row['booked_status'] == 1) {
-                                    $status_book = "<a href='javascript:displayModal_inactive(" . $row['doctor_schedule_id'] . ", " . $row['booked_status'] . ");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-sky-500 bg-sky-50 rounded  hover:bg-sky-100 text-sky-500 font-medium'>Book this</a>";
+                                    $status_book = "<a href='javascript:displayModal_inactive(" . $row['doctor_schedule_id'] . ", " . $row['doctor_id'] . ");' type='button' name='change_status' value='Active' class='px-4 py-1 border border-sky-500 bg-sky-50 rounded  hover:bg-sky-100 text-sky-500 font-medium'>Book this</a>";
                                 } else {
                                     $status_book = "<button type='button' class='px-4 py-1 border border-red-300 bg-red-50 rounded text-red-300 font-medium cursor-not-allowed'>Already booked</button>";
                                 }
@@ -296,8 +296,8 @@ mysqli_close($link);
                             </svg>
                         </div>
                         <div id="modalSTATUS">
-                            <input id="updateSTATUS" type="text" name="schedule_appointment_id" hidden>
-                            <input id="updateSTATUS_TEXT" type="text" name="schedule_appointment_status" hidden>
+                            <input id="updateSTATUS" type="text" name="schedule_appointment_id" text>
+                            <input id="updateSTATUS_TEXT" type="text" name="schedule_appointment_doctor" text>
                             <input id="student_id_confirm" type="text" value="<?php echo $student_id; ?>" name="student_id" hidden>
 
                         </div>

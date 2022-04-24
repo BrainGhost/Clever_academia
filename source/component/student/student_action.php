@@ -106,9 +106,9 @@ if (isset($_POST["confirm_booking"])) {
     $date = date("Y-m-d H:i:s");
     $doctor_schedule_id = $_POST['schedule_appointment_id'];
     $student_id = $_POST['student_id'];
-    $schedule_appointment_status = $_POST['schedule_appointment_status'];
+    $schedule_appointment_doctor = $_POST['schedule_appointment_doctor'];
 
-    $sql = "INSERT INTO appointment(appointment_time, doctor_schedule_id, student_id, appointment_status) VALUES ('$date' , '$doctor_schedule_id', '$student_id' ,'booked')";
+    $sql = "INSERT INTO appointment(appointment_time, doctor_schedule_id, student_id, appointment_status, doctor_id) VALUES ('$date' , '$doctor_schedule_id', '$student_id' ,'booked', '$schedule_appointment_doctor')";
     $result = mysqli_query($link, $sql);
     if ($result) {
         $sql = "UPDATE doctor_schedule SET booked_status='0' WHERE doctor_schedule_id='$doctor_schedule_id'";

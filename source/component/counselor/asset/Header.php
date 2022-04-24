@@ -1,4 +1,6 @@
 <?php
+include '../../php/config.php';
+ob_start();
 //Initialize the session
 session_start();
 //backgound color
